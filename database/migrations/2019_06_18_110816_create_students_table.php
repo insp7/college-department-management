@@ -28,7 +28,7 @@ class CreateStudentsTable extends Migration {
 			$table->string('status');
 			$table->string('email');
 			$table->string('password');
-            $table->json('additional_columns');
+            $table->text('additional_columns');
 
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();

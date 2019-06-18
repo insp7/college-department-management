@@ -18,12 +18,12 @@ class CreateEventCoordinatorsTable extends Migration {
 			$table->integer('event_id');
 			$table->integer('staff_id');
 			$table->timestamps();
-            $table->json('additional_columns');
+            $table->text('additional_columns');
 
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();
             $table->softDeletes();
-            $table->timestamps();
+
 
 		});
 	}

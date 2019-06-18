@@ -61,7 +61,7 @@ class CreateStaffTable extends Migration {
 
 			$table->boolean('is_other_universities_examiner')->default(0);
 			$table->text('other_universities_examiner_details');
-            $table->text('other_universities_examiner_certificate_path')->default(0);
+            $table->text('other_universities_examiner_certificate_path');
 
 			$table->boolean('is_examination_auditor')->default(0);
 			$table->text('examination_auditor_details');
@@ -89,7 +89,7 @@ class CreateStaffTable extends Migration {
 
 			$table->integer('is_fully_registered');
 
-            $table->json('additional_columns');
+            $table->text('additional_columns');
 
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();

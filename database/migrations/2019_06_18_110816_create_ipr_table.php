@@ -19,7 +19,7 @@ class CreateIprTable extends Migration {
 			$table->string('year');
 			$table->integer('patents_published_count');
 			$table->integer('patents_granted_count');
-            $table->json('additional_columns');
+            $table->text('additional_columns');
 
 			$table->integer('created_by');
             $table->integer('updated_by')->nullable();

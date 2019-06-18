@@ -19,7 +19,7 @@ class CreatePublicationsTable extends Migration {
 			$table->date('year');
 
 			$table->string('citation');
-            $table->json('additional_columns');
+            $table->text('additional_columns');
 
 			$table->timestamps();
 			$table->integer('created_by');

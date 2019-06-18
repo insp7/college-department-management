@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->date('date_of_birth');
             $table->integer('role')->default(0);
             $table->enum('gender', ['M', 'F' ,'O']);
-            $table->json('additional_columns');
+            $table->text('additional_columns');
 
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
