@@ -14,17 +14,18 @@ class CreateResearchProjectsTable extends Migration {
 	{
 		Schema::create('research_projects', function(Blueprint $table)
 		{
-			$table->integer('research_projects_id', true);
+			$table->increments('id');
 			$table->integer('staff_id');
-			$table->string('principal_investigator', 50);
+			$table->string('principal_investigator');
 			$table->string('grant_details');
 			$table->string('title');
 			$table->integer('amount');
 			$table->date('year');
-			$table->timestamps();
+
 			$table->integer('created_by');
-			$table->integer('updated_by');
-			$table->boolean('is_deleted', 1)->default('b\'0\'');
+            $table->integer('updated_by')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
 		});
 	}
 

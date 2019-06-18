@@ -16,6 +16,7 @@ class CreateNewsFeedTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('title');
+
 			$table->text('description');
 
 			$table->integer('created_by');

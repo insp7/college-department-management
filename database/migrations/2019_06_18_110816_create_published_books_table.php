@@ -14,13 +14,15 @@ class CreatePublishedBooksTable extends Migration {
 	{
 		Schema::create('published_books', function(Blueprint $table)
 		{
-			$table->integer('published_books_id', true);
+			$table->increments('id');
 			$table->integer('staff_id');
-			$table->string('details');
-			$table->timestamps();
-			$table->integer('created_by');
-			$table->integer('updated_by');
-			$table->boolean('is_deleted', 1)->default('b\'0\'');
+			$table->text('details');
+            $table->json('additional_columns');
+
+            $table->integer('created_by');
+            $table->integer('updated_by')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
 		});
 	}
 

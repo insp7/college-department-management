@@ -14,10 +14,10 @@ class CreateNotificationTable extends Migration {
 	{
 		Schema::create('notification', function(Blueprint $table)
 		{
-			$table->integer('notification_id');
+			$table->increments('id');
 			$table->integer('user_id');
-			$table->integer('is_staff');
-			$table->integer('notified');
+			$table->integer('is_staff'); // shouldnt this be boolean ?
+			$table->integer('notified'); // again this too
 		});
 	}
 

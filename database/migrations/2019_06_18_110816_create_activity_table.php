@@ -17,6 +17,7 @@ class CreateUserActivityTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id');
 
+
 			$table->text('performed_on')->nullable();
             $table->integer('performed_on_id')->nullable();
 

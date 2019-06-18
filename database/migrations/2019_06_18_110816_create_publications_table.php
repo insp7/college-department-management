@@ -17,14 +17,14 @@ class CreatePublicationsTable extends Migration {
 			$table->increments('id');
 			$table->integer('staff_id');
 			$table->date('year');
-			$table->text('title');
-			$table->string('journal', 50);
-			$table->boolean('is_ugc_approved', 1)->default('b\'0\'');
+
 			$table->string('citation');
+            $table->json('additional_columns');
+
 			$table->timestamps();
 			$table->integer('created_by');
-			$table->integer('updated_by');
-			$table->boolean('is_deleted', 1)->default('b\'0\'');
+			$table->integer('updated_by')->nullable();
+			$table->softDeletes();
 		});
 	}
 

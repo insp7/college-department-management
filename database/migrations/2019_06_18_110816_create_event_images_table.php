@@ -14,13 +14,15 @@ class CreateEventImagesTable extends Migration {
 	{
 		Schema::create('event_images', function(Blueprint $table)
 		{
-			$table->integer('event_images_id', true);
+			$table->increments('id');
 			$table->integer('event_id');
 			$table->string('event_image_path');
-			$table->timestamps();
+            $table->json('additional_columns');
+
 			$table->integer('created_by');
-			$table->integer('updated_by');
-			$table->boolean('is_deleted', 1)->default('b\'0\'');
+            $table->integer('updated_by')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
 		});
 	}
 

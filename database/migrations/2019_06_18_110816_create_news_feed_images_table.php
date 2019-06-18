@@ -14,6 +14,7 @@ class CreateNewsFeedImagesTable extends Migration {
 	{
 		Schema::create('news__feed_images', function(Blueprint $table)
 		{
+
 			$table->increments('id');
 			$table->integer('news_feed_id');
 			$table->string('image_path');

@@ -14,15 +14,17 @@ class CreateIprTable extends Migration {
 	{
 		Schema::create('ipr', function(Blueprint $table)
 		{
-			$table->integer('ipr_id', true);
+			$table->increments('id');
 			$table->integer('staff_id');
 			$table->string('year');
 			$table->integer('patents_published_count');
 			$table->integer('patents_granted_count');
-			$table->timestamps();
+            $table->json('additional_columns');
+
 			$table->integer('created_by');
-			$table->integer('updated_by');
-			$table->boolean('is_deleted', 1)->default('b\'0\'');
+            $table->integer('updated_by')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
 		});
 	}
 
