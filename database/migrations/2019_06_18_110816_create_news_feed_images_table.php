@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateNewsImagesTable extends Migration {
+class CreateNewsFeedImagesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,15 +12,16 @@ class CreateNewsImagesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('news_images', function(Blueprint $table)
+		Schema::create('news__feed_images', function(Blueprint $table)
 		{
-			$table->integer('news_images_id', true);
-			$table->integer('news_id');
-			$table->string('news_image_path');
-			$table->timestamps();
+			$table->increments('id');
+			$table->integer('news_feed_id');
+			$table->string('image_path');
+
 			$table->integer('created_by');
-			$table->integer('updated_by');
-			$table->boolean('is_deleted', 1);
+			$table->integer('updated_by')->nullable();
+			$table->softDeletes();
+            $table->timestamps();
 		});
 	}
 

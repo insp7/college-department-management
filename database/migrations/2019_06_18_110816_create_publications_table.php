@@ -15,9 +15,9 @@ class CreatePublicationsTable extends Migration {
 		Schema::create('publications', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id');
+			$table->integer('staff_id');
 			$table->date('year');
-			$table->string('title');
+			$table->text('title');
 			$table->string('journal', 50);
 			$table->boolean('is_ugc_approved', 1)->default('b\'0\'');
 			$table->string('citation');

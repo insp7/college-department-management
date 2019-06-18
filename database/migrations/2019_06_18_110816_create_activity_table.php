@@ -12,13 +12,18 @@ class CreateUserActivityTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('user_activity', function(Blueprint $table)
+		Schema::create('activity', function(Blueprint $table)
 		{
-			$table->integer('user_activity_id', true);
+			$table->increments('id');
 			$table->integer('user_id');
-			$table->integer('is_staff')->default(1);
-			$table->text('activity_details', 65535);
-			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+
+			$table->text('performed_on')->nullable();
+            $table->integer('performed_on_id')->nullable();
+
+			$table->text('details');
+
+            $table->softDeletes();
+            $table->timestamps();
 		});
 	}
 
