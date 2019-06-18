@@ -14,13 +14,15 @@ class CreateNewsFeedTable extends Migration {
 	{
 		Schema::create('news_feed', function(Blueprint $table)
 		{
-			$table->integer('news_id', true);
+			$table->increments('id');
 			$table->string('title');
 			$table->string('description');
+            $table->json('additional_columns');
+
 			$table->timestamps();
 			$table->integer('created_by');
-			$table->integer('updated_by');
-			$table->boolean('is_deleted', 1)->default('b\'0\'');
+			$table->integer('updated_by')->nullable();
+			$table->softDeletes();
 		});
 	}
 

@@ -27,6 +27,7 @@ class CreateEventsTable extends Migration {
 			$table->integer('internal_participants_count');
 			$table->integer('external_participants_count');
             $table->boolean('is_completed');
+            $table->json('additional_columns');
 
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();

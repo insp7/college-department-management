@@ -89,8 +89,10 @@ class CreateStaffTable extends Migration {
 
 			$table->integer('is_fully_registered');
 
+            $table->json('additional_columns');
+
             $table->integer('created_by');
-            $table->integer('updated_by');
+            $table->integer('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
 		});

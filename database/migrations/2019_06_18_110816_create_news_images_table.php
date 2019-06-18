@@ -14,13 +14,15 @@ class CreateNewsImagesTable extends Migration {
 	{
 		Schema::create('news_images', function(Blueprint $table)
 		{
-			$table->integer('news_images_id', true);
+			$table->integer('id');
 			$table->integer('news_id');
 			$table->string('news_image_path');
+            $table->json('additional_columns');
+
 			$table->timestamps();
 			$table->integer('created_by');
-			$table->integer('updated_by');
-			$table->boolean('is_deleted', 1);
+			$table->integer('updated_by')->nullable();
+
 		});
 	}
 

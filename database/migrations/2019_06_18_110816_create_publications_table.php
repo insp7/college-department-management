@@ -15,16 +15,18 @@ class CreatePublicationsTable extends Migration {
 		Schema::create('publications', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id');
+			$table->integer('staff_id');
 			$table->date('year');
 			$table->string('title');
-			$table->string('journal', 50);
-			$table->boolean('is_ugc_approved', 1)->default('b\'0\'');
+			$table->string('journal');
+			$table->boolean('is_ugc_approved')->default(0);
 			$table->string('citation');
+            $table->json('additional_columns');
+
 			$table->timestamps();
 			$table->integer('created_by');
-			$table->integer('updated_by');
-			$table->boolean('is_deleted', 1)->default('b\'0\'');
+			$table->integer('updated_by')->nullable();
+			$table->softDeletes();
 		});
 	}
 
