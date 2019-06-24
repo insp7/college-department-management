@@ -11,10 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/**
+ * A group that first authenticates the user and if the user is not authenticated then redirects him/her to the login page.
+ */
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+Route::middleware(['auth'])->group(function() {
+    /**
+     * General Routes
+     */
+    Route::redirect('/', '/dashboard');
+    Route::get('/dashboard', 'DashboardController@index');
+
+    /**
+     * Staff Routes
+    */
+    Route::resource('/staff', 'StaffController');
 });
+
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

@@ -1,0 +1,27 @@
+.chart {
+    width: 100%;
+    min-height: 550px;
+}
+.chart-container {
+    width: 100%;
+    min-height: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-select2 {
+    width: 100%!important;
+}
+
+
+/************************************
+            TABLES
+ ***********************************/
+
+td.section,
+th.section {
+    border: 1px solid #333!important;
+}
+
