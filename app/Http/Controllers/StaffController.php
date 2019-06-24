@@ -84,9 +84,14 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function staffEdit($id)
     {
         //
+        return view('staff.edit-staff');
+    }
+
+    public function edit(){
+        return view('staff.edit-staff');
     }
 
     /**
@@ -97,6 +102,11 @@ class StaffController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+    {
+        //
+    }
+
+    public function staffUpdate(Request $request, $id)
     {
         //
     }

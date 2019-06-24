@@ -2,7 +2,7 @@
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header d-flex align-items-center">
-            <a class="navbar-brand" href="dashboard.html">
+            <a class="navbar-brand" href="/dashboard">
                 <img src="{{ \Illuminate\Support\Facades\URL::asset('assets/img/brand/frcrceItlogo.png') }}" class="navbar-brand-img" alt="...">
             </a>
             <div class="ml-auto">
@@ -23,15 +23,15 @@
                 <ul class="navbar-nav">
                     @switch(Auth::user()->role)
                         @case(\App\Constants\RoleConstants::ADMIN_ROLE)
-                        @include('routes.admin-routes')
+                            @include('routes.admin-routes')
                         @break
 
                         @case(\App\Constants\RoleConstants::TEACHER_ROLE)
-                        @include('routes.teacher-routes')
+                            @include('routes.staff-routes')
                         @break
 
                         @case(\App\Constants\RoleConstants::STUDENT_ROLE)
-                        @include('routes.student-routes')
+                            @include('routes.student-routes')
                         @break
                     @endswitch
                 </ul>

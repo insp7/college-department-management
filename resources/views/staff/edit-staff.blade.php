@@ -1,71 +1,83 @@
-@extends('layout')
+@extends('layouts.base')
+
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="/home"><i class="fas fa-user"></i></a></li>
+    <li class="breadcrumb-item"><a href="/staff">Staff</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Staff</li>
+@endsection
 
 @section('page-content')
-    <div class="page-bar">
-        <!-- BREADCRUMBS SECTION -->
-        <ul class="page-breadcrumb">
-            <li>
-                <a href="/">Home</a>
-                <i class="fa fa-angle-right"></i>
-            </li>
-            <li>
-                <a href="/shape">Shapes</a>
-                <i class="fa fa-angle-right"></i>
-            </li>
-            <li>
-                <span>Edit Raw Material</span>
-            </li>
-        </ul>
-        <!-- END OF BREADCRUMBS SECTION -->
-        <div class="clearfix"></div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                    <h3 class="mb-0">Add Staff</h3>
+                </div>
+                <!-- Card body -->
+                <div class="card-body">
+                    <form method="post" action="/staff">
+                        @csrf
 
-        <!-- BEGIN PAGE TITLE-->
-        <h3 class="page-title"> Edit Raw Material
-            <small>Edit a raw material</small>
-        </h3>
-        <!-- END PAGE TITLE-->
+                        <div class="form-group">
+                            <div class="input-group input-group-merge @error('email') has-danger @enderror">
+                                <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-user"></i> </span> </div> <input  value="{{ old('email') }}" required name="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror">
+                            </div>
+                            @error('email')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-        <!-- ALERTS SECTION -->
-        <!-- ERRORS SECTION -->
-        @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        <!-- END OF ERRORS SECTION -->
+                        <div class="form-group">
+                            <div class="input-group input-group-merge @error('password') has-danger @enderror">
+                                <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-key"></i> </span> </div> <input required name="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror">
+                            </div>
+                            @error('password')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-        <form action="/shape/{{$shape->id}}" , method="POST">
-            @method("PUT")
-            @csrf
-            <div class="row">
-                <div class="form-group col-md-12 margin-bottom-25">
-                    <label for="name">Name *</label>
-                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter the name" value="{{ $shape->name }}"/>
+                        <div class="form-group">
+                            <div class="input-group input-group-merge @error('title') has-danger @enderror">
+                                <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-key"></i> </span> </div> <input required name="password_confirmation" type="password" placeholder="Confirm Password" class="form-control">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Submit form</button>
+                    </form>
                 </div>
             </div>
-
-
-            <button class="btn red pull-right margin-bottom-25" type="submit">
-                Save Changes
-            </button>
-            <a href="/shape" class="btn default pull-right margin-right-10">
-                Cancel
-            </a>
-        </form>
+        </div>
     </div>
+
 @endsection
 
 @section ('custom-script')
-    <script src="{{ asset("edit-shape.js") }}"></script>
 
-    @if(session()->has('status'))
+    @if(session()->has('type'))
         <script>
-            showToastr("{{ session('status') }}", "{{ session('title') }}", "{{ session('message') }}");
-            {{ Session::forget('status') }}
+            $.notify({
+                // options
+                title: '<h4 style="color:white">{{ session('title') }}</h4>',
+                message: '{{ session('message') }}',
+            },{
+                // settings
+                type: '{{ session('type') }}',
+                allow_dismiss: true,
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                offset: 20,
+                spacing: 10,
+                z_index: 1031,
+                delay: 3000,
+                timer: 1000,
+                animate: {
+                    enter: 'animated fadeInDown',
+                    exit: 'animated fadeOutUp'
+                }
+            });
         </script>
     @endif
 @endsection

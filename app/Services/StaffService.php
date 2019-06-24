@@ -26,6 +26,8 @@ class StaffService
                 'created_by' => $user_id
             ]);
 
+            $user->assignRole('Staff');
+
             Staff::create([
                 'user_id' => $user->id,
                 'created_by' => $user_id

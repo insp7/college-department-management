@@ -12,10 +12,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create(['first_name' => 'Dhananjay',
+        $user=User::create(['first_name' => 'Dhananjay',
             'last_name' => 'sanjay',
             'middle_name' => 'Dhananjay Ghumare',
-            'email' => 'dhananjay@gmail.com',
+            'email' => 'dhananjay44@gmail.com',
             'password' => '$2y$10$zXhY8SU1BlPKbUGOUEWGGOcy1ylX7A3Gh1RfKnrMyL7Y6O2nmBUr.',
             'contact_no' => '9168977662',
             'date_of_birth' => '2019-05-23',
@@ -25,5 +25,8 @@ class UsersTableSeeder extends Seeder
             'created_at' => '2019-05-23 07:35:39',
             'updated_at' => '2019-05-23 07:35:39'
         ]);
+
+        $user->assignRole('Admin');
+
     }
 }

@@ -25,10 +25,36 @@ Route::middleware(['auth'])->group(function() {
     Route::redirect('/', '/dashboard');
     Route::get('/dashboard', 'DashboardController@index');
 
-    /**
-     * Staff Routes
-    */
-    Route::resource('/staff', 'StaffController');
+    Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+
+    /*ADMIN ROUTES*/
+    Route::group(['middleware' => ['role:Admin']], function () {
+        //
+        /**
+         * Staff Routes
+         */
+        Route::resource('/admin/staff', 'StaffController');
+    });
+
+    /*STAFF ROUTES*/
+    Route::group(['middleware' => ['role:Staff']], function () {
+        //
+        /**
+         * Staff Routes
+         */
+
+        Route::get('/staff/edit', 'StaffController@edit');
+        Route::group(['middleware' => ['staff_registration']], function () {
+            //
+            /**
+             * Staff Registration  Routes
+             */
+        });
+
+    });
+
+
 });
 
 
