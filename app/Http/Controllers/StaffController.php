@@ -84,15 +84,26 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function staffEdit($id)
+
+    /*admin*/
+    public function edit($id){
+
+    }
+
+
+    /*staff*/
+    public function staffEdit()
     {
         //
         return view('staff.edit-staff');
     }
 
-    public function edit(){
-        return view('staff.edit-staff');
+    public function fillDetails(){
+        return view('staff.fill-details');
     }
+
+
+
 
     /**
      * Update the specified resource in storage.

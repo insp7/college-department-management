@@ -1,181 +1,47 @@
-{{--@extends('layouts.app')--}}
+@extends('layouts.app')
 
-{{--@section('content')--}}
-{{--    <div class="container">--}}
-{{--        <div class="row justify-content-center">--}}
-{{--            <div class="col-md-8">--}}
-{{--                <div class="card">--}}
-{{--                    <div class="card-header">{{ __('Reset Password') }}</div>--}}
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Reset Password') }}</div>
 
-{{--                    <div class="card-body">--}}
-{{--                        @if (session('status'))--}}
-{{--                            <div class="alert alert-success" role="alert">--}}
-{{--                                {{ session('status') }}--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-{{--                        <form method="POST" action="{{ route('password.email') }}">--}}
-{{--                            @csrf--}}
+                    <form method="POST" action="{{ route('password.email') }}">
+                        @csrf
 
-{{--                            <div class="form-group row">--}}
-{{--                                <label for="email"--}}
-{{--                                       class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>--}}
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
-{{--                                <div class="col-md-6">--}}
-{{--                                    <input id="email" type="email"--}}
-{{--                                           class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"--}}
-{{--                                           name="email" value="{{ old('email') }}" required>--}}
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-{{--                                    @if ($errors->has('email'))--}}
-{{--                                        <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $errors->first('email') }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                    @endif--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
-{{--                            <div class="form-group row mb-0">--}}
-{{--                                <div class="col-md-6 offset-md-4">--}}
-{{--                                    <button type="submit" class="btn btn-primary">--}}
-{{--                                        {{ __('Send Password Reset Link') }}--}}
-{{--                                    </button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </form>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--@endsection--}}
-
-
-<!DOCTYPE html>
-<!--[if IE 8]>
-<html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]>
-<html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en">
-<!--<![endif]-->
-<!-- BEGIN HEAD -->
-
-<head>
-    <meta charset="utf-8"/>
-    <title>Quick ERP | Forgot Password</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <meta content="" name="description"/>
-    <meta content="" name="author"/>
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{  asset("assets/global/plugins/font-awesome/css/font-awesome.min.css") }}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{  asset("assets/global/plugins/simple-line-icons/simple-line-icons.min.css") }}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{  asset("assets/global/plugins/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{  asset("assets/global/plugins/uniform/css/uniform.default.css") }}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{  asset("assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css") }}" rel="stylesheet"
-          type="text/css"/>
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <link href="{{  asset("assets/global/plugins/select2/css/select2.min.css") }}" rel="stylesheet" type="text/css"/>
-    <link href="{{  asset("assets/global/plugins/select2/css/select2-bootstrap.min.css") }}" rel="stylesheet"
-          type="text/css"/>
-    <!-- END PAGE LEVEL PLUGINS -->
-    <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="{{  asset("assets/global/css/components.min.css") }}" rel="stylesheet" id="style_components"
-          type="text/css"/>
-    <link href="{{  asset("assets/global/css/plugins.min.css") }}" rel="stylesheet" type="text/css"/>
-    <!-- END THEME GLOBAL STYLES -->
-    <!-- BEGIN PAGE LEVEL STYLES -->
-    <link href="{{  asset("assets/pages/css/login.min.css") }}" rel="stylesheet" type="text/css"/>
-    <!-- END PAGE LEVEL STYLES -->
-    <!-- BEGIN THEME LAYOUT STYLES -->
-    <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="favicon.png"/>
-</head>
-<!-- END HEAD -->
-
-<body class=" login">
-<!-- BEGIN LOGO -->
-<div class="logo">
-    <a href="./login.php">
-        <img src="{{  asset("assets/pages/img/logo.png") }}" alt=""/> </a>
-</div>
-<!-- END LOGO -->
-<!-- BEGIN LOGIN -->
-<div class="content">
-    <!-- BEGIN FORGOT PASSWORD FORM -->
-
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Send Password Reset Link') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    @endif
-
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
-        <h3 class="font-green">Forget Password ?</h3>
-        <p> Enter your phone number associated with the account : </p>
-        <div class="form-group">
-            <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Phone Number"
-                   name="phone" required/></div>
-
-            @if ($errors->has('email'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('phone') }}</strong>
-                </span>
-            @endif
-        <div class="form-actions">
-            <button type="submit"
-                    class="btn btn-success uppercase pull-right">{{ __('Send Password Reset Link') }}</button>
-        </div>
-    </form>
-    <!-- END FORGOT PASSWORD FORM -->
+    </div>
 </div>
-<div class="copyright"> 2019 &copy; by Tech-X.</div>
-<!--[if lt IE 9]>
-<script src="{{  asset(" assets/global/plugins/respond.min.js") }}"></script>
-<
-script
-src = "{{  asset("
-assets / global / plugins / excanvas.min.js
-") }}" ></script>
-<![endif]-->
-<!-- BEGIN CORE PLUGINS -->
-<script src="{{  asset("assets/global/plugins/jquery.min.js") }}" type="text/javascript"></script>
-<script src="{{  asset("assets/global/plugins/bootstrap/js/bootstrap.min.js") }}" type="text/javascript"></script>
-<script src="{{  asset("assets/global/plugins/js.cookie.min.js") }}" type="text/javascript"></script>
-<script src="{{  asset("assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js") }}"
-        type="text/javascript"></script>
-<script src="{{  asset("assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js") }}"
-        type="text/javascript"></script>
-<script src="{{  asset("assets/global/plugins/jquery.blockui.min.js") }}" type="text/javascript"></script>
-<script src="{{  asset("assets/global/plugins/uniform/jquery.uniform.min.js") }}" type="text/javascript"></script>
-<script src="{{  asset("assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js") }}"
-        type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="{{  asset("assets/global/plugins/jquery-validation/js/jquery.validate.min.js") }}"
-        type="text/javascript"></script>
-<script src="{{  asset("assets/global/plugins/jquery-validation/js/additional-methods.min.js") }}"
-        type="text/javascript"></script>
-<script src="{{  asset("assets/global/plugins/select2/js/select2.full.min.js") }}" type="text/javascript"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN THEME GLOBAL SCRIPTS -->
-<script src="{{  asset("assets/global/scripts/app.min.js") }}" type="text/javascript"></script>
-<!-- END THEME GLOBAL SCRIPTS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="{{  asset("assets/pages/scripts/login.js") }}" type="text/javascript"></script>
-<!-- END PAGE LEVEL SCRIPTS -->
-<!-- BEGIN THEME LAYOUT SCRIPTS -->
-<!-- END THEME LAYOUT SCRIPTS -->
-<script src="{{  asset("assets/pages/scripts/constants.js") }}"></script>
-</body>
-
-</html>
-
+@endsection

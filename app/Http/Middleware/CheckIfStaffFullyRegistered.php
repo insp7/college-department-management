@@ -20,7 +20,7 @@ class CheckIfStaffFullyRegistered
         error_log('I am here');
         /*Trying to access staff routes without registration*/
         if (Auth::user()->staff->is_fully_registered == 0) {
-            return redirect('/staff/edit');
+            return redirect('/staff/fill-details');
         }
 
         return $next($request);

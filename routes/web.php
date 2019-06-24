@@ -44,12 +44,14 @@ Route::middleware(['auth'])->group(function() {
          * Staff Routes
          */
 
-        Route::get('/staff/edit', 'StaffController@edit');
+        Route::get('/staff/fill-details', 'StaffController@fillDetails');
         Route::group(['middleware' => ['staff_registration']], function () {
             //
             /**
              * Staff Registration  Routes
              */
+            Route::get('/staff/edit', 'StaffController@staffEdit');
+            Route::get('/wow', 'StaffController@edit');
         });
 
     });
@@ -60,3 +62,7 @@ Route::middleware(['auth'])->group(function() {
 
 Auth::routes();
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
