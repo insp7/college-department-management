@@ -52,6 +52,40 @@
         </div>
     </div>
 
+
+    {{--MODAL SECTION--}}
+    <!-- DELETE MODAL -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-title-default">Delete Published Book</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form  id="delete_form" method="POST">
+                <div class="modal-body">
+
+                        @method('DELETE')
+                        @csrf
+                        <div class="form-body">
+                            <!-- START OF MODAL BODY -->
+                            <div class="container">
+                                <label>Are you sure you want to delete the Published Book ?</label>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default  ml-auto" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section ('custom-script')
@@ -78,6 +112,11 @@
                 {data: 'delete', name: 'delete'}
             ]
         });
+
+        managedPublishedBooksTable.on('click', '.delete', function(e) {
+            $id = $(this).attr('id');
+            $('#delete_form').attr('action', '/published-books/' + $id);
+        })
 
     </script>
 

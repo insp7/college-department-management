@@ -33,4 +33,10 @@ class PublishedBookService
     {
         return PublishedBook::where('created_by', $id)->orderBy('created_at', 'desc');
     }
+
+    public function delete($id,$user_id){
+        return PublishedBook::where('created_by', $user_id)
+            ->where('id', $id)
+            ->delete();
+    }
 }

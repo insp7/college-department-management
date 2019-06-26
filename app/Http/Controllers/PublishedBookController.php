@@ -56,7 +56,7 @@ class PublishedBookController extends Controller
 
         try {
             $this->publishedBookService->store($validatedData, Auth::id());
-            return redirect()->back()->with([
+            return redirect('/published-books')->with([
                 'type' => 'success',
                 'title' => 'Published Book added successfully',
                 'message' => 'The given Published Book has been added successfully'
@@ -114,7 +114,7 @@ class PublishedBookController extends Controller
 
         try {
             $this->stateService->edit($validatedData, $id, Auth::id);
-            return redirect()->back()->with([
+            return redirect('/published-books')->with([
                 'type' => 'success',
                 'title' => 'Published Book added successfully',
                 'message' => 'The given Published Book has been added successfully'
@@ -137,6 +137,20 @@ class PublishedBookController extends Controller
     public function destroy($id)
     {
         //
+        try {
+            $this->publishedBookService->delete($id,Auth::id());
+            return redirect()->back()->with([
+                'type' => 'success',
+                'title' => 'Published Book Deleted successfully',
+                'message' => 'The given Published Book has been deleted successfully'
+            ]);
+        } catch (Exception $exception) {
+            return redirect()->back()->with([
+                'type' => 'danger',
+                'title' => 'Failed To Delete Published Book',
+                'message' => 'Error in deleting Published Book'
+            ]);
+        }
     }
 
     /**
@@ -151,6 +165,7 @@ class PublishedBookController extends Controller
 
         return DataTables::of($publishedBooks)
             ->addColumn('edit', function(PublishedBook $publishedBook) {
+//                Redirect to page
                 return '<button id="'.$publishedBook->id.'" class="edit fa fa-pencil-alt btn-sm btn-warning" data-toggle="modal" data-target="#editModal"></button>';
             })
             ->addColumn('delete', function(PublishedBook $publishedBook) {
