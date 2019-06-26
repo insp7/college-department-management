@@ -21,19 +21,13 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
-                    @switch(Auth::user()->role)
-                        @case(\App\Constants\RoleConstants::ADMIN_ROLE)
-                            @include('routes.admin-routes')
-                        @break
+                    @role('Admin')
+                        @include('routes.admin-routes')
+                    @endrole
 
-                        @case(\App\Constants\RoleConstants::TEACHER_ROLE)
-                            @include('routes.staff-routes')
-                        @break
-
-                        @case(\App\Constants\RoleConstants::STUDENT_ROLE)
-                            @include('routes.student-routes')
-                        @break
-                    @endswitch
+                    @role('Staff')
+                        @include('routes.staff-routes')
+                    @endrole
                 </ul>
             </div>
         </div>
