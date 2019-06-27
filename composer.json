@@ -1,4 +1,4 @@
-cle{
+{
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
@@ -12,7 +12,8 @@ cle{
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "spatie/laravel-permission": "^2.37"
+        "spatie/laravel-permission": "^2.37",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

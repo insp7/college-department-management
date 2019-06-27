@@ -44,14 +44,21 @@ Route::middleware(['auth'])->group(function() {
          * Staff Routes
          */
 
+
+        /*Published Books*/
+        Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
+
+        Route::resource('/published-books', 'PublishedBookController');
+
         Route::get('/staff/fill-details', 'StaffController@fillDetails');
+
         Route::group(['middleware' => ['staff_registration']], function () {
             //
             /**
-             * Staff Registration  Routes
+             * Staff Routes When Registration Completed(is_fully_registered =1)
              */
+
             Route::get('/staff/edit', 'StaffController@staffEdit');
-            Route::get('/wow', 'StaffController@edit');
         });
 
     });

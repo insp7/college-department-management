@@ -57,6 +57,9 @@
                                     </ol>
                                 </nav>
                             </div>
+                            <div class="col-lg-6 col-5 text-right">
+                                @yield('actions')
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,7 +85,7 @@
         <!-- Argon JS -->
         <script src="{{ URL::asset('assets/vendor/chart.js/dist/Chart.min.js') }}"></script>
         <script src="{{ URL::asset('assets/vendor/chart.js/dist/Chart.extension.js') }}"></script>
-        <script src="{{ URL::asset('assets/js/argon.min9f1e.js?v=1.1.0') }}"></script>
+        <script src="{{ URL::asset('assets/js/argon.min9f1e.js') }}"></script>
 
         @yield('custom-script')
     </body>

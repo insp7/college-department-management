@@ -99,7 +99,7 @@ class StaffController extends Controller
     }
 
     public function fillDetails(){
-        return view('staff.fill-details');
+        return view('staff.edit-staff');
     }
 
 

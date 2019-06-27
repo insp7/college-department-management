@@ -22,7 +22,7 @@ class StaffService
 
             $user=User::create([
                 'email' => $validatedData['email'],
-                'password' =>Hash::make($validatedData['password']),
+                'password' => Hash::make($validatedData['password']),
                 'created_by' => $user_id
             ]);
 
