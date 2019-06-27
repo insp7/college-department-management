@@ -50,6 +50,14 @@ Route::middleware(['auth'])->group(function() {
 
         Route::resource('/published-books', 'PublishedBookController');
 
+        // Research Projects
+        Route::get('/research-projects/get-research-projects', 'ResearchProjectsController@getResearchProjects');
+        Route::resource('/research-projects', 'ResearchProjectsController');
+
+        // IPRController
+        Route::get('/ipr/get-ipr', 'IPRController@getIPR');
+        Route::resource('/ipr', 'IPRController');
+
         Route::get('/staff/fill-details', 'StaffController@fillDetails');
 
         Route::group(['middleware' => ['staff_registration']], function () {

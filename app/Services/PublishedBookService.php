@@ -10,19 +10,20 @@ namespace App\Services;
 
 
 use App\PublishedBook;
+use Illuminate\Support\Facades\DB;
 
 class PublishedBookService
 {
 
-    public function store($validatedData, $user_id){
-
-        $published_book=PublishedBook::create([
-            'details' => $validatedData['details'],
-            'created_by' => $user_id
-        ]);
+    public function store($validatedData, $user_id) {
+        DB::beginTransaction();
+            $published_book=PublishedBook::create([
+                'details' => $validatedData['details'],
+                'created_by' => $user_id
+            ]);
+        DB::commit();
 
         return $published_book;
-
     }
 
     /**
