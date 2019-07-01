@@ -18,58 +18,65 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+
+
+
+//Route::get('/notification', 'StaffController@showNotification');
+
+
+
 Route::middleware(['auth'])->group(function() {
     /**
      * General Routes
      */
+    Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
     Route::redirect('/', '/dashboard');
     Route::get('/dashboard', 'DashboardController@index');
+    Route::resource('/news-feed', 'NewsFeedController');
 
-    Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-
-
-    /*ADMIN ROUTES*/
-    Route::group(['middleware' => ['role:Admin']], function () {
-        //
-        /**
-         * Staff Routes
-         */
-        Route::resource('/admin/staff', 'StaffController');
-    });
-
-    /*STAFF ROUTES*/
-    Route::group(['middleware' => ['role:Staff']], function () {
-        //
-        /**
-         * Staff Routes
-         */
+    /**
+     * Staff Routes
+     */
+    Route::group(['middleware' => ['role:Staff|Admin']], function () {
 
 
-        /*Published Books*/
-        Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
-
-        Route::resource('/published-books', 'PublishedBookController');
-
+        /*ROUTES TO COMPLETE REGISTRATION*/
         Route::get('/staff/fill-details', 'StaffController@fillDetails');
+        Route::post('/staff/complete-registration', 'StaffController@completeRegistration');
 
+        /**
+         * Staff Routes When Registration Completed(is_fully_registered =1)
+         */
         Route::group(['middleware' => ['staff_registration']], function () {
-            //
-            /**
-             * Staff Routes When Registration Completed(is_fully_registered =1)
-             */
 
+
+            Route::get('/profile', 'UserController@myProfile');
             Route::get('/staff/edit', 'StaffController@staffEdit');
+
+
+
+            /*Published Books*/
+            Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
+            Route::resource('/published-books', 'PublishedBookController');
+
+
+            /**
+             * Admin Routes
+             */
+            Route::group(['middleware' => ['role:Admin']], function () {
+                /*STAFF ROUTES*/
+                Route::get('/admin/staff/get-unregistered-staff', 'StaffController@getUnRegisteredStaff');
+                Route::get('/admin/staff/get-registered-staff', 'StaffController@getRegisteredStaff');
+                Route::resource('/admin/staff', 'StaffController');
+
+            });
+
         });
 
     });
 
-
 });
 
-
 Auth::routes();
 
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

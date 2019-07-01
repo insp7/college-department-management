@@ -9,7 +9,7 @@
                 <a href="/admin/staff/create" class="nav-link">Add Staff</a>
             </li>
             <li class="nav-item">
-                <a href="/staff" class="nav-link">Manage Staff</a>
+                <a href="/admin/staff" class="nav-link">Manage Staff</a>
             </li>
         </ul>
     </div>

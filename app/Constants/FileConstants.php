@@ -15,16 +15,11 @@ namespace App\Constants;
  */
 interface FileConstants
 {
-    // The path for all images
-    const IMAGE_PATH = "/storage/images/";
-    // Category Image Path
-    const CATEGORY_IMAGE_PATH = FileConstants::IMAGE_PATH."category/";
-    // Invoices
-    const LR_IMAGE_PATH = FileConstants::IMAGE_PATH."invoice/lr/";
-    // Subcategory Image Path
-    const SUBCATEGORY_IMAGE_PATH = FileConstants::IMAGE_PATH."subcategory/";
+    // The path for all uploads
+    const ATTACHMENTS_PATH = "/storage/attachments/";
+    // Staff Details Uploads Path
+    const STAFF_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."staff/";
 
-    const INVOICE_PATH = "/storage/invoices";
-
-    const FEED_IMAGE_PATH = FileConstants::IMAGE_PATH."feeds/";
+    // Staff Details Uploads Path
+    const NEWS_FEED_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."news-feed/";
 }

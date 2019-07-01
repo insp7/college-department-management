@@ -17,9 +17,10 @@ class CheckIfStaffFullyRegistered
     public function handle($request, Closure $next)
     {
 
-        error_log('I am here');
+        error_log('CheckIfStaffFullyRegistered Middleware');
         /*Trying to access staff routes without registration*/
         if (Auth::user()->staff->is_fully_registered == 0) {
+            error_log('rejected');
             return redirect('/staff/fill-details');
         }
 

@@ -85,9 +85,10 @@
         <!-- Argon JS -->
         <script src="{{ URL::asset('assets/vendor/chart.js/dist/Chart.min.js') }}"></script>
         <script src="{{ URL::asset('assets/vendor/chart.js/dist/Chart.extension.js') }}"></script>
-        <script src="{{ URL::asset('assets/js/argon.min9f1e.js') }}"></script>
+
 
         @yield('custom-script')
+        <script src="{{ URL::asset('assets/js/argon.min9f1e.js') }}"></script>
     </body>
 
 

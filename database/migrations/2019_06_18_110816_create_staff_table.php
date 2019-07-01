@@ -42,7 +42,7 @@ class CreateStaffTable extends Migration {
 
 			$table->boolean('is_subject_expert')->default(0)->nullable();
 			$table->text('subject_expert_details')->nullable();
-			$table->text('subject_certificate_path')->nullable();
+			$table->text('subject_expert_certificate_path')->nullable();
 
 			$table->integer('is_staff_selection_committee_member')->nullable();
 			$table->text('staff_selection_committee_details')->nullable();
@@ -88,7 +88,7 @@ class CreateStaffTable extends Migration {
 			$table->text('acm_membership_id')->nullable();
 			$table->text('acm_certificate_path')->nullable();
 
-			$table->integer('is_fully_registered')->default(0);
+			$table->integer('is_fully_registered')->default(0)->nullable();
 
             $table->text('additional_columns')->nullable();
 

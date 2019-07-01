@@ -12,7 +12,7 @@ class CreateNewsFeedImagesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('news__feed_images', function(Blueprint $table)
+		Schema::create('news_feed_images', function(Blueprint $table)
 		{
 
 			$table->increments('id');
@@ -34,7 +34,7 @@ class CreateNewsFeedImagesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('news_images');
+		Schema::drop('news_feed_images');
 	}
 
 }
