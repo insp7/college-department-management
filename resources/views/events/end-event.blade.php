@@ -1,9 +1,9 @@
 @extends('layouts.base')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/ipr"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/ipr/create">IPR</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add IPR</li>
+    <li class="breadcrumb-item"><a href="/events"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/events/create">Events</a></li>
+    <li class="breadcrumb-item active" aria-current="page">End Event</li>
 @endsection
 
 @section('page-content')
@@ -12,52 +12,59 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Edit IPR</h3>
+                    <h3 class="mb-0">End Event</h3>
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" action="/ipr/{{ $ipr->id }}">
+                    <form method="POST" enctype="multipart/form-data" action="/events/end/{{ $event->id }}">
                         @csrf
-                        @method('PATCH');
 
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="date" value="{{ $ipr->year }}"  name="year" placeholder="Year" class="form-control @error('year') is-invalid @enderror"></input>
+                                <textarea name="institute_funding" placeholder="Institute Funding" class="form-control @error('institute_funding') is-invalid @enderror">{{ $event->institute_funding }}</textarea>
                             </div>
-                            @error('year')
+                            @error('institute_funding')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="patents_published_count" placeholder="Patents Published Count" class="form-control @error('patents_published_count') is-invalid @enderror">{{ $ipr->patents_published_count }}</textarea>
+                                <textarea name="sponsor_funding" placeholder="Sponsor Funding" class="form-control @error('sponsor_funding') is-invalid @enderror">{{ $event->sponsor_funding }}</textarea>
                             </div>
-                            @error('patents_published_count')
+                            @error('sponsor_funding')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="patents_granted_count" placeholder="Patents Granted Count" class="form-control @error('patents_granted_count') is-invalid @enderror">{{ $ipr->patents_granted_count }}</textarea>
+                                <textarea name="expenditure" placeholder="Expenditure" class="form-control @error('expenditure') is-invalid @enderror">{{ $event->expenditure }}</textarea>
                             </div>
-                            @error('patents_granted_count')
+                            @error('expenditure')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="additional_columns" placeholder="additional_columns" class="form-control @error('additional_columns') is-invalid @enderror">{{ $ipr->additional_columns }}</textarea>
+                                <textarea name="internal_participants_count"  placeholder="Internal Participants Count" class="form-control @error('internal_participants_count') is-invalid @enderror">{{ $event->internal_participants_count }}</textarea>
                             </div>
-                            @error('additional_columns')
+                            @error('internal_participants_count')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
+                        <div class="form-group">
+                            <div class="input-group">
+                                <textarea name="external_participants_count"  placeholder="External Participants Count" class="form-control @error('external_participants_count') is-invalid @enderror">{{ $event->external_participants_count }}</textarea>
+                            </div>
+                            @error('external_participants_count')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                        <button class="btn btn-primary" type="submit">Update</button>
+                        <button class="btn btn-primary" type="submit">End Event</button>
                     </form>
                 </div>
             </div>

@@ -12,7 +12,7 @@ namespace App\Services;
 use App\PublishedBook;
 use Illuminate\Support\Facades\DB;
 
-class PublishedBookService
+class PublishedBooksService
 {
 
     public function store($validatedData, $user_id) {

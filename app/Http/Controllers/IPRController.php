@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\IPR;
 use App\Services\IPRService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +46,6 @@ class IPRController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $validatedData = $request->validate([
             'year' => ['required', 'date'],
             'patents_published_count' => ['required', 'numeric'],
@@ -86,9 +86,11 @@ class IPRController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        return view('ipr.edit-ipr');
+        $id = $request->ipr;
+        $ipr = IPR::find($id);
+        return view('ipr.edit-ipr')->with('ipr', $ipr);
     }
 
     /**
@@ -100,7 +102,28 @@ class IPRController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'year' => ['required', 'date'],
+            'patents_published_count' => ['required', 'numeric'],
+            'patents_granted_count' => ['required', 'numeric'],
+            'additional_columns' => ''
+        ]);
 
+        $updateSuccessful = $this->iprService->update($validatedData, $id, Auth::id());
+
+        if($updateSuccessful) {
+            return redirect('/ipr')->with([
+                'type' => 'success',
+                'title' => 'IPR updated successfully',
+                'message' => 'The given IPR has been updated successfully'
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'type' => 'danger',
+            'title' => 'Failed to update the IPR',
+            'message' => "There was some issue in updating the IPR"
+        ]);
     }
 
     /**

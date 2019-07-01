@@ -1,9 +1,9 @@
 @extends('layouts.base')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/research-projects"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/research-projects/create">Research Projects</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add Research Projects</li>
+    <li class="breadcrumb-item"><a href="/admin/admin/events"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/admin/admin/events/create">Events</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Add Events</li>
 @endsection
 
 @section('page-content')
@@ -12,60 +12,77 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Edit Research Projects</h3>
+                    <h3 class="mb-0">Add Events</h3>
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" action="/research-projects/{{ $research_project->id }}">
+                    <form method="post" action="/admin/events">
                         @csrf
-                        @method('PATCH');
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="principal_investigator" placeholder="Principal Investigator" class="form-control @error('principal_investigator') is-invalid @enderror">{{ $research_project->principal_investigator }}</textarea>
+                                <textarea  value="{{ old('name') }}"  name="name" placeholder="Name" class="form-control @error('name') is-invalid @enderror"></textarea>
                             </div>
-                            @error('principal_investigator')
+                            @error('name')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="grant_details" placeholder="Grant Details" class="form-control @error('grant_details') is-invalid @enderror">{{ $research_project->grant_details }}</textarea>
+                                <textarea  value="{{ old('details') }}"  name="details" placeholder="Details" class="form-control @error('details') is-invalid @enderror"></textarea>
                             </div>
-                            @error('grant_details')
+                            @error('details')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="title" placeholder="Title" class="form-control @error('title') is-invalid @enderror">{{ $research_project->title }}</textarea>
+                                <textarea  value="{{ old('address') }}"  name="address" placeholder="Address" class="form-control @error('address') is-invalid @enderror"></textarea>
                             </div>
-                            @error('title')
+                            @error('address')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="amount" placeholder="Amount" class="form-control @error('amount') is-invalid @enderror">{{ $research_project->amount }}</textarea>
+                                <textarea  value="{{ old('type') }}"  name="type" placeholder="Type" class="form-control @error('type') is-invalid @enderror"></textarea>
                             </div>
-                            @error('amount')
+                            @error('type')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="date" value="{{ $research_project->year }}"  name="year" placeholder="Year" class="form-control @error('year') is-invalid @enderror"></input>
+                                <input type="date" value="{{ old('start_date') }}"  name="start_date" placeholder="Start Date" class="form-control @error('start_date') is-invalid @enderror"></input>
                             </div>
-                            @error('year')
+                            @error('start_date')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <button class="btn btn-primary" type="submit">Update</button>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="date" value="{{ old('end_date') }}"  name="end_date" placeholder="End Date" class="form-control @error('end_date') is-invalid @enderror"></input>
+                            </div>
+                            @error('end_date')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <textarea  value="{{ old('additional_columns') }}"  name="additional_columns"  placeholder="additional_columns" class="form-control @error('additional_columns') is-invalid @enderror"></textarea>
+                            </div>
+                            @error('additional_columns')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Add Event</button>
                     </form>
                 </div>
             </div>

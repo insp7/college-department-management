@@ -7,13 +7,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/research-projects"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/research-projects">Research Projects</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Research Projects</li>
+    <li class="breadcrumb-item"><a href="/publications"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/publications">Publications</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage Publications</li>
 @endsection
 
 @section('actions')
-    <a href="/research-projects/create" class="btn btn-sm btn-neutral">New</a>
+    <a href="/publications/create" class="btn btn-sm btn-neutral">New</a>
 @endsection
 
 @section('page-content')
@@ -29,14 +29,13 @@
                     </p>
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table table-flush" id="research-projects-list">
+                    <table class="table table-flush" id="publications-list">
                         <thead class="thead-light">
                         <tr>
-                            <th> Principal Investigator </th>
-                            <th> Grant Details </th>
-                            <th> Title </th>
                             <th> Year </th>
-                            <th> Amount </th>
+                            <th> Citation </th>
+
+                            <th> Additional Columns </th>
                             <th> Date </th>
                             <th> Edit </th>
                             <th> Delete </th>
@@ -44,11 +43,9 @@
                         </thead>
                         <tfoot>
                         <tr>
-                            <th> Principal Investigator </th>
-                            <th> Grant Details </th>
-                            <th> Title </th>
                             <th> Year </th>
-                            <th> Amount </th>
+                            <th> Citation </th>
+                            <th> Additional Columns </th>
                             <th> Date </th>
                             <th> Edit </th>
                             <th> Delete </th>
@@ -68,7 +65,7 @@
         <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Delete Research Project</h6>
+                    <h6 class="modal-title" id="modal-title-default">Delete Publications</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -81,7 +78,7 @@
                         <div class="form-body">
                             <!-- START OF MODAL BODY -->
                             <div class="container">
-                                <label>Are you sure you want to delete the Research Project ?</label>
+                                <label>Are you sure you want to delete the Publications ?</label>
                             </div>
                         </div>
                     </div>
@@ -107,34 +104,32 @@
     <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
     <script>
-        let manageResearchProjectsTable = $('#research-projects-list');
+        let managePublicationsTable = $('#publications-list');
 
-        manageResearchProjectsTable.DataTable({
+        managePublicationsTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/research-projects/get-research-projects',
+            ajax: '/publications/get-publications',
             columns: [
-                {data: 'principal_investigator', name: 'principal_investigator'},
-                {data: 'grant_details', name: 'details'},
-                {data: 'title', name: 'title'},
-                {data: 'amount', name: 'amount'},
                 {data: 'year', name: 'year'},
+                {data: 'citation', name: 'citation'},
+                {data: 'additional_columns', name: 'additional_columns'},
                 {data: 'date', name: 'date'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
             ]
         });
 
-        manageResearchProjectsTable.on('click', '.delete', function(e) {
+        managePublicationsTable.on('click', '.delete', function(e) {
             $id = $(this).attr('id');
-            $('#delete_form').attr('action', '/research-projects/' + $id);
+            $('#delete_form').attr('action', '/publications/' + $id);
         });
 
-        manageResearchProjectsTable.on('click', '.edit', function () {
+        managePublicationsTable.on('click', '.edit', function () {
             $id = $(this).attr('id');
-            window.location.pathname = '/research-projects/' + $id + '/edit';
+            // console.log(window.location.pathname);
+            window.location.pathname = '/publications/' + $id + '/edit';
         });
-
 
     </script>
 

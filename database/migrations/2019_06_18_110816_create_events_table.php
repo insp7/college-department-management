@@ -19,14 +19,14 @@ class CreateEventsTable extends Migration {
 			$table->text('details');
 			$table->text('address');
 			$table->text('type');
-			$table->integer('institute_funding');
-			$table->integer('sponsor_funding');
-			$table->integer('expenditure');
+			$table->integer('institute_funding')->default('0'); // TO be filled after the event has ended
+			$table->integer('sponsor_funding')->default('0'); // TO be filled after the event has ended
+			$table->integer('expenditure')->default('0'); // TO be filled after the event has ended
 			$table->date('start_date');
-			$table->integer('end_date');
-			$table->integer('internal_participants_count');
-			$table->integer('external_participants_count');
-            $table->boolean('is_completed');
+			$table->date('end_date');
+			$table->integer('internal_participants_count')->default('0'); // TO be filled after the event has ended
+			$table->integer('external_participants_count')->default('0'); // TO be filled after the event has ended
+            $table->boolean('is_completed')->default('0');
             $table->text('additional_columns');
 
             $table->integer('created_by');

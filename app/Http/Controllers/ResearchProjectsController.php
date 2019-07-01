@@ -37,7 +37,7 @@ class ResearchProjectsController extends Controller
      */
     public function create()
     {
-        return view('research-projects.add-research-projects');
+        return view('research-projects.add-research-project');
     }
 
     /**
@@ -89,9 +89,11 @@ class ResearchProjectsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        return view('research-projects.edit-research-project');
+        $id = $request->research_project;
+        $research_project = ResearchProject::find($id);
+        return view('research-projects.edit-research-project')->with('research_project', $research_project);
     }
 
     /**
@@ -103,7 +105,29 @@ class ResearchProjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Remaining
+        $validatedData = $request->validate([
+            'principal_investigator' => 'required',
+            'grant_details' => 'required',
+            'title' => 'required',
+            'amount' => 'required|numeric',
+            'year' => 'required|date'
+        ]);
+
+        $updateSuccessful = $this->researchProjectsService->update($validatedData, $id, Auth::id());
+
+        if($updateSuccessful) {
+            return redirect('/research-projects')->with([
+                'type' => 'success',
+                'title' => 'Research Project updated successfully',
+                'message' => 'The given Research Project has been updated successfully'
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'type' => 'danger',
+            'title' => 'Failed to update the Research Project',
+            'message' => "There was some issue in updating the Research Project"
+        ]);
     }
 
     /**

@@ -7,13 +7,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/research-projects"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/research-projects">Research Projects</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Research Projects</li>
+    <li class="breadcrumb-item"><a href="/admin/events"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/admin/events">Events</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage Events</li>
 @endsection
 
 @section('actions')
-    <a href="/research-projects/create" class="btn btn-sm btn-neutral">New</a>
+    <a href="/admin/events/create" class="btn btn-sm btn-neutral">New</a>
 @endsection
 
 @section('page-content')
@@ -29,29 +29,38 @@
                     </p>
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table table-flush" id="research-projects-list">
+                    <table class="table table-flush table-sm" id="events-list">
                         <thead class="thead-light">
                         <tr>
-                            <th> Principal Investigator </th>
-                            <th> Grant Details </th>
-                            <th> Title </th>
-                            <th> Year </th>
-                            <th> Amount </th>
+                            {{-- The comments next to <th></th> tags indicate the data representation format for the following <th></th> --}}
+                            <th>Name</th>
+                            <th>Details</th> <!-- $details. Address: $address -->
+                            <th>Type</th>
+                            <th>Funding</th> <!-- $total_funding. (institute: $institute_funding, sponsor: $sponsor_funding) -->
+                            <th>Duration</th> <!-- Started from: $start_date. Ended on $end_date -->
+                            <th>Total Participants</th> <!-- $internal + $external. (Internal: $internal. External: $external) -->
+
+                            <th> Additional Columns </th>
                             <th> Date </th>
+                            <th>Add Cooordinator</th>
                             <th> Edit </th>
                             <th> Delete </th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
-                            <th> Principal Investigator </th>
-                            <th> Grant Details </th>
-                            <th> Title </th>
-                            <th> Year </th>
-                            <th> Amount </th>
-                            <th> Date </th>
-                            <th> Edit </th>
-                            <th> Delete </th>
+                            <th>Name</th>
+                            <th>Details</th> <!-- $details. Address: $address -->
+                            <th>Type</th>
+                            <th>Funding</th> <!-- $total_funding. (institute: $institute_funding, sponsor: $sponsor_funding) -->
+                            <th>Duration</th> <!-- Started from: $start_date. Ended on $end_date -->
+                            <th>Total Participants</th> <!-- $internal + $external. (Internal: $internal. External: $external) -->
+
+                            <th>Additional Columns</th>
+                            <th>Date</th>
+                            <th>Add Cooordinator</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -68,7 +77,7 @@
         <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Delete Research Project</h6>
+                    <h6 class="modal-title" id="modal-title-default">Delete Events</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -81,7 +90,7 @@
                         <div class="form-body">
                             <!-- START OF MODAL BODY -->
                             <div class="container">
-                                <label>Are you sure you want to delete the Research Project ?</label>
+                                <label>Are you sure you want to delete the Events ?</label>
                             </div>
                         </div>
                     </div>
@@ -107,34 +116,42 @@
     <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
     <script>
-        let manageResearchProjectsTable = $('#research-projects-list');
+        let manageEventsTable = $('#events-list');
 
-        manageResearchProjectsTable.DataTable({
+        manageEventsTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/research-projects/get-research-projects',
+            ajax: '/admin/events/get-events',
             columns: [
-                {data: 'principal_investigator', name: 'principal_investigator'},
-                {data: 'grant_details', name: 'details'},
-                {data: 'title', name: 'title'},
-                {data: 'amount', name: 'amount'},
-                {data: 'year', name: 'year'},
+                {data: 'name', name: 'name'},
+                {data: 'details', name: 'details'},
+                {data: 'type', name: 'type'},
+                {data: 'funding', name: 'funding'},
+                {data: 'duration', name: 'duration'},
+                {data: 'total_participants', name: 'total_participants'},
+                {data: 'additional_columns', name: 'additional_columns'},
                 {data: 'date', name: 'date'},
+                {data: 'add_coordinator', name: 'add_coordinator'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
             ]
         });
 
-        manageResearchProjectsTable.on('click', '.delete', function(e) {
+        manageEventsTable.on('click', '.add_coordinator', function() {
             $id = $(this).attr('id');
-            $('#delete_form').attr('action', '/research-projects/' + $id);
+            window.location.pathname = '/admin/events/' + $id + '/assign-coordinator';
         });
 
-        manageResearchProjectsTable.on('click', '.edit', function () {
+        manageEventsTable.on('click', '.delete', function() {
             $id = $(this).attr('id');
-            window.location.pathname = '/research-projects/' + $id + '/edit';
+            $('#delete_form').attr('action', '/admin/events/' + $id);
         });
 
+        manageEventsTable.on('click', '.edit', function () {
+            $id = $(this).attr('id');
+            // console.log(window.location.pathname);
+            window.location.pathname = '/admin/events/' + $id + '/edit';
+        });
 
     </script>
 

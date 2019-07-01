@@ -3,25 +3,24 @@
 
 namespace App\Services;
 
-use App\IPR;
+use App\Publication;
 use Illuminate\Support\Facades\DB;
 
-class IPRService
+class PublicationsService
 {
 
     public function store($validatedData, $user_id) {
         DB::beginTransaction();
-            $ipr = IPR::create([
+            $publication = Publication::create([
                 'staff_id' => $user_id,
                 'year' => $validatedData['year'],
-                'patents_published_count' => $validatedData['patents_published_count'],
-                'patents_granted_count' => $validatedData['patents_granted_count'],
+                'citation' => $validatedData['citation'],
                 'additional_columns' => $validatedData['additional_columns'],
                 'created_by' => $user_id
             ]);
         DB::commit();
 
-        return $ipr;
+        return $publication;
 
     }
 
@@ -31,25 +30,25 @@ class IPRService
      */
     public function getDatatable($id)
     {
-        return IPR::where('created_by', $id)->orderBy('created_at', 'desc');
+        return Publication::where('created_by', $id)->orderBy('created_at', 'desc');
     }
 
     public function delete($id, $user_id) {
-        return IPR::where('created_by', $user_id)
+        return Publication::where('created_by', $user_id)
             ->where('id', $id)
             ->delete();
     }
 
     public function update($validatedData, $id, $user_id) {
+
         try {
             DB::beginTransaction();
-                $ipr = IPR::find($id);
-                $ipr->year = $validatedData['year'];
-                $ipr->patents_published_count = $validatedData['patents_published_count'];
-                $ipr->patents_granted_count = $validatedData['patents_granted_count'];
-                $ipr->additional_columns = $validatedData['additional_columns'];
-                $ipr->updated_by = $user_id;
-                $ipr->save();
+                $publication = Publication::find($id);
+                $publication->year = $validatedData['year'];
+                $publication->citation = $validatedData['citation'];
+                $publication->additional_columns = $validatedData['additional_columns'];
+                $publication->upated_by = $user_id;
+                $publication->save();
             DB::commit();
 
             return true;
