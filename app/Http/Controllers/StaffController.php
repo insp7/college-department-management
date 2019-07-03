@@ -143,10 +143,11 @@ class StaffController extends Controller
 
         /*CHECK IF USER HAS COMPLETED REGISTRATION*/
         /*IF ALREADY COMPLETED REDIRECT TO DASHBOARD*/
-        error_log(Auth::user()->staff->is_fully_registered);
-        if(Auth::user()->staff->is_fully_registered){
-            return redirect('/dashboard');
-        }
+//        error_log(Auth::user()->staff->is_fully_registered);
+//        if(Auth::user()->staff->is_fully_registered){
+//            return redirect('/dashboard');
+//        }
+
 
         return view('staff.fill-details');
     }

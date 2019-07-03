@@ -55,7 +55,6 @@ Route::middleware(['auth'])->group(function() {
 
             /*Published Books*/
             Route::get('/published-books/get-published-books', 'PublishedBooksController@getPublishedBooks');
-
             Route::resource('/published-books', 'PublishedBooksController');
 
             // Research Projects
@@ -74,9 +73,6 @@ Route::middleware(['auth'])->group(function() {
             Route::get('/profile', 'UserController@myProfile');
             Route::get('/staff/edit', 'StaffController@staffEdit');
 
-            /*Published Books*/
-            Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
-            Route::resource('/published-books', 'PublishedBookController');
 
 
             /**

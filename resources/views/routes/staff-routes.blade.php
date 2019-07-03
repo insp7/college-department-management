@@ -73,9 +73,3 @@
     </a>
 </li>
 
-<li class="nav-item">
-    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-pro/pages/widgets.html">
-        <i class="ni ni-archive-2 text-green"></i>
-        <span class="nav-link-text">Widgets</span>
-    </a>
-</li>
