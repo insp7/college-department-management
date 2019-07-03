@@ -32,6 +32,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/dashboard', 'DashboardController@index');
     Route::get('/timeline', 'UserController@timeline');
     Route::resource('/news-feed', 'NewsFeedController');
+    Route::resource('/student-internship', 'StudentInternshipController');
+    Route::get('/studnet-internship/get-student-internship', 'StudentInternshipController@getStudentInternships');
 
     /**
      * Staff Routes

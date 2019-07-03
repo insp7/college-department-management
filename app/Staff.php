@@ -15,11 +15,6 @@ class Staff extends Model
 {
 
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
-
-    public function user() {
-        return $this->belongsTo('App\User');
-    }
-
     // Change if required
     public function researchProjects() {
         return $this->hasMany('App\ResearchProject');
@@ -35,4 +30,11 @@ class Staff extends Model
 
     }
 
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
+    public function internship()
+    {
+        return $this->hasMany('App\StudentInternship');
+    }
 }
