@@ -243,7 +243,7 @@ class EventsController extends Controller
 
     public function endEvent(Request $request) {
         $event_id = $request->event;
-//        $event_data = $request->input();
+
         $event_data = $request->validate([
             'internal_participants_count' => 'required|numeric',
             'external_participants_count' => 'required|numeric',

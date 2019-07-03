@@ -1,135 +1,205 @@
-@extends('layout')
+@extends('layouts.base')
+
+@section('custom-styles')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
+@endsection
+
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="/dashboard"><i class="fas fa-user"></i></a></li>
+    <li class="breadcrumb-item"><a href="/admin/staff">Staff</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage Staff</li>
+@endsection
+
+@section('actions')
+    <a href="/admin/staff/create" class="btn btn-sm btn-neutral">New</a>
+@endsection
 
 @section('page-content')
-    <div class="page-bar">
-        <!-- BREADCRUMBS SECTION -->
-        <ul class="page-breadcrumb">
-            <li>
-                <a href="/">Home</a>
-                <i class="fa fa-angle-right"></i>
-            </li>
-            <li>
-                <a href="/shape">Shapes</a>
-                <i class="fa fa-angle-right"></i>
-            </li>
-        </ul>
-        <!-- END OF BREADCRUMBS SECTION -->
-        <div class="clearfix"></div>
 
-        <!-- BEGIN PAGE TITLE-->
-        <h3 class="page-title"> Shape
-            <small>Manage your shapes</small>
-        </h3>
-        <!-- END PAGE TITLE-->
-
-        <!-- ALERTS SECTION -->
-        <!-- ERRORS SECTION -->
-        @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        <!-- END OF ERRORS SECTION -->
-        <!-- END OF ALERT SECTION -->
-
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="portlet">
-                    <a href="/shape/create" class="btn red">
-                        <i class="fa fa-plus"></i> Add Shape
-                    </a>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                    <h3 class="mb-0">Staff</h3>
+                    <p class="text-sm mb-0 text-success">
+                        Registration Completed
+                    </p>
+                </div>
+                <div class="table-responsive py-4">
+                    <table class="table  table-flush" id="staff-registration-completed-list">
+                        <thead class="thead-light">
+                        <tr>
+                            <th> Name </th>
+                            <th> DOB </th>
+                            <th> Email </th>
+                            <th> Contact No </th>
+                            <th> Pan </th>
+                            <th> Employee Id </th>
+                            <th>edit</th>
+                            <th>delete</th>
+                            <th>view</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th> Name </th>
+                            <th> DOB </th>
+                            <th> Email </th>
+                            <th> Contact No </th>
+                            <th> Pan </th>
+                            <th> Employee Id </th>
+                            <th>edit</th>
+                            <th>delete</th>
+                            <th>view</th>
+                        </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="portlet light portlet-fit bordered">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="icon-user font-red"></i>
-                            <span class="caption-subject font-red bold uppercase">Shapes</span>
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <table class="table table-striped table-hover table-bordered" id="shape_list">
-                            <thead>
-                            <tr class="text-center">
-                                <th> Name </th>
-                                <th> Edit </th>
-                                <th> Delete </th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                    <h3 class="mb-0">Staff</h3>
+                    <p class="text-sm mb-0 text-danger">
+                        Registration Pending
+                    </p>
+                </div>
+                <div class="table-responsive py-4">
+                    <table class="table table-flush " id="staff-registration-pending-list">
+                        <thead class="thead-light">
+                        <tr>
+                            <th> Email </th>
+                            <th>edit</th>
+                            <th>delete</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th> Email </th>
+                            <th>edit</th>
+                            <th>delete</th>
+                        </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <!------------------------------------------------------------------------------------>
-    <!--                                MODAL SECTION                                   -->
-    <!------------------------------------------------------------------------------------>
-
+    {{--MODAL SECTION--}}
     <!-- DELETE MODAL -->
 
     <div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Delete Shape</h4>
+                    <h6 class="modal-title" id="modal-title-default">Delete Published Book</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
+                <form  id="delete_form" method="POST">
+                    <div class="modal-body">
 
-                <div class="modal-body">
-                    <div class="row">
-                        <form action="/shape/" id="delete_form" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <div class="form-body">
-                                <!-- START OF MODAL BODY -->
-                                <div class="container">
-                                    <label>Are you sure you want to delete the shape ?</label>
-                                </div>
-
-                                <!-- END OF MODAL BODY -->
-
-                                <!-- MODAL FOOTER -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                    <button id="delete_save" type="submit" name="delete_shape" class="btn btn-primary">
-                                        Delete
-                                    </button>
-                                </div>
-                                <!-- END OF MODAL FOOTER -->
+                        @method('DELETE')
+                        @csrf
+                        <div class="form-body">
+                            <!-- START OF MODAL BODY -->
+                            <div class="container">
+                                <label>Are you sure you want to delete the Published Book ?</label>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default  ml-auto" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-    <!--END OF DELETE BUTTON MODAL-->
-
 
 @endsection
 
 @section ('custom-script')
+    <script src="{{ asset('assets/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
-    <script src="{{ asset("js/shapes/manage-shapes.js") }}"></script>
+    <script>
+        let manageRegistrationCompletedStaffTable = $('#staff-registration-completed-list');
 
-    @if(session()->has('status'))
+        manageRegistrationCompletedStaffTable.DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '/admin/staff/get-registered-staff',
+            columns: [
+                {data: 'name', name: 'name'},
+                {data: 'dob', name: 'dob'},
+                {data: 'email', name: 'email'},
+                {data: 'contact_no', name: 'contact_no'},
+                {data: 'pan', name: 'pan'},
+                {data: 'employee_id', name: 'employee_id'},
+                {data: 'delete', name: 'delete'},
+                {data: 'edit', name: 'edit'},
+                {data: 'view', name: 'view'}
+            ]
+        });
+
+        manageRegistrationCompletedStaffTable.on('click', '.delete', function(e) {
+            $id = $(this).attr('id');
+            $('#delete_form').attr('action', '/published-books/' + $id);
+        })
+
+        let manageRegistrationPendingStaffTable = $('#staff-registration-pending-list');
+
+        manageRegistrationPendingStaffTable.DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '/admin/staff/get-unregistered-staff',
+            columns: [
+                {data: 'email', name: 'email'},
+                {data: 'edit', name: 'edit'},
+                {data: 'delete', name: 'delete'}
+            ]
+        });
+
+    </script>
+
+    @if(session()->has('type'))
         <script>
-            showToastr("{{ session('status') }}", "{{ session('title') }}", "{{ session('message') }}");
-            {{ Session::forget('status') }}
+            $.notify({
+                // options
+                title: '<h4 style="color:white">{{ session('title') }}</h4>',
+                message: '{{ session('message') }}',
+            },{
+                // settings
+                type: '{{ session('type') }}',
+                allow_dismiss: true,
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                offset: 20,
+                spacing: 10,
+                z_index: 1031,
+                delay: 3000,
+                timer: 1000,
+                animate: {
+                    enter: 'animated fadeInDown',
+                    exit: 'animated fadeOutUp'
+                }
+            });
         </script>
     @endif
 @endsection

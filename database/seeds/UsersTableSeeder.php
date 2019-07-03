@@ -1,5 +1,6 @@
 <?php
 
+use App\Staff;
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -27,6 +28,13 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $user->assignRole('Admin');
+
+        Staff::create([
+            'user_id' => $user->id,
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+
+        ]);
 
         $user=User::create(['first_name' => 'Dhananjay',
             'last_name' => 'sanjay',
