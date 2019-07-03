@@ -31,4 +31,10 @@ class UserController extends Controller
                 'user' => Auth::user()
             ]);
     }
+
+    public function timeline(){
+        return view('user.timeline')->with([
+            'actions' => Auth::user()->actions
+        ]);
+    }
 }

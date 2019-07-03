@@ -1,9 +1,9 @@
 <li class="nav-item">
-    <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+    <a class="nav-link {{Request::is('admin/staff*') ? 'active' : ''}}" href="#navbar-staff" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-staff">
         <i class="ni ni-single-02 text-primary"></i>
         <span class="nav-link-text">Staff</span>
     </a>
-    <div class="collapse show" id="navbar-dashboards">
+    <div class="collapse {{Request::is('admin/staff*') ? 'show' : ''}}" id="navbar-staff">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
                 <a href="/admin/staff/create" class="nav-link">Add Staff</a>
@@ -16,8 +16,18 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-pro/pages/widgets.html">
-        <i class="ni ni-archive-2 text-green"></i>
-        <span class="nav-link-text">Widgets</span>
+    <a class="nav-link {{Request::is('classes*') ? 'active' : ''}}" href="#navbar-class" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-class">
+        <i class="fa fa-layer-group text-primary"></i>
+        <span class="nav-link-text">Class</span>
     </a>
+    <div class="collapse {{Request::is('classes*') ? 'show' : ''}}" id="navbar-class">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="/classes/create" class="nav-link">Add Class</a>
+            </li>
+            <li class="nav-item">
+                <a href="/classes" class="nav-link">Manage Class</a>
+            </li>
+        </ul>
+    </div>
 </li>

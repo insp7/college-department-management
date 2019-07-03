@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
     Route::redirect('/', '/dashboard');
     Route::get('/dashboard', 'DashboardController@index');
+    Route::get('/timeline', 'UserController@timeline');
     Route::resource('/news-feed', 'NewsFeedController');
 
     /**
@@ -66,9 +67,18 @@ Route::middleware(['auth'])->group(function() {
              */
             Route::group(['middleware' => ['role:Admin']], function () {
                 /*STAFF ROUTES*/
+
                 Route::get('/admin/staff/get-unregistered-staff', 'StaffController@getUnRegisteredStaff');
                 Route::get('/admin/staff/get-registered-staff', 'StaffController@getRegisteredStaff');
                 Route::resource('/admin/staff', 'StaffController');
+
+                /*CLASS ROUTES*/
+                Route::get('/classes/get-classes', 'ClassController@getClasses');
+
+                Route::get('classes/{id}/students/create', 'ClassController@createClassStudents');
+                Route::post('classes/{id}/students/store', 'ClassController@storeClassStudents');
+
+                Route::resource('/classes', 'ClassController');
 
             });
 
