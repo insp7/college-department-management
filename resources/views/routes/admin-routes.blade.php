@@ -16,6 +16,24 @@
 </li>
 
 <li class="nav-item">
+    <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+        <i class="ni ni-single-02 text-primary"></i>
+        <span class="nav-link-text">Events</span>
+    </a>
+
+    <div class="collapse show" id="navbar-dashboards">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="/admin/events/create" class="nav-link">Add Events</a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/events" class="nav-link">Manage Events</a>
+            </li>
+        </ul>
+    </div>
+</li>
+
+<li class="nav-item">
     <a class="nav-link {{Request::is('classes*') ? 'active' : ''}}" href="#navbar-class" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-class">
         <i class="fa fa-layer-group text-primary"></i>
         <span class="nav-link-text">Class</span>

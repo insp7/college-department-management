@@ -19,9 +19,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-
-
-
 //Route::get('/notification', 'StaffController@showNotification');
 
 
@@ -41,7 +38,6 @@ Route::middleware(['auth'])->group(function() {
      */
     Route::group(['middleware' => ['role:Staff|Admin']], function () {
 
-
         /*ROUTES TO COMPLETE REGISTRATION*/
         Route::get('/staff/fill-details', 'StaffController@fillDetails');
         Route::post('/staff/complete-registration', 'StaffController@completeRegistration');
@@ -52,10 +48,31 @@ Route::middleware(['auth'])->group(function() {
         Route::group(['middleware' => ['staff_registration']], function () {
 
 
+            // events to manage
+            Route::get('/events/manage/{staff}', 'EventsController@getEventsByStaffId');
+            Route::get('/events/end-event/{event}/end', 'EventsController@getEndEventForm');
+            Route::post('/events/end/{event}', 'EventsController@endEvent');
+
+            /*Published Books*/
+            Route::get('/published-books/get-published-books', 'PublishedBooksController@getPublishedBooks');
+
+            Route::resource('/published-books', 'PublishedBooksController');
+
+            // Research Projects
+            Route::get('/research-projects/get-research-projects', 'ResearchProjectsController@getResearchProjects');
+            Route::resource('/research-projects', 'ResearchProjectsController');
+
+            // IPRController
+            Route::get('/ipr/get-ipr', 'IPRController@getIPR');
+            Route::resource('/ipr', 'IPRController');
+
+            // Publications
+            Route::get('/publications/get-publications', 'PublicationsController@getPublications');
+            Route::resource('/publications', 'PublicationsController');
+
+            // Profile
             Route::get('/profile', 'UserController@myProfile');
             Route::get('/staff/edit', 'StaffController@staffEdit');
-
-
 
             /*Published Books*/
             Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
@@ -71,6 +88,13 @@ Route::middleware(['auth'])->group(function() {
                 Route::get('/admin/staff/get-unregistered-staff', 'StaffController@getUnRegisteredStaff');
                 Route::get('/admin/staff/get-registered-staff', 'StaffController@getRegisteredStaff');
                 Route::resource('/admin/staff', 'StaffController');
+        
+                // Events
+                Route::post('/admin/events/{id}/coordinators/add', 'EventsController@addCoordinator');
+                Route::get('/admin/events/{event}/assign-coordinator', 'EventsController@assignCoordinator');
+                Route::get('/admin/events/get-events', 'EventsController@getEvents');
+                Route::resource('/admin/events', 'EventsController');
+
 
                 /*CLASS ROUTES*/
                 Route::get('/classes/get-classes', 'ClassController@getClasses');
@@ -79,7 +103,6 @@ Route::middleware(['auth'])->group(function() {
                 Route::post('classes/{id}/students/store', 'ClassController@storeClassStudents');
 
                 Route::resource('/classes', 'ClassController');
-
             });
 
         });

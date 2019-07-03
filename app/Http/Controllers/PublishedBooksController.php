@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\PublishedBook;
-use App\Services\PublishedBookService;
+use App\Services\PublishedBooksService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class PublishedBookController extends Controller
+class PublishedBooksController extends Controller
 {
 
     protected $publishedBookService;
 
-    public function __construct(PublishedBookService $publishedBookService)
+    public function __construct(PublishedBooksService $publishedBookService)
     {
         $this->publishedBookService = $publishedBookService;
     }

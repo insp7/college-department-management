@@ -24,7 +24,7 @@ class StaffService
 
             $user=User::create([
                 'email' => $validatedData['email'],
-                'password' =>Hash::make($validatedData['password']),
+                'password' => Hash::make($validatedData['password']),
                 'created_by' => $user_id
             ]);
 
@@ -42,8 +42,7 @@ class StaffService
      * @param $staffValidatedData
      * @param $user_id
      */
-    public function completeRegistration($userValidatedData, $staffValidatedData,$user_id){
-
+    public function completeRegistration($userValidatedData, $staffValidatedData,$user_id) {
 
         DB::beginTransaction();
         $user = User::find($user_id);
@@ -60,7 +59,7 @@ class StaffService
 
         error_log('after user update..............................');
 
-        if($status){
+        if($status) {
 
             error_log('creating staff successfully');
             error_log(json_encode($staffValidatedData));
@@ -77,7 +76,7 @@ class StaffService
                     [
                         'is_fully_registered' => 1
                     ]);
-        }else{
+        } else {
             DB::rollBack();
             throw BaseException('Error while updating user details');
         }

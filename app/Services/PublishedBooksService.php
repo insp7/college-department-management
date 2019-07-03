@@ -10,19 +10,20 @@ namespace App\Services;
 
 
 use App\PublishedBook;
+use Illuminate\Support\Facades\DB;
 
-class PublishedBookService
+class PublishedBooksService
 {
 
-    public function store($validatedData, $user_id){
-
-        $published_book=PublishedBook::create([
-            'details' => $validatedData['details'],
-            'created_by' => $user_id
-        ]);
+    public function store($validatedData, $user_id) {
+        DB::beginTransaction();
+            $published_book=PublishedBook::create([
+                'details' => $validatedData['details'],
+                'created_by' => $user_id
+            ]);
+        DB::commit();
 
         return $published_book;
-
     }
 
     /**
@@ -34,7 +35,7 @@ class PublishedBookService
         return PublishedBook::where('created_by', $id)->orderBy('created_at', 'desc');
     }
 
-    public function delete($id,$user_id){
+    public function delete($id, $user_id) {
         return PublishedBook::where('created_by', $user_id)
             ->where('id', $id)
             ->delete();
