@@ -68,30 +68,25 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input type="date" value="{{ old('date_of_birth') }}" requireds name="date_of_birth" type="date" placeholder="Date of Birth"  class="form-control @error('date_of_birth') is-invalid @enderror">
+                                    <div class="input-group @error('date_of_birth') has-danger @enderror">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                        </div>
+                                        <input type="text" value="{{ old('date_of_birth') }}" requireds name="date_of_birth"  placeholder="Date of Birth"  class="form-control datepicker @error('date_of_birth') is-invalid @enderror">
+                                    </div>
                                     @error('date_of_birth')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
 
-                            {{-- TODO REPLACE WITH<div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                    </div>
-                                    <input class="form-control datepicker" placeholder="Select date" type="text" value="06/20/2019">
-                                </div>
-                            </div>--}}
-
-
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <select name="gender" id="" requireds class="form-control @error('gender') is-invalid @enderror">
                                         <option disabled selected>Select Gender</option>
-                                        <option value="M">Male</option>
-                                        <option value="F">Female</option>
-                                        <option value="O">Other</option>
+                                        <option value="M" @if(old('gender') == 'M') selected @endif>Male</option>
+                                        <option value="F" @if(old('gender') == 'F') selected @endif>Female</option>
+                                        <option value="O" @if(old('gender') == 'O') selected @endif>Other</option>
                                     </select>
                                     @error('gender')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -106,7 +101,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="input-group input-group-merge @error('password') has-danger @enderror">
-                                        <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-key"></i> </span> </div> <input requiredss name="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror">
+                                        <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-key"></i> </span> </div> <input requireds name="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror">
                                     </div>
                                     @error('password')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -117,7 +112,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="input-group input-group-merge @error('password') has-danger @enderror">
-                                        <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-key"></i> </span> </div> <input requiredss name="password_confirmation" type="password" placeholder="Confirm Password" class="form-control">
+                                        <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-key"></i> </span> </div> <input requireds name="password_confirmation" type="password" placeholder="Confirm Password" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -137,8 +132,13 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input type="date" value="{{ old('date_of_joining_institue') }}" requireds name="date_of_joining_institue" type="date" placeholder="Date of Birth"  class="form-control @error('date_of_joining_institue') is-invalid @enderror">
-                                    @error('date_of_joining_institue')
+                                    <div class="input-group @error('date_of_joining_institute') has-danger @enderror">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                        </div>
+                                        <input type="text" value="{{ old('date_of_joining_institute') }}" requireds name="date_of_joining_institute"  placeholder="Date of Joining Institute"  class="form-control datepicker @error('date_of_joining_institute') is-invalid @enderror">
+                                    </div>
+                                    @error('date_of_joining_institute')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -146,21 +146,24 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input  value="{{ old('employee_id') }}" requireds name="employee_id" type="number" placeholder="Employee Id"  class="form-control @error('employee_id') is-invalid @enderror">
+                                    <input  value="{{ old('employee_id') }}" requireds name="employee_id" type="text" placeholder="Employee Id"  class="form-control @error('employee_id') is-invalid @enderror">
                                     @error('employee_id')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
 
-
                             <div class="col-md-4">
-                                <div class="col-md-6">
-                                    <input type="checkbox" value="1">Teaching
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" @if(old('is_teaching') == 1) checked @endif id="is_teaching_checkbox" name="is_teaching" value="1">
+                                    <label class="custom-control-label" for="is_teaching_checkbox">Teaching</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="checkbox" value="1">Permanent
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="is_permanent_checkbox" @if(old('is_permanent') == 1) checked @endif name="is_permanent" value="1">
+                                    <label class="custom-control-label" for="is_permanent_checkbox">Permanent</label>
                                 </div>
+
                             </div>
 
                         </div>
@@ -171,7 +174,12 @@
 
                             {{--BOS CHAIRMAN--}}
                             <div class="col-md-6" id="bos_chairman_div">
-                                <label for="">BOS Chairman</label> <input type="checkbox" value="1" name="is_bos_chairman" @if(old('is_bos_chairman')) checked @endif onchange="handleBosChairmanCheckbox(event)">
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" value="1" name="is_bos_chairman" @if(old('is_bos_chairman')) checked @endif onchange="handleBosChairmanCheckbox(event)" id="is_bos_chairman_checkbox">
+                                    <label class="custom-control-label" for="is_bos_chairman_checkbox">BOS Chairman</label>
+                                </div>
+
                                 @if(old('is_bos_chairman'))
                                     <div id="is_bos_chairman_sub_form">
 
@@ -467,7 +475,7 @@
 
                             {{--STAFF SELECTION COMITTEE--}}
                             <div class="col-md-6" id="staff_selection_committee_div">
-                                <label for="">Staff Selection Committee</label> <input onchange="handleStaffSelectionCommitteeCheckbox(event)" type="checkbox" value="1" name="is_staff_selection_committee">
+                                <label for="">Staff Selection Committee</label> <input onchange="handleStaffSelectionCommitteeCheckbox(event)" type="checkbox" value="1" name="is_staff_selection_committee_member">
 
                                 @if(old('is_staff_selection_committee'))
                                 {{--REMOVE THIS IS is_staff_selection_committee is not checked--}}
@@ -1049,6 +1057,7 @@
 @endsection
 
 @section ('custom-script')
+    <script src="{{ asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 
     @if(session()->has('type'))
         <script>

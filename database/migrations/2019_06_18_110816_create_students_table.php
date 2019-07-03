@@ -18,6 +18,7 @@ class CreateStudentsTable extends Migration {
 			$table->increments('id');
 			$table->integer('roll_no');
 			$table->bigInteger('class_id');
+            $table->bigInteger('user_id');
 			$table->string('is_fully_registered')->default(0);
             $table->text('additional_columns')->nullable();
             $table->integer('created_by');
