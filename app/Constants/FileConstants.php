@@ -22,4 +22,8 @@ interface FileConstants
 
     // Staff Details Uploads Path
     const NEWS_FEED_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."news-feed/";
+
+    // Internship Detailes image Path   
+    const STUDENT_INTERNSHIP_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."student-internship/";
+
 }
