@@ -74,8 +74,8 @@ class StaffController extends Controller
     public function store(Request $request)
     {
         $validatedData=$request->validate([
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'email' => 'nullable|email|unique:users',
+            'password' => 'nullable|confirmed|min:6',
         ]);
 
         try {
@@ -184,7 +184,7 @@ class StaffController extends Controller
             'last_name' => 'nullable',
             'contact_no' => 'nullable|digits:10',
             'date_of_birth' => 'nullable|date',
-            'gender' => 'in:M,F,O',
+            'gender' => 'nullable|in:M,F,O',
             'password' => 'nullable|min:6',
         ]);
 
@@ -195,7 +195,7 @@ class StaffController extends Controller
             'is_permanent' => 'sometimes|in:1,0',
             'pan' => 'nullable|digits:10',
             'employee_id' => 'nullable',
-            'date_of_joining_institute' => 'date',
+            'date_of_joining_institute' => 'nullable|date',
 
             /*bos_chairman*/
             'is_bos_chairman' => 'sometimes|in:1,0',
@@ -315,7 +315,7 @@ class StaffController extends Controller
             return redirect()->back()->with([
                 'type' => 'danger',
                 'title' => 'Failed to add details',
-                'message' => "There was some issue in updating the details"
+                'message' => $exception->getMessage()
             ]);
         }
     }
