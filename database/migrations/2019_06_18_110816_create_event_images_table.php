@@ -16,8 +16,8 @@ class CreateEventImagesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('event_id');
-			$table->string('event_image_path');
-            $table->text('additional_columns');
+			$table->string('event_image_path')->nullable();
+            $table->text('additional_columns')->nullable();
 
 			$table->integer('created_by');
             $table->integer('updated_by')->nullable();

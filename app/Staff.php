@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Staff extends Model
 {
-
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
     public function user() {
@@ -33,9 +32,5 @@ class Staff extends Model
     public function events() {
         return $this->belongsToMany('App\Event', 'event_staff');
 
-    }
-
-    public function user() {
-        return $this->belongsTo('App\User');
     }
 }

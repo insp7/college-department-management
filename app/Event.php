@@ -20,4 +20,8 @@ class Event extends Model
     {
         return $this->belongsToMany('App\Staff', 'event_staff');
     }
+
+    public function eventImages() {
+        return $this->hasMany('App\EventImage');
+    }
 }

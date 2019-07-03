@@ -40,6 +40,8 @@
                             <th>Duration</th> <!-- Started from: $start_date. Ended on $end_date -->
                             <th>Total Participants</th> <!-- $internal + $external. (Internal: $internal. External: $external) -->
                             <th> Edit </th>
+                            <th>View Images</th>
+                            <th>Publish as news</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -52,6 +54,8 @@
                                     <td>{{ $event->start_date }} TO {{ $event->end_date }}</td>
                                     <td>{{ $event->internal_participants_count + $event->external_participants_count }}. (Internal: {{ $event->internal_participants_count }}, External: {{ $event->external_participants_count }})</td>
                                     <td><button id="{{ $event->id }}" class="edit fa fa-pencil-alt btn-sm btn-warning"></button></td>
+                                    <td><button id="{{ $event->id }}" class="view-images fa fa-eye btn-sm btn-success"></button></td>
+                                    <td><button id="{{ $event->id }}" class="publish fa fa-book-reader btn-sm btn-primary"></button></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -64,6 +68,8 @@
                             <th>Duration</th> <!-- Started from: $start_date. Ended on $end_date -->
                             <th>Total Participants</th> <!-- $internal + $external. (Internal: $internal. External: $external) -->
                             <th>Edit</th>
+                            <th>View Images</th>
+                            <th>Publish as news</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -89,8 +95,17 @@
 
         manageEventsTable.on('click', '.edit', function () {
             $id = $(this).attr('id');
-            // console.log(window.location.pathname);
             window.location.pathname = '/events/end-event/' + $id + '/end';
+        });
+        
+        manageEventsTable.on('click', '.view-images', function () {
+            $id = $(this).attr('id');
+            window.location.pathname = '/events/images/' + $id + '/show';
+        });
+
+        manageEventsTable.on('click', '.publish', function () {
+            $id = $(this).attr('id');
+            window.location.pathname = '/events/' + $id + '/publish-as-news/';
         });
 
     </script>

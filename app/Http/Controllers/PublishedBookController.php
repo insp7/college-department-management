@@ -8,7 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class PublishedBooksController extends Controller
+/**
+ * Class PublishedBookController
+ * @package App\Http\Controllers
+ */
+class PublishedBookController extends Controller
 {
 
     protected $publishedBookService;
@@ -18,7 +22,6 @@ class PublishedBooksController extends Controller
         $this->publishedBookService = $publishedBookService;
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +29,6 @@ class PublishedBooksController extends Controller
      */
     public function index()
     {
-        //
         return view('published-books.manage-published-books');
     }
 
@@ -37,7 +39,6 @@ class PublishedBooksController extends Controller
      */
     public function create()
     {
-        //
         return view('published-books.add-published-book');
     }
 
@@ -49,8 +50,7 @@ class PublishedBooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $validatedData=$request->validate([
+        $validatedData = $request->validate([
             'details' => 'required',
         ]);
 
@@ -61,7 +61,7 @@ class PublishedBooksController extends Controller
                 'title' => 'Published Book added successfully',
                 'message' => 'The given Published Book has been added successfully'
             ]);
-        }catch (Exception $exception) {
+        } catch (Exception $exception) {
             return redirect()->back()->with([
                 'type' => 'danger',
                 'title' => 'Failed to add the Published Book',
@@ -70,31 +70,26 @@ class PublishedBooksController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+//    /**
+//     * Display the specified resource.
+//     *
+//     * @param  int  $id
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function show($id)
+//    {
+//    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
-    {
-        //fetch the published according to id and auth::id
-        //$gst = $this->gstService->get($id);
-        //        return view('gsts.edit-gst')->with([
-        //            'gst' => $gst
-        //        ]);
-        return view('published-books.edit-published-book');
+    public function edit(Request $request) {
+        $id = $request->published_book;
+        $published_book = PublishedBook::find($id);
+        return view('published-books.edit-published-book')->with('published_book', $published_book);
     }
 
     /**
@@ -104,16 +99,14 @@ class PublishedBooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-        $validatedData=$request->validate([
-            'state_name' => 'required|max:255|regex:/[a-zA-Z]+$/',
-            'code' => 'required|numeric|unique:states,code,'.$id
+    public function update(Request $request, $id) {
+
+        $validatedData = $request->validate([
+            'details' => 'required',
         ]);
 
         try {
-            $this->stateService->edit($validatedData, $id, Auth::id);
+            $this->publishedBookService->updatePublishedBook($validatedData, $id, Auth::id());
             return redirect('/published-books')->with([
                 'type' => 'success',
                 'title' => 'Published Book added successfully',
@@ -134,9 +127,8 @@ class PublishedBooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+
         try {
             $this->publishedBookService->delete($id,Auth::id());
             return redirect()->back()->with([
@@ -158,8 +150,7 @@ class PublishedBooksController extends Controller
      * @return mixed Resulting data in datatables.net format
      * @throws \Exception*
      */
-    public function getPublishedBooks()
-    {
+    public function getPublishedBooks() {
         /*CURRENT USER PUBLISHED BOOKS*/
         $publishedBooks = $this->publishedBookService->getDatatable(Auth::id());
 

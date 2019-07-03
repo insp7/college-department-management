@@ -15,13 +15,12 @@ use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class StaffService
-{
+class StaffService {
 
-    public function create($validatedData, $user_id){
+    public function create($validatedData, $user_id) {
         DB::beginTransaction();
 
-            $user=User::create([
+            $user = User::create([
                 'email' => $validatedData['email'],
                 'password' => Hash::make($validatedData['password']),
                 'created_by' => $user_id

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\FileConstants;
 use App\Event;
 use App\User;
 use Illuminate\Http\Request;
@@ -55,7 +56,6 @@ class EventsController extends Controller
             'type' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'additional_columns' => ''
         ]);
 
         try {
@@ -117,7 +117,6 @@ class EventsController extends Controller
             'institute_funding' => 'required|numeric',
             'sponsor_funding' => 'required|numeric',
             'expenditure' => 'required|numeric',
-            'additional_columns' => ''
         ]);
 
         $updateSuccessful = $this->eventsService->update($validatedData, $id, Auth::id());
@@ -236,7 +235,7 @@ class EventsController extends Controller
     public function getEndEventForm(Request $request) {
         $event_id = $request->event;
 
-        $event = Event::find($event_id);
+        $event = Event::findOrFail($event_id);
 
         return view('events.end-event')->with('event', $event);
     }
@@ -250,9 +249,39 @@ class EventsController extends Controller
             'institute_funding' => 'required|numeric',
             'sponsor_funding' => 'required|numeric',
             'expenditure' => 'required|numeric',
+            'event_images' => 'sometimes|required',
+            'event_images.*' =>'sometimes|mimes:jpeg,png,bmp,tiff'
         ]);
 
-        $eventSuccessfullyEnded = $this->eventsService->eventEnd($event_id, $event_data, Auth::id());
+        /****/
+
+        $image_relative_paths = [];
+        $user_id = Auth::id();
+
+        if($request->hasfile('event_images')) {
+            $i=0;
+
+            foreach($request->file('event_images') as $news_feed_image) {
+
+                // The file name of the attachment
+                $fileName = $user_id.'_'.$i++.'_'.time().'.'.$news_feed_image->getClientOriginalExtension();
+
+                // exact path on the current machine
+                $destinationPath = public_path(FileConstants::EVENT_IMAGES_ATTACHMENTS_PATH);
+
+                // Moving the image
+                $news_feed_image->move($destinationPath, $fileName);
+
+                // The relative path to the image
+                $image_relative_paths[]= FileConstants::EVENT_IMAGES_ATTACHMENTS_PATH.$fileName;
+            }
+        }
+
+        /****/
+
+//        dd($image_relative_paths);
+
+        $eventSuccessfullyEnded = $this->eventsService->eventEnd($event_id, $event_data, $image_relative_paths, Auth::id());
 
         if($eventSuccessfullyEnded) {
             return redirect('/events/manage/' . Auth::id())->with([
@@ -266,6 +295,36 @@ class EventsController extends Controller
             'type' => 'danger',
             'title' => 'Failed to end event',
             'message' => 'There was some issue in ending the event'
+        ]);
+    }
+
+    public function getEventImages(Request $request) {
+        $event_id = $request->event;
+        $event_images_path = $this->eventsService->getImagesPath($event_id);
+        $hostName = $request->getHttpHost();
+
+        return view('events.event-images')
+            ->with('event_images_path', $event_images_path)
+            ->with('hostName', $hostName);
+    }
+
+    public function publishAsNews(Request $request) {
+        $event_id = $request->event;
+
+        $publishedSuccessfully = $this->eventsService->publishEventAsNews($event_id, Auth::id());
+
+        if($publishedSuccessfully) {
+            return redirect()->back()->with([
+                'type' => 'success',
+                'title' => 'Event published successfully',
+                'message' => 'The given Event has been published successfully'
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'type' => 'danger',
+            'title' => 'Failed to Publish the event',
+            'message' => "There was some issue in publishing the Event"
         ]);
     }
 }

@@ -1,0 +1,11 @@
+- event_images DONE
+- publish event as news DONE
+- student_courses relation DONE
+- published_books DONE
+
+TO BE DONE:
+- 'additional_columns' are yet to be removed from some forms
+- Documentation for the code is remaining
+- Changing the controller naming conovention is pending
+- haven't removed transactions from all the services & haven't used findOrFail() method(for specific operations)
+- To have a view to "show all coordinators for a particular event"

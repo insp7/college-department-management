@@ -113,10 +113,15 @@
             ]
         });
 
+        managedPublishedBooksTable.on('click', '.edit', function(e) {
+            $id = $(this).attr('id');
+            window.location.pathname = '/published-books/' + $id + '/edit';
+        });
+
         managedPublishedBooksTable.on('click', '.delete', function(e) {
             $id = $(this).attr('id');
             $('#delete_form').attr('action', '/published-books/' + $id);
-        })
+        });
 
     </script>
 

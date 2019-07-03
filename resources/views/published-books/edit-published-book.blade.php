@@ -16,12 +16,13 @@
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="post" action="/published-books">
+                    <form method="post" enctype="multipart/form-data" action="/published-books/{{ $published_book->id }}">
                         @csrf
+                        @method('PATCH')
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea  value="{{ old('details') }}" required name="details"  placeholder="Details about book" class="form-control @error('details') is-invalid @enderror"></textarea>
+                                <textarea name="details" placeholder="Details about book" class="form-control @error('details') is-invalid @enderror">{{ $published_book->details }}</textarea>
                             </div>
                             @error('details')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>

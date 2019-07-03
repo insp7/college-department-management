@@ -155,18 +155,17 @@ class ResearchProjectsController extends Controller
     }
 
     /**
-     * Returns the data for datatables.
+     * Returns the current user's Research Projects.
+     *
      * @return mixed Resulting data in datatables.net format
-     * @throws \Exception*
+     * @throws \Exception
      */
     public function getResearchProjects()
     {
-        /*CURRENT USER PUBLISHED BOOKS*/
         $researchProjects = $this->researchProjectsService->getDatatable(Auth::id());
 
         return DataTables::of($researchProjects)
             ->addColumn('edit', function (ResearchProject $researchProject) {
-//                Redirect to page
                 return '<button id="' . $researchProject->id . '" class="edit fa fa-pencil-alt btn-sm btn-warning" data-toggle="modal" data-target="#editModal"></button>';
             })
             ->addColumn('delete', function (ResearchProject $researchProject) {

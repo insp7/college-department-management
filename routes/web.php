@@ -21,9 +21,12 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/notification', 'StaffController@showNotification');
 
-
-
 Route::middleware(['auth'])->group(function() {
+
+    // Student Courses; later move to staff routes!
+    Route::get('/student-courses/get-student-courses', 'StudentCourseController@getStudentCourses');
+    Route::resource('/student-courses', 'StudentCourseController');
+
     /**
      * General Routes
      */
@@ -50,12 +53,12 @@ Route::middleware(['auth'])->group(function() {
             // events to manage
             Route::get('/events/manage/{staff}', 'EventsController@getEventsByStaffId');
             Route::get('/events/end-event/{event}/end', 'EventsController@getEndEventForm');
-            Route::post('/events/end/{event}', 'EventsController@endEvent');
+            Route::post('/events/end/{event}', 'EventsController@endEvent'); // change this to get request if required.
+            Route::get('/events/{event}/publish-as-news/', 'EventsController@publishAsNews');
 
-            /*Published Books*/
-            Route::get('/published-books/get-published-books', 'PublishedBooksController@getPublishedBooks');
 
-            Route::resource('/published-books', 'PublishedBooksController');
+            // event images
+            Route::get('/events/images/{event}/show', 'EventsController@getEventImages');
 
             // Research Projects
             Route::get('/research-projects/get-research-projects', 'ResearchProjectsController@getResearchProjects');
