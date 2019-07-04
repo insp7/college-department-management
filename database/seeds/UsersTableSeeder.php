@@ -3,6 +3,7 @@
 use App\Staff;
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class UsersTableSeeder extends Seeder
             'last_name' => 'sanjay',
             'middle_name' => 'Dhananjay Ghumare',
             'email' => 'admin@gmail.com',
-            'password' => '$2y$10$zXhY8SU1BlPKbUGOUEWGGOcy1ylX7A3Gh1RfKnrMyL7Y6O2nmBUr.',
+            'password' => Hash::make('admin123'),
             'contact_no' => '9168977662',
             'date_of_birth' => '2019-05-23',
             'role' => 1,

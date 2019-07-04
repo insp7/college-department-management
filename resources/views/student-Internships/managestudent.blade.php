@@ -7,13 +7,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/classes"><i class="fas fa-user-friends"></i></a></li>
-    <li class="breadcrumb-item"><a href="/classes">Classes</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Classes</li>
+    <li class="breadcrumb-item"><a href="/student-internship"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/student-internship">Student Internship</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage student-internship</li>
 @endsection
 
 @section('actions')
-    <a href="/classes/{{ $class->id }}/students/create" class="btn btn-sm btn-neutral">New</a>
+    <a href="/student-internship/create" class="btn btn-sm btn-neutral">New</a>
 @endsection
 
 @section('page-content')
@@ -23,30 +23,25 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Students</h3>
+                    <h3 class="mb-0">Internships</h3>
                     <p class="text-sm mb-0">
-                        Students of this class
                     </p>
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table table-flush" id="classes-list">
+                    <table class="table table-flush" id="student-internship-list">
                         <thead class="thead-light">
                         <tr>
-                            <th> Name </th>
-                            <th> Roll No </th>
-                            <th> Email </th>
-                            <th> Delete </th>
+                            <th> COMAPNY NAME </th>
                             <th> Edit </th>
+                            <th> Delete </th>
                         </tr>
                         </thead>
                         <tfoot>
-                        <tr>
-                            <th> Name </th>
-                            <th> Roll No </th>
-                            <th> Email </th>
-                            <th> Delete </th>
-                            <th> Edit </th>
-                        </tr>
+                            <tr>
+                                <th> COMAPNY NAME </th>
+                                <th> Edit </th>
+                                <th> Delete </th>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
@@ -62,27 +57,27 @@
         <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Delete Published Book</h6>
+                    <h6 class="modal-title" id="modal-title-default">Delete Student Internship</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <form  id="delete_form" method="POST">
-                    <div class="modal-body">
+                <div class="modal-body">
 
                         @method('DELETE')
                         @csrf
                         <div class="form-body">
                             <!-- START OF MODAL BODY -->
                             <div class="container">
-                                <label>Are you sure you want to delete the Published Book ?</label>
+                                <label>Are you sure you want to delete the Student Internship ?</label>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default  ml-auto" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default  ml-auto" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
                 </form>
             </div>
         </div>
@@ -101,24 +96,22 @@
     <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
     <script>
-        let manageClassesTable = $('#classes-list');
+        let managedStudentInternshipTable = $('#student-internship-list');
 
-        manageClassesTable.DataTable({
+        managedStudentInternshipTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/classes/{{ $class->id }}/get-students',
+            ajax: '/studnet-internship/get-student-internship',
             columns: [
-                {data: 'name', name: 'name'},
-                {data: 'roll_no', name: 'roll_no'},
-                {data: 'email', name: 'email'},
-                {data: 'delete', name: 'delete'},
-                {data: 'edit', name: 'edit'}
+                {data: 'company_name', name: 'company_name'},
+                {data: 'edit', name: 'edit'},
+                {data: 'delete', name: 'delete'}
             ]
         });
 
-        manageClassesTable.on('click', '.delete', function(e) {
+        managedStudentInternshipTable.on('click', '.delete', function(e) {
             $id = $(this).attr('id');
-            $('#delete_form').attr('action', '/published-books/' + $id);
+            $('#delete_form').attr('action', '/student-internship/' + $id);
         })
 
     </script>

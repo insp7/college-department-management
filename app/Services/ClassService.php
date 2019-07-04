@@ -34,6 +34,12 @@ class ClassService
         return Classs::orderBy('created_at', 'desc');
     }
 
+    public function getClassStudentsDatatable($class){
+            error_log('returning class students');
+        error_log($class->students);
+            return $class->students;
+    }
+
     public function delete($id,$user_id){
         return Classs::where('id', $id)
             ->delete();

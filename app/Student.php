@@ -14,4 +14,14 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     protected $fillable = ['roll_no', 'user_id', 'class_id', 'is_fully_registered', 'additional_columns', 'created_by', 'updated_by'];
+    
+    
+    public function internship()
+    {
+        return $this->hasMany('App\StudentInternship');
+    }
+
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
 }

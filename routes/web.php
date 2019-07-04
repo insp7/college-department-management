@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/dashboard', 'DashboardController@index');
     Route::get('/timeline', 'UserController@timeline');
     Route::resource('/news-feed', 'NewsFeedController');
+    Route::resource('/student-internship', 'StudentInternshipController');
+    Route::get('/studnet-internship/get-student-internship', 'StudentInternshipController@getStudentInternships');
 
     /**
      * Staff Routes
@@ -57,9 +59,13 @@ Route::middleware(['auth'])->group(function() {
             Route::post('/events/end/{event}', 'EventsController@endEvent'); // change this to get request if required.
             Route::get('/events/{event}/publish-as-news/', 'EventsController@publishAsNews');
 
-
             // event images
             Route::get('/events/images/{event}/show', 'EventsController@getEventImages');
+
+            /*Published Books*/
+            Route::get('/published-books/get-published-books', 'PublishedBooksController@getPublishedBooks');
+            Route::resource('/published-books', 'PublishedBooksController');
+
 
             // Research Projects
             Route::get('/research-projects/get-research-projects', 'ResearchProjectsController@getResearchProjects');
@@ -77,9 +83,6 @@ Route::middleware(['auth'])->group(function() {
             Route::get('/profile', 'UserController@myProfile');
             Route::get('/staff/edit', 'StaffController@staffEdit');
 
-            /*Published Books*/
-            Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
-            Route::resource('/published-books', 'PublishedBookController');
 
 
             /**
@@ -98,10 +101,14 @@ Route::middleware(['auth'])->group(function() {
                 Route::get('/admin/events/get-events', 'EventsController@getEvents');
                 Route::resource('/admin/events', 'EventsController');
 
+                /*STUDENT ROUTES*/
+
+
 
                 /*CLASS ROUTES*/
-                Route::get('/classes/get-classes', 'ClassController@getClasses');
+                Route::get('/classes/{id}/get-students', 'ClassController@getClassStudents');
 
+                Route::get('classes/{id}/students/create', 'ClassController@createClassStudents');
                 Route::get('classes/{id}/students/create', 'ClassController@createClassStudents');
                 Route::post('classes/{id}/students/store', 'ClassController@storeClassStudents');
 

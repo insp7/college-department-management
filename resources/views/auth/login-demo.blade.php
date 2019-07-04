@@ -42,6 +42,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-5 col-lg-6 col-md-8 px-5">
                         <h1 class="text-white">Welcome!</h1>
+                        <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p>
                     </div>
                 </div>
             </div>
@@ -82,20 +83,20 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                    <input placeholder="Email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                 </div>
                                 @error('email')
-                                <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                                <span class="invalid-feedback" style="display: block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
-
-
                             <div class="form-group">
                                 <div class="input-group input-group-merge input-group-alternative @error('password') has-danger @enderror">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                                 </div>
                                 @error('password')
                                 <span class="invalid-feedback" style="display: block" role="alert">
@@ -105,12 +106,12 @@
                             </div>
                             <div class="custom-control custom-control-alternative custom-checkbox" >
                                 <input name="remember" class="custom-control-input" id="customCheckLogin" type="checkbox"  {{ old('remember') ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="customCheckLogin">
+                                <label class="custom-control-label" for=" customCheckLogin">
                                     <span class="text-muted">Remember me</span>
                                 </label>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary my-4">Log in</button>
+                                <button type="button" class="btn btn-primary my-4">Log in</button>
                             </div>
                         </form>
                     </div>

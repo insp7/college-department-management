@@ -15,7 +15,13 @@ class CreateStudentInternshipImagesTable extends Migration
     {
         Schema::create('student_internship_images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->integer('student_internship_id');
+            $table->string('image_path');
+
+            $table->integer('created_by');
+            $table->integer('updated_by')->nullable();
+            $table->softDeletes();
+            $table->timestamps(); 
         });
     }
 

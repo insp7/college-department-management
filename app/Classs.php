@@ -22,4 +22,8 @@ class Classs extends Model
         'year', 'additional_columns', 'created_by', 'created_at', 'updated_at',
     ];
 
+    public function students(){
+        return $this->hasMany('App\Student','class_id', 'id');
+    }
+
 }
