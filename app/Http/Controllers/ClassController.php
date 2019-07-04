@@ -9,6 +9,7 @@ use App\PublishedBook;
 use App\Services\ClassService;
 use App\Services\PublishedBookService;
 use App\Services\StudentService;
+use App\Student;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -258,6 +259,48 @@ class ClassController extends Controller
             })
             ->rawColumns(['edit', 'delete', 'view'])
             ->make(true);
+    }
+
+    public function getClassStudents($id)
+    {
+        error_log('get class students called');
+        try{
+            $class = Classs::findOrFail($id);
+
+            $students = $this->classService->getClassStudentsDatatable($class);
+
+            error_log(json_encode($students));
+            error_log('value of students/.........');
+            return DataTables::of($students)
+                ->addColumn('name', function(Student $student) {
+//                Redirect to page
+                    return $student->user->first_name.' '.$student->user->middle_name.' '.$student->user->last_name;
+                })
+                ->addColumn('email', function(Student $student) {
+//                Redirect to page
+                    return $student->user->email;
+                })
+                ->addColumn('edit', function(Student $student) {
+//                Redirect to page
+                    return '<button id="'.$student->id.'" class="edit fa fa-pencil-alt btn-sm btn-warning" data-toggle="modal" data-target="#editModal"></button>';
+                })
+                ->addColumn('delete', function(Student $student) {
+                    return '<button id="'.$student->id.'" class="delete fa fa-trash btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal"></button>';
+                })
+                ->rawColumns(['edit', 'delete'])
+                ->make(true);
+
+        }catch (\Exception $exception){
+            return redirect()->back()->with([
+                'type' => 'danger',
+                'title' => 'Failed To Delete Published Book',
+                'message' => 'Error in deleting Published Book'
+            ]);
+        }
+
+
+
+
     }
 
 

@@ -112,7 +112,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="input-group input-group-merge @error('password') has-danger @enderror">
-                                        <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-key"></i> </span> </div> <input required name="password_confirmation" type="password" placeholder="Confirm Password" class="form-control">
+                                        <div class="input-group-prepend"> <span class="input-group-text"> <i class="fa fa-key"></i> </span> </div> <input required name="password_confirmation" type="password" placeholder="Confirm Password" class="form-control  @error('password') is-invalid @enderror">
                                     </div>
                                 </div>
                             </div>
@@ -251,7 +251,7 @@
 
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <textarea  value="{{ old('bos_member_details') }}" required name="bos_member_details"  placeholder="BOS Member details" class="form-control @error('bos_member_details') is-invalid @enderror"></textarea>
+                                                <textarea   required name="bos_member_details"  placeholder="BOS Member details" class="form-control @error('bos_member_details') is-invalid @enderror">{{ old('bos_member_details') }}</textarea>
                                             </div>
                                             @error('bos_member_details')
                                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -322,7 +322,7 @@
 
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <textarea  value="{{ old('industry_experience_details') }}" required name="industry_experience_details"  placeholder="Industry Experience details" class="form-control @error('industry_experience_details') is-invalid @enderror"></textarea>
+                                            <textarea  required name="industry_experience_details"  placeholder="Industry Experience details" class="form-control @error('industry_experience_details') is-invalid @enderror">{{ old('industry_experience_details') }}</textarea>
                                         </div>
                                         @error('industry_experience_details')
                                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -392,7 +392,7 @@
 
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <textarea  value="{{ old('subject_chairman_details') }}" required name="subject_chairman_details"  placeholder="Subject Chairman details" class="form-control @error('subject_chairman_details') is-invalid @enderror"></textarea>
+                                            <textarea   required name="subject_chairman_details"  placeholder="Subject Chairman details" class="form-control @error('subject_chairman_details') is-invalid @enderror">{{ old('subject_chairman_details') }}</textarea>
                                         </div>
                                         @error('subject_chairman_details')
                                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -452,7 +452,7 @@
 
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <textarea  value="{{ old('subject_expert_details') }}" required name="subject_expert_details"  placeholder="Subject Expert details" class="form-control @error('subject_expert_details') is-invalid @enderror"></textarea>
+                                            <textarea   required name="subject_expert_details"  placeholder="Subject Expert details" class="form-control @error('subject_expert_details') is-invalid @enderror">{{ old('subject_expert_details') }}</textarea>
                                         </div>
                                         @error('subject_expert_details')
                                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -499,7 +499,7 @@
                                 </div>
 
 
-                                @if(old('is_staff_selection_committee'))
+                                @if(old('is_staff_selection_committee_member'))
                                 {{--REMOVE THIS IS is_staff_selection_committee is not checked--}}
                                 <div id="is_staff_selection_committee_sub_form">
 
@@ -512,7 +512,7 @@
 
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <textarea  value="{{ old('staff_selection_committee_details') }}" required name="staff_selection_committee_details"  placeholder="Staff Selection Committee details" class="form-control @error('staff_selection_committee_details') is-invalid @enderror"></textarea>
+                                            <textarea   required name="staff_selection_committee_details"  placeholder="Staff Selection Committee details" class="form-control @error('staff_selection_committee_details') is-invalid @enderror">{{ old('department_advisory_board_details') }}</textarea>
                                         </div>
                                         @error('staff_selection_committee_details')
                                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -572,7 +572,7 @@
 
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <textarea  value="{{ old('department_advisory_board_details') }}" required name="department_advisory_board_details"  placeholder="Department Advisory Board" class="form-control @error('department_advisory_board_details') is-invalid @enderror"></textarea>
+                                            <textarea  required name="department_advisory_board_details"  placeholder="Department Advisory Board" class="form-control @error('department_advisory_board_details') is-invalid @enderror">{{ old('department_advisory_board_details') }}</textarea>
                                         </div>
                                         @error('department_advisory_board_details')
                                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -631,7 +631,7 @@
 
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <textarea  value="{{ old('academic_audit_details') }}" required name="academic_audit_details"  placeholder="Academic Auditor details" class="form-control @error('academic_audit_details') is-invalid @enderror"></textarea>
+                                            <textarea   required name="academic_audit_details"  placeholder="Academic Auditor details" class="form-control @error('academic_audit_details') is-invalid @enderror">{{ old('academic_audit_details') }}</textarea>
                                         </div>
                                         @error('academic_audit_details')
                                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -690,7 +690,7 @@
 
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <textarea  value="{{ old('subject_expert_phd_details') }}" required name="subject_expert_phd_details"  placeholder="Subject Expert PHD details" class="form-control @error('subject_expert_phd_details') is-invalid @enderror"></textarea>
+                                            <textarea   required name="subject_expert_phd_details"  placeholder="Subject Expert PHD details" class="form-control @error('subject_expert_phd_details') is-invalid @enderror">{{ old('examination_auditor_details') }}</textarea>
                                         </div>
                                         @error('subject_expert_phd_details')
                                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -750,7 +750,7 @@
 
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <textarea  value="{{ old('other_universities_examiner_details') }}" required name="other_universities_examiner_details"  placeholder="Other Universities Examiner details" class="form-control @error('other_universities_examiner_details') is-invalid @enderror"></textarea>
+                                            <textarea  required name="other_universities_examiner_details"  placeholder="Other Universities Examiner details" class="form-control @error('other_universities_examiner_details') is-invalid @enderror">{{ old('other_universities_examiner_details') }}</textarea>
                                         </div>
                                         @error('other_universities_examiner_details')
                                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -810,7 +810,7 @@
 
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <textarea  value="{{ old('examination_auditor_details') }}" required name="examination_auditor_details"  placeholder="Examination Auditor details" class="form-control @error('examination_auditor_details') is-invalid @enderror"></textarea>
+                                            <textarea   required name="examination_auditor_details"  placeholder="Examination Auditor details" class="form-control @error('examination_auditor_details') is-invalid @enderror">{{ old('examination_auditor_details') }}</textarea>
                                         </div>
                                         @error('examination_auditor_details')
                                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -870,7 +870,7 @@
 
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <textarea  value="{{ old('subject_coordinator_src_details') }}" required name="subject_coordinator_src_details"  placeholder="Subject Coordinator Syllabus Revision Committee details" class="form-control @error('subject_coordinator_src_details') is-invalid @enderror"></textarea>
+                                            <textarea   required name="subject_coordinator_src_details"  placeholder="Subject Coordinator Syllabus Revision Committee details" class="form-control @error('subject_coordinator_src_details') is-invalid @enderror">{{ old('examination_auditor_details') }}</textarea>
                                         </div>
                                         @error('subject_coordinator_src_details')
                                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>

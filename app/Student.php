@@ -20,4 +20,8 @@ class Student extends Model
     {
         return $this->hasMany('App\StudentInternship');
     }
+
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
 }

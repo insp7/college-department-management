@@ -74,8 +74,8 @@ class StaffController extends Controller
     public function store(Request $request)
     {
         $validatedData=$request->validate([
-            'email' => 'nullable|email|unique:users',
-            'password' => 'nullable|confirmed|min:6',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         try {
@@ -143,10 +143,10 @@ class StaffController extends Controller
 
         /*CHECK IF USER HAS COMPLETED REGISTRATION*/
         /*IF ALREADY COMPLETED REDIRECT TO DASHBOARD*/
-//        error_log(Auth::user()->staff->is_fully_registered);
-//        if(Auth::user()->staff->is_fully_registered){
-//            return redirect('/dashboard');
-//        }
+        error_log(Auth::user()->staff->is_fully_registered);
+        if(Auth::user()->staff->is_fully_registered){
+            return redirect('/dashboard');
+        }
 
 
         return view('staff.fill-details');
@@ -180,13 +180,13 @@ class StaffController extends Controller
         $userValidatedData=$request->validate([
 
             /*DATA FOR USERS TABLE*/
-            'first_name' => 'nullable',
-            'middle_name' => 'nullable',
-            'last_name' => 'nullable',
-            'contact_no' => 'nullable|digits:10',
-            'date_of_birth' => 'nullable|date',
-            'gender' => 'nullable|in:M,F,O',
-            'password' => 'nullable|min:6',
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'last_name' => 'required',
+            'contact_no' => 'required|digits:10',
+            'date_of_birth' => 'required|date',
+            'gender' => 'required|in:M,F,O',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         $staffValidatedData=$request->validate([
@@ -194,9 +194,9 @@ class StaffController extends Controller
             /*DATA FOR STAFF TABLE*/
             'is_teaching' => 'sometimes|in:1,0',
             'is_permanent' => 'sometimes|in:1,0',
-            'pan' => 'nullable|digits:10',
-            'employee_id' => 'nullable',
-            'date_of_joining_institute' => 'nullable|date',
+            'pan' => 'required|digits:10',
+            'employee_id' => 'required',
+            'date_of_joining_institute' => 'required|date',
 
             /*bos_chairman*/
             'is_bos_chairman' => 'sometimes|in:1,0',

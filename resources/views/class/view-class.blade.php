@@ -32,18 +32,20 @@
                     <table class="table table-flush" id="classes-list">
                         <thead class="thead-light">
                         <tr>
-                            <th> Year </th>
-                            <th> Edit </th>
+                            <th> Name </th>
+                            <th> Roll No </th>
+                            <th> Email </th>
                             <th> Delete </th>
-                            <th> View </th>
+                            <th> Edit </th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
-                            <th> Year </th>
-                            <th> Edit </th>
+                            <th> Name </th>
+                            <th> Roll No </th>
+                            <th> Email </th>
                             <th> Delete </th>
-                            <th> View </th>
+                            <th> Edit </th>
                         </tr>
                         </tfoot>
                     </table>
@@ -104,12 +106,13 @@
         manageClassesTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/classes/get-classes',
+            ajax: '/classes/{{ $class->id }}/get-students',
             columns: [
-                {data: 'year', name: 'year'},
-                {data: 'edit', name: 'edit'},
+                {data: 'name', name: 'name'},
+                {data: 'roll_no', name: 'roll_no'},
+                {data: 'email', name: 'email'},
                 {data: 'delete', name: 'delete'},
-                {data: 'view', name: 'view'}
+                {data: 'edit', name: 'edit'}
             ]
         });
 

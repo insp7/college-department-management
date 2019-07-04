@@ -20,7 +20,7 @@ class CreateStaffTable extends Migration {
 			$table->boolean('is_permanent')->default(0)->nullable();
 			$table->boolean('is_teaching')->default(0)->nullable();
 			$table->string('pan')->nullable();
-			$table->integer('employee_id')->nullable();
+			$table->text('employee_id')->nullable();
 			$table->date('date_of_joining_institute')->nullable();
 
 			$table->boolean('is_bos_chairman')->default(0)->nullable();
