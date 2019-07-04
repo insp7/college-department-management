@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Constants\FileConstants;
+use App\NewsFeed;
+use App\NewsFeedImage;
 use App\Services\NewsFeedService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +25,8 @@ class NewsFeedController extends Controller
      */
     public function index()
     {
-        //
-        return view('news-feed.view-news-feed');
+        $news_feeds = NewsFeed::orderBy('created_at', 'desc')->get();
+        return view('news-feed.view-news-feed')->with('news_feeds', $news_feeds);
     }
 
     /**

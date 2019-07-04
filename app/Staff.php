@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Staff extends Model
 {
-
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
     // Change if required
     public function researchProjects() {
@@ -29,10 +28,11 @@ class Staff extends Model
         return $this->belongsToMany('App\Event', 'event_staff');
 
     }
-
+  
     public function user() {
         return $this->belongsTo('App\User');
     }
+  
     public function internship()
     {
         return $this->hasMany('App\StudentInternship');

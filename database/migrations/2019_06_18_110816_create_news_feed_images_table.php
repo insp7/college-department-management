@@ -19,8 +19,8 @@ class CreateNewsFeedImagesTable extends Migration {
 			$table->integer('news_feed_id');
 			$table->string('image_path');
 
-			$table->integer('created_by');
-			$table->integer('updated_by')->nullable();
+//			$table->integer('created_by')->nullable();
+//			$table->integer('updated_by')->nullable();
 			$table->softDeletes();
             $table->timestamps();
 		});

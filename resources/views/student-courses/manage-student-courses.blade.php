@@ -7,13 +7,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/admin/events"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/admin/events">Events</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Events</li>
+    <li class="breadcrumb-item"><a href="/student-courses"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/student-courses">Student Courses</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage Student Courses</li>
 @endsection
 
 @section('actions')
-    <a href="/admin/events/create" class="btn btn-sm btn-neutral">New</a>
+    <a href="/student-courses/create" class="btn btn-sm btn-neutral">New</a>
 @endsection
 
 @section('page-content')
@@ -29,34 +29,27 @@
                     </p>
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table table-flush table-sm" id="events-list">
+                    <table class="table table-flush" id="student-courses-list">
                         <thead class="thead-light">
                         <tr>
-                            {{-- The comments next to <th></th> tags indicate the data representation format for the following <th></th> --}}
-                            <th>Name</th>
-                            <th>Details</th> <!-- $details. Address: $address -->
-                            <th>Type</th>
-                            <th>Funding</th> <!-- $total_funding. (institute: $institute_funding, sponsor: $sponsor_funding) -->
-                            <th>Duration</th> <!-- Started from: $start_date. Ended on $end_date -->
-                            <th>Total Participants</th> <!-- $internal + $external. (Internal: $internal. External: $external) -->
+                            <th> Name </th>
+                            <th> Details </th>
+                            <th> Location </th>
+                            <th> Duration </th>
                             <th> Date </th>
-                            <th>Add Cooordinator</th>
                             <th> Edit </th>
                             <th> Delete </th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
-                            <th>Name</th>
-                            <th>Details</th> <!-- $details. Address: $address -->
-                            <th>Type</th>
-                            <th>Funding</th> <!-- $total_funding. (institute: $institute_funding, sponsor: $sponsor_funding) -->
-                            <th>Duration</th> <!-- Started from: $start_date. Ended on $end_date -->
-                            <th>Total Participants</th> <!-- $internal + $external. (Internal: $internal. External: $external) -->
-                            <th>Date</th>
-                            <th>Add Cooordinator</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th> Name </th>
+                            <th> Details </th>
+                            <th> Location </th>
+                            <th> Duration </th>
+                            <th> Date </th>
+                            <th> Edit </th>
+                            <th> Delete </th>
                         </tr>
                         </tfoot>
                     </table>
@@ -73,7 +66,7 @@
         <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Delete Events</h6>
+                    <h6 class="modal-title" id="modal-title-default">Delete Published Book</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -86,7 +79,7 @@
                         <div class="form-body">
                             <!-- START OF MODAL BODY -->
                             <div class="container">
-                                <label>Are you sure you want to delete the Events ?</label>
+                                <label>Are you sure you want to delete the Published Book ?</label>
                             </div>
                         </div>
                     </div>
@@ -112,41 +105,31 @@
     <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
     <script>
-        let manageEventsTable = $('#events-list');
+        let manageStudentCoursesTable = $('#student-courses-list');
 
-        manageEventsTable.DataTable({
+        manageStudentCoursesTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/admin/events/get-events',
+            ajax: '/student-courses/get-student-courses',
             columns: [
                 {data: 'name', name: 'name'},
                 {data: 'details', name: 'details'},
-                {data: 'type', name: 'type'},
-                {data: 'funding', name: 'funding'},
+                {data: 'location', name: 'location'},
                 {data: 'duration', name: 'duration'},
-                {data: 'total_participants', name: 'total_participants'},
-                {data: 'additional_columns', name: 'additional_columns'},
                 {data: 'date', name: 'date'},
-                {data: 'add_coordinator', name: 'add_coordinator'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
             ]
         });
 
-        manageEventsTable.on('click', '.add_coordinator', function() {
+        manageStudentCoursesTable.on('click', '.edit', function(e) {
             $id = $(this).attr('id');
-            window.location.pathname = '/admin/events/' + $id + '/assign-coordinator';
+            window.location.pathname = '/student-courses/' + $id + '/edit';
         });
 
-        manageEventsTable.on('click', '.delete', function() {
+        manageStudentCoursesTable.on('click', '.delete', function(e) {
             $id = $(this).attr('id');
-            $('#delete_form').attr('action', '/admin/events/' + $id);
-        });
-
-        manageEventsTable.on('click', '.edit', function () {
-            $id = $(this).attr('id');
-            // console.log(window.location.pathname);
-            window.location.pathname = '/admin/events/' + $id + '/edit';
+            $('#delete_form').attr('action', '/student-courses/' + $id);
         });
 
     </script>

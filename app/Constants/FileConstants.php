@@ -18,11 +18,11 @@ interface FileConstants
     // The path for all uploads
     const ATTACHMENTS_PATH = "/storage/attachments/";
     // Staff Details Uploads Path
-    const STAFF_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."staff/";
-
-    // Staff Details Uploads Path
-    const NEWS_FEED_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."news-feed/";
-
+    const STAFF_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH . "staff/";
+        // News Feed Uploads Path
+    const NEWS_FEED_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH . "news-feed/";
+  // Event Images Upload Path
+    const EVENT_IMAGES_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH . "event-images/";
     // Internship Detailes image Path   
     const STUDENT_INTERNSHIP_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."student-internship/";
 
