@@ -79,7 +79,7 @@ class StudentInternshipController extends Controller
             return redirect()->back()->with([
                 'type' => 'success',
                 'title' => 'Internship added successfully',
-                'message' => 'The Internship staff has been added successfully'
+                'message' => 'The Internship has been added successfully'
             ]);
         } catch (Exception $exception) {
 
@@ -109,7 +109,8 @@ class StudentInternshipController extends Controller
      */
     public function edit(StudentInternship $studentInternship)
     {
-        //
+        
+        return view('student-Internships.editstudentinternship',['student'=>$studentInternship]);
     }
 
     /**
@@ -119,9 +120,50 @@ class StudentInternshipController extends Controller
      * @param  \App\StudentInternship  $studentInternship
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StudentInternship $studentInternship)
+    public function update(Request $request, $id)
     {
-        //
+     
+        $validatedData = $request->validate([
+            'company_name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'is_paid' => 'boolean',
+        ]); 
+        $validatedfile=$request->validate([
+            'student_internship_image' => 'sometimes|file|mimes:jpeg,png,bmp,tiff'
+        ]);
+        $validatedData['updated_by']=Auth::id();
+        $attachments=$request->file();
+        $user_id = Auth::id();
+        foreach ($attachments as $name => $attachment) {
+            // The file name of the attachment
+            $fileName = $user_id . '_' . $name.''.$attachment->getClientOriginalExtension();
+            // exact path on the current machine
+            $destinationPath = public_path(FileConstants::STUDENT_INTERNSHIP_ATTACHMENTS_PATH);
+            // Moving the image
+            $attachment->move($destinationPath, $fileName);
+            // The relative path to the image
+            $image_relative_path = FileConstants::STUDENT_INTERNSHIP_ATTACHMENTS_PATH . $fileName;
+        }
+         try {
+            $this->studentinternshipservice->update($validatedData, $image_relative_path, Auth::id(),$id);
+            return redirect('student-internship')->with([
+                'type' => 'success',
+                'title' => 'Internship updated successfully',
+                'message' => 'The Internship has been updated successfully'
+            ]);
+        } catch (Exception $exception) {
+
+            return redirect()->back()->with([
+                'type' => 'danger',
+                'title' => 'Failed to add the Internship',
+                'message' => "There was some issue in adding the Internship"
+            ]);
+        }
+
+
+        
+
     }
 
     /**
@@ -155,12 +197,12 @@ class StudentInternshipController extends Controller
     public function getStudentInternships()
     {
         /*CURRENT Student Internship*/
-        $studentinternship = $this->studentinternshipservice->getDatatable(Auth::id());
+        $studentInternship = $this->studentinternshipservice->getDatatable(Auth::id());
 
-        return DataTables::of($studentinternship)
+        return DataTables::of($studentInternship)
             ->addColumn('edit', function (StudentInternship $studentInternship) {
-                return '<button id="'.$studentInternship->id .'" class="edit fa fa-pencil-alt btn-sm btn-warning" data-toggle="modal" data-target="#editModal"></button>';
-            })
+            return '<button id="' . $studentInternship->id . '" class="edit fa fa-pencil-alt btn-sm btn-warning"></button>'
+            ;})
             ->addColumn('delete', function ( StudentInternship $studentInternship) {
                 return '<button id="' . $studentInternship->id . '" class="delete fa fa-trash btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal"></button>';
             })

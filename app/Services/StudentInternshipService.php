@@ -46,8 +46,28 @@ class StudentInternshipService
 
     public function delete($id, $user_id)
     {
-        return StudentInternship::where('created_by', $user_id)
+        DB::beginTransaction();
+        StudentInternship::where('created_by', $user_id)
             ->where('id', $id)
             ->delete();
+        StudentInternshipImage::where('student_internship_id', $id)
+            ->delete();
+        DB::commit();
     }
+
+    public function update($validatedData, $image_relative_path, $user_id,$id)
+    {
+        DB::beginTransaction();
+        StudentInternshipImage::where('student_internship_id', $id)->delete();
+
+        StudentInternship::where('id',$id)->update($validatedData);
+        $student_internship = StudentInternship::where('id', $id);
+        StudentInternshipImage::create([
+            'student_internship_id' => $id,
+            'image_path' => $image_relative_path,
+            'created_by' => $user_id
+        ]);
+
+        DB::commit();
+}
 }
