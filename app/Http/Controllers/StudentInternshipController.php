@@ -76,7 +76,7 @@ class StudentInternshipController extends Controller
 
         try {
             $this->studentinternshipservice->create($validatedData, $image_relative_path, Auth::id());
-            return redirect()->back()->with([
+            return redirect('student-internship')->with([
                 'type' => 'success',
                 'title' => 'Internship added successfully',
                 'message' => 'The Internship has been added successfully'

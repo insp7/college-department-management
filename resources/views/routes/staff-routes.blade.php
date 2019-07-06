@@ -1,5 +1,6 @@
 <li class="nav-item">
-    <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+    <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true"
+        aria-controls="navbar-dashboards">
         <i class="ni ni-single-02 text-primary"></i>
         <span class="nav-link-text">Published Books</span>
     </a>
@@ -16,7 +17,8 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+    <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true"
+        aria-controls="navbar-dashboards">
         <i class="ni ni-single-02 text-primary"></i>
         <span class="nav-link-text">Research Projects</span>
     </a>
@@ -33,7 +35,8 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+    <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true"
+        aria-controls="navbar-dashboards">
         <i class="ni ni-single-02 text-primary"></i>
         <span class="nav-link-text">IPR</span>
     </a>
@@ -50,7 +53,8 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+    <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true"
+        aria-controls="navbar-dashboards">
         <i class="ni ni-single-02 text-primary"></i>
         <span class="nav-link-text">Publications</span>
     </a>
@@ -66,27 +70,11 @@
     </div>
 </li>
 
-<li class="nav-item">
-    <a class="nav-link active" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
-        <i class="ni ni-single-02 text-primary"></i>
-        <span class="nav-link-text">Student Courses</span>
-    </a>
-    <div class="collapse show" id="navbar-dashboards">
-        <ul class="nav nav-sm flex-column">
-            <li class="nav-item">
-                <a href="/student-courses/create" class="nav-link">Add Course</a>
-            </li>
-            <li class="nav-item">
-                <a href="/student-courses" class="nav-link">Manage Courses</a>
-            </li>
-        </ul>
-    </div>
-</li>
 
 <li class="nav-item">
-    <a class="nav-link active" href="/events/manage/{{ Auth::id() }}" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+    <a class="nav-link active" href="/events/manage/{{ Auth::id() }}" role="button" aria-expanded="true"
+        aria-controls="navbar-dashboards">
         <i class="ni ni-single-02 text-primary"></i>
         <span class="nav-link-text">Events</span>
     </a>
 </li>
-
