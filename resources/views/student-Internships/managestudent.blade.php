@@ -32,6 +32,8 @@
                         <thead class="thead-light">
                         <tr>
                             <th> COMAPNY NAME </th>
+                            <th> START DATE </th>
+                            <th> END DATE </th>
                             <th> Edit </th>
                             <th> Delete </th>
                         </tr>
@@ -39,6 +41,8 @@
                         <tfoot>
                             <tr>
                                 <th> COMAPNY NAME </th>
+                                <th> START DATE </th>
+                                <th> END DATE </th>
                                 <th> Edit </th>
                                 <th> Delete </th>
                             </tr>
@@ -104,11 +108,16 @@
             ajax: '/studnet-internship/get-student-internship',
             columns: [
                 {data: 'company_name', name: 'company_name'},
+                {data: 'start_date', name: 'start_date'},
+                {data: 'end_date', name: 'end_date'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
             ]
         });
-
+            managedStudentInternshipTable.on('click', '.edit', function () {
+            $id = $(this).attr('id');
+            window.location.pathname = '/student-internship/' + $id + '/edit';
+            });
         managedStudentInternshipTable.on('click', '.delete', function(e) {
             $id = $(this).attr('id');
             $('#delete_form').attr('action', '/student-internship/' + $id);

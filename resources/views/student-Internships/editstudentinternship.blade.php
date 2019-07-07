@@ -3,7 +3,7 @@
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="/dashboard"><i class="fas fa-newspaper"></i></a></li>
 <li class="breadcrumb-item"><a href="/student-internship">Internship</a></li>
-<li class="breadcrumb-item active" aria-current="page">Add Internship</li>
+<li class="breadcrumb-item active" aria-current="page">Edit Internship</li>
 @endsection
 
 @section('page-content')
@@ -12,13 +12,14 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-                <h3 class="mb-0">Add Internship</h3>
+                <h3 class="mb-0">Edit Internship</h3>
             </div>
             <!-- Card body -->
             <div class="card-body">
-                <form method="POST" action="/student-internship" enctype="multipart/form-data" id="frmTarget">
-
-                    @csrf
+            <form method="POST" action="/student-internship/{{$student->id}}" enctype="multipart/form-data" id="frmTarget">
+                @csrf        
+                @method('PATCH')
+                        
 
                     @if ($errors->any())
                     <div class="alert alert-danger">
@@ -32,7 +33,7 @@
                     <div class="form-group">
                         <div class="input-group input-group-merge @error('company_name') has-danger @enderror">
                             <div class="input-group-prepend"> <span class="input-group-text"> <i
-                                        class="fa fa-newspaper"></i> </span> </div> <input value="{{ old('title') }}"
+                                        class="fa fa-newspaper"></i> </span> </div> <input value="{{ $student->company_name }}"
                                 required name="company_name" type="company_name" placeholder="Company Name"
                                 class="form-control @error('company_name') is-invalid @enderror">
                         </div>
@@ -45,11 +46,11 @@
 
                     <div>
                         <div class="custom-control custom-radio custom-control-inline mb-3">
-                            <input type="radio" id="is_paid1" name="is_paid" class="custom-control-input" value='0'>
+                            <input type="radio" id="is_paid1" name="is_paid" class="custom-control-input" value='0' {{$student->is_paid===0?'checked':''}}>
                             <label class="custom-control-label" for="is_paid1">Unpaid</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="is_paid" name="is_paid" class="custom-control-input" value='1'>
+                            <input type="radio" id="is_paid" name="is_paid" class="custom-control-input" value='1'  {{$student->is_paid===1?'checked':''}}>
                             <label class="custom-control-label" for="is_paid">Paid</label>
                         </div>
                     </div>
@@ -62,7 +63,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input class="form-control" name="start_date" placeholder="Start date" type="text">
+                                    <input class="form-control" name="start_date" placeholder="Start date" value={{$student->start_date}} type="text">
                                 </div>
                             </div>
                         </div>
@@ -72,7 +73,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input class="form-control" name="end_date" placeholder="End date" type="text">
+                                    <input class="form-control" name="end_date" placeholder="End date" value={{$student->end_date}}  type="text">
                                 </div>
                             </div>
                         </div>
@@ -91,7 +92,7 @@
                     <br>
 
 
-                    <button class="btn btn-primary" type="sumbit" id="createInternshipBtn">Create</button>
+                    <button class="btn btn-primary" type="sumbit" id="createInternshipBtn">Update</button>
 
 
 

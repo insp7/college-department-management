@@ -47,23 +47,29 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="date" value="{{ $student_course->start_date }}" name="start_date" placeholder="Start Date" class="form-control @error('start_date') is-invalid @enderror"></input>
+                        <div class="input-daterange datepicker row align-items-center" data-provide="datepicker"
+                        data-date-format="yyyy/mm/dd" data-orientation="top auto" aria-orientation="vertical">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                    </div>
+                                    <input class="form-control" name="start_date" placeholder="Start date" value="{{ $student_course->start_date }}" type="text">
+                                </div>
                             </div>
-                            @error('start_date')
-                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                            @enderror
                         </div>
-
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="date" value="{{ $student_course->end_date }}" name="end_date" placeholder="Start Date" class="form-control @error('end_date') is-invalid @enderror"></input>
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                    </div>
+                                    <input class="form-control" name="end_date" placeholder="End date" value="{{ $student_course->end_date }}" type="text">
+                                </div>
                             </div>
-                            @error('end_date')
-                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                            @enderror
                         </div>
+                    </div>
 
                         <button class="btn btn-primary" type="submit">Update</button>
                     </form>
@@ -76,6 +82,15 @@
 
 @section ('custom-script')
     <script src="{{ asset("/js/shape/add-shape.js") }}"></script>
+     <script src="{{asset('/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+   
+    <script>
+    $('.datepicker').datepicker({
+        orientation: "top"
+    });
+
+</script>
+
 
     @if(session()->has('type'))
         <script>
