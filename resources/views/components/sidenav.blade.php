@@ -28,6 +28,10 @@
                     @role('Staff')
                         @include('routes.staff-routes')
                     @endrole
+                    
+                    @role('Student')
+                        @include('routes.student-routes')
+                    @endrole
                 </ul>
             </div>
         </div>
