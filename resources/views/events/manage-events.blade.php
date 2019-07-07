@@ -125,7 +125,6 @@
                 {data: 'funding', name: 'funding'},
                 {data: 'duration', name: 'duration'},
                 {data: 'total_participants', name: 'total_participants'},
-                {data: 'additional_columns', name: 'additional_columns'},
                 {data: 'date', name: 'date'},
                 {data: 'add_coordinator', name: 'add_coordinator'},
                 {data: 'edit', name: 'edit'},

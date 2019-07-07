@@ -63,8 +63,8 @@ Route::middleware(['auth'])->group(function() {
             Route::get('/events/images/{event}/show', 'EventsController@getEventImages');
 
             /*Published Books*/
-            Route::get('/published-books/get-published-books', 'PublishedBooksController@getPublishedBooks');
-            Route::resource('/published-books', 'PublishedBooksController');
+            Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
+            Route::resource('/published-books', 'PublishedBookController');
 
 
             // Research Projects
@@ -106,6 +106,7 @@ Route::middleware(['auth'])->group(function() {
 
 
                 /*CLASS ROUTES*/
+                Route::get('/classes/get-classes', 'ClassController@getClasses');
                 Route::get('/classes/{id}/get-students', 'ClassController@getClassStudents');
 
                 Route::get('classes/{id}/students/create', 'ClassController@createClassStudents');
