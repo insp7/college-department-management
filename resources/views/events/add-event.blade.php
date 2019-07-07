@@ -73,15 +73,6 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <div class="input-group">
-                                <textarea  value="{{ old('additional_columns') }}"  name="additional_columns"  placeholder="additional_columns" class="form-control @error('additional_columns') is-invalid @enderror"></textarea>
-                            </div>
-                            @error('additional_columns')
-                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                            @enderror
-                        </div>
-
                         <button class="btn btn-primary" type="submit">Add Event</button>
                     </form>
                 </div>

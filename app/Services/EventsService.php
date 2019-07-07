@@ -29,7 +29,7 @@ class EventsService
             'type' => $validatedData['type'],
             'start_date' => $validatedData['start_date'],
             'end_date' => $validatedData['end_date'],
-            'additional_columns' => $validatedData['additional_columns'],
+            'additional_columns' => 'fhdskfjh',
             'created_by' => $user_id
         ]);
 
