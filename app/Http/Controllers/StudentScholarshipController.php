@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\StudentScholarship;
+
 
 class StudentScholarshipController extends Controller
 {
@@ -167,7 +169,7 @@ class StudentScholarshipController extends Controller
     public function getStudentScholarships()
     {
         /*CURRENT Student Scholarship*/
-        $studentInternship = $this->StudentScholarship::$studentscholarship->getDatatable(Auth::id());
+        $studentScholarship = $this->StudentScholarship::$studentScholarship->getDatatable(Auth::id());
 
         return DataTables::of($student_scholarships)
             ->addColumn('edit', function (StudentScholarship $studentScholarship) {
