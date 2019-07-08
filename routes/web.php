@@ -82,7 +82,10 @@ Route::middleware(['auth'])->group(function () {
                         Route::get('/profile', 'UserController@myProfile');
                         Route::get('/staff/edit', 'StaffController@staffEdit');
 
-
+                        //Scholarships
+                        Route::get('/scholarships/create', 'StudentScholarshipController@create');
+                        Route::get('/scholarships/get-scholarships', 'StudentScholarshipController@getScholarships');
+                        Route::resource('/scholarships', 'StudentScholarshipController');
 
                         /**
              * Admin Routes
