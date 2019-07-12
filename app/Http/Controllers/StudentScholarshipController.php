@@ -143,9 +143,9 @@ class StudentScholarshipController extends Controller
     public function getStudentScholarships()
     {
         /*CURRENT Student Scholarship*/
-        $studentScholarship =$this->studentscholarshipservice->getDatatable(Auth::id());
+        $studentScholarship1 =$this->studentscholarshipservice->getDatatable(Auth::id());
 
-        return DataTables::of($studentScholarship)
+        return DataTables::of($studentScholarship1)
             ->addColumn('edit', function (StudentScholarship $studentScholarship) {
             return '<button id="' . $studentScholarship->id . '" class="edit fa fa-pencil-alt btn-sm btn-warning"></button>'
             ;})

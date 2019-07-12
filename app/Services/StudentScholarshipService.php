@@ -29,7 +29,7 @@ class StudentScholarshipService
      */
     public function getDatatable($id)
     {
-        return StudentScholarship::where('created_by', $id)->orderBy('created_at', 'desc');
+        return StudentScholarship::where('created_by', $id)->orderBy('created_at', 'desc');;
     }
 
     public function delete($id, $user_id)

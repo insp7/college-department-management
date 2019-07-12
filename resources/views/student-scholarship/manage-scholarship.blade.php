@@ -24,16 +24,16 @@
                 <!-- Card header -->
                 <div class="card-header">
                     <h3 class="mb-0">Datatable</h3>
-                    <p class="text-sm mb-0">
-                        This is an exmaple of datatable using the well known datatables.net plugin. This is a minimal setup in order to get started fast.
-                    </p>
+                    
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table table-flush" id="student_scholarships">
+                    <table class="table table-flush" id="scholarships-list">
                         <thead class="thead-light">
                         <tr>
                             <th> Details </th>
-                            <th> Date </th>
+                            <th> Sponsor's Name </th>
+                            <th>Amount</th>
+                            <th>Year</th>
                             <th> Edit </th>
                             <th> Delete </th>
                         </tr>
@@ -41,7 +41,9 @@
                         <tfoot>
                             <tr>
                                 <th> Details </th>
-                                <th> Date </th>
+                                <th> Sponsor's Name </th>
+                                <th>Amount</th>
+                                <th>Year</th>
                                 <th> Edit </th>
                                 <th> Delete </th>
                             </tr>
@@ -110,7 +112,6 @@
                 {data: 'sponsors_name', name: 'sponsors_name'},
                 {data: 'amount', name: 'amount'},
                 {data: 'year', name: 'year'},
-                {data: 'isPrivate', name: 'isPrivate'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
             ]
