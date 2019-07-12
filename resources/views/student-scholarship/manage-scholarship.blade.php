@@ -107,10 +107,10 @@
             ajax: '/scholarships/get-scholarships',
             columns: [
                 {data: 'details', name: 'details'},
-                {data: 'sponsors_name', name: 'Sponsors Name'},
-                {data: 'amount', name: 'Amount of Scholarship'},
-                {data: 'year', name: 'Year of Scholarship'},
-                {data: 'isPrivate', name: 'Private'},
+                {data: 'sponsors_name', name: 'sponsors_name'},
+                {data: 'amount', name: 'amount'},
+                {data: 'year', name: 'year'},
+                {data: 'isPrivate', name: 'isPrivate'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
             ]

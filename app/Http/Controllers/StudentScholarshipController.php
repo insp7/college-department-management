@@ -4,10 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\StudentScholarship;
+use Illuminate\Support\Facades\Auth;
+use App\Services\StudentScholarshipService;
+use Yajra\DataTables\Facades\DataTables;
+
 
 
 class StudentScholarshipController extends Controller
 {
+    protected $studentscholarshipservice;
+
+    public function __construct(StudentScholarshipService $studentscholarshipservice)
+    {
+        $this->studentscholarshipservice = $studentscholarshipservice;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,25 +52,11 @@ class StudentScholarshipController extends Controller
             'amount' => 'required',
             'isPrivate' => 'boolean',
             'year' => 'required',
-            //'student_scholarship_image' => 'sometimes|file|mimes:jpeg,png,bmp,tiff'   Table Not Made
         ]);
 
-        // $user_id = Auth::id();
-        // $attachments = $request->file();
-        // $user_id = Auth::id();
-        // foreach ($attachments as $name => $attachment) {
-        //     // The file name of the attachment
-        //     $fileName = $user_id . '_' . $name . '_' . time() . '.' . $attachment->getClientOriginalExtension();
-        //     // exact path on the current machine
-        //     $destinationPath = public_path(FileConstants::STUDENT_SCHOLARSHIP_ATTACHMENTS_PATH);
-        //     // Moving the image
-        //     $attachment->move($destinationPath, $fileName);
-        //     // The relative path to the image
-        //     $image_relative_path = FileConstants::STUDENT_SCHOLARSHIP_ATTACHMENTS_PATH . $fileName;
-
         try {
-            $this->StudentScholarship::$studentscholarship->create($validatedData, Auth::id());
-            return redirect('student-scholarship')->with([
+            $this->studentscholarshipservice->create($validatedData, Auth::id());
+            return redirect('scholarships/get-scholarships')->with([
                 'type' => 'success',
                 'title' => 'Scholarship added successfully',
                 'message' => 'The Scholarship has been added successfully'
@@ -75,12 +71,22 @@ class StudentScholarshipController extends Controller
         }
     }
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\StudentScholarship
+     * @return \Illuminate\Http\Response
+     */
+    public function show(StudentScholarship $studentScholarship)
+    {
+        //
+    }
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\StudentScholarship  $studentScholarship
      * @return \Illuminate\Http\Response
      */
-    public function edit(StudentInternship $studentScholarship)
+    public function edit(Studentscholarship $studentScholarship)
     {
         
         return view('student-scholarships.edit-scholarship',['student'=>StudentScholarship::$studentscholarship]);
@@ -103,38 +109,6 @@ class StudentScholarshipController extends Controller
             'isPrivate' => 'boolean',
             'year' => 'required',
         ]); 
-        // $validatedfile=$request->validate([
-        //     'student_scholarship_image' => 'sometimes|file|mimes:jpeg,png,bmp,tiff'
-        // ]);
-
-        // $validatedData['updated_by']=Auth::id();
-        // $attachments=$request->file();
-        // $user_id = Auth::id();
-        // foreach ($attachments as $name => $attachment) {
-        //     // The file name of the attachment
-        //     $fileName = $user_id . '_' . $name.''.$attachment->getClientOriginalExtension();
-        //     // exact path on the current machine
-        //     $destinationPath = public_path(FileConstants::STUDENT_SCHOLARSHIP_ATTACHMENTS_PATH);
-        //     // Moving the image
-        //     $attachment->move($destinationPath, $fileName);
-        //     // The relative path to the image
-        //     $image_relative_path = FileConstants::STUDENT_SCHOLARSHIP_ATTACHMENTS_PATH . $fileName;
-        // }
-        //  try {
-        //     $this->StudentScholarship::$studentscholarship->update($validatedData, $image_relative_path, Auth::id(),$id);
-        //     return redirect('student-internship')->with([
-        //         'type' => 'success',
-        //         'title' => 'Scholarship updated successfully',
-        //         'message' => 'The Scholarship has been updated successfully'
-        //     ]);
-        // } catch (Exception $exception) {
-
-        //     return redirect()->back()->with([
-        //         'type' => 'danger',
-        //         'title' => 'Failed to add the Scholarship',
-        //         'message' => "There was some issue in updating the Scholarship"
-        //     ]);
-        // }
     }
 
     /**
@@ -146,7 +120,7 @@ class StudentScholarshipController extends Controller
     public function destroy($id)
     {
         try {
-            $this->StudentScholarship::$studentscholarship->delete($id, Auth::id());
+            StudentScholarship::$studentscholarship->delete($id, Auth::id());
             return redirect()->back()->with([
                 'type' => 'success',
                 'title' => 'Student Scholarship Deleted successfully',
@@ -169,9 +143,9 @@ class StudentScholarshipController extends Controller
     public function getStudentScholarships()
     {
         /*CURRENT Student Scholarship*/
-        $studentScholarship = $this->StudentScholarship::$studentScholarship->getDatatable(Auth::id());
+        $studentScholarship =$this->studentscholarshipservice->getDatatable(Auth::id());
 
-        return DataTables::of($student_scholarships)
+        return DataTables::of($studentScholarship)
             ->addColumn('edit', function (StudentScholarship $studentScholarship) {
             return '<button id="' . $studentScholarship->id . '" class="edit fa fa-pencil-alt btn-sm btn-warning"></button>'
             ;})

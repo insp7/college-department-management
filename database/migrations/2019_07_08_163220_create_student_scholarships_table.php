@@ -20,6 +20,8 @@ class CreateStudentScholarshipsTable extends Migration
             $table->float('amount');
             $table->integer('year');
             $table->boolean('isPrivate');
+            $table->integer('created_by');
+            $table->integer('updated_by')->nullable();
 
             $table->timestamps();
         });

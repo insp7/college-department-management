@@ -83,7 +83,6 @@ Route::middleware(['auth'])->group(function () {
                         Route::get('/staff/edit', 'StaffController@staffEdit');
 
                         //Scholarships
-                        Route::get('/scholarships/create', 'StudentScholarshipController@create');
                         Route::get('/scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
                         Route::resource('/scholarships', 'StudentScholarshipController');
 
@@ -136,7 +135,7 @@ Route::middleware(['auth'])->group(function () {
 
                 /*Student Internship*/
                 Route::resource('/student-internship', 'StudentInternshipController');
-                Route::get('/studnet-internship/get-student-internship', 'StudentInternshipController@getStudentInternships');
+                Route::get('/student-internship/get-student-internship', 'StudentInternshipController@getStudentInternships');
 
                 // Student Courses; later move to staff routes!
                 Route::get('/student-courses/get-student-courses', 'StudentCourseController@getStudentCourses');
