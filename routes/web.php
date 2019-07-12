@@ -84,6 +84,7 @@ Route::middleware(['auth'])->group(function () {
 
                         //Scholarships
                         Route::get('/scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
+                        //Route::get('/scholarships/edit', 'StudentScholarshipController@edit');
                         Route::resource('/scholarships', 'StudentScholarshipController');
 
                         /**

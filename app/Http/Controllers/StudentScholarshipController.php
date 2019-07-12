@@ -89,7 +89,7 @@ class StudentScholarshipController extends Controller
     public function edit(Studentscholarship $studentScholarship)
     {
         
-        return view('student-scholarships.edit-scholarship',['student'=>StudentScholarship::$studentscholarship]);
+        return view('student-scholarship.edit-scholarship',['student'=>$studentScholarship]);
     }
 
     /**
