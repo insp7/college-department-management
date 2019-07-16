@@ -112,6 +112,9 @@ Route::middleware(['auth'])->group(function () {
                                 Route::post('classes/{id}/students/store', 'ClassController@storeClassStudents');
 
                                 Route::resource('/classes', 'ClassController');
+
+                                Route::get('/student/add', 'StudentController@retriveClasses');
+                                Route::resource('/student', 'StudentController');
                             }
 
                         );

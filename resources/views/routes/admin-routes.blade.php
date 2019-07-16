@@ -49,3 +49,17 @@
         </ul>
     </div>
 </li>
+
+<li class="nav-item">
+    <a class="nav-link {{Request::is('classes*') ? 'active' : ''}}" href="#navbar-class" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-class">
+        <i class="fa fa-layer-group text-primary"></i>
+        <span class="nav-link-text">Student</span>
+    </a>
+    <div class="collapse {{Request::is('classes*') ? 'show' : ''}}" id="navbar-class">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="/student/add" class="nav-link">Add Student</a>
+            </li>
+        </ul>
+    </div>
+</li>
