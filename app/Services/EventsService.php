@@ -93,17 +93,6 @@ class EventsService {
         try {
             DB::beginTransaction();
                 $event = Event::findOrFail($event_id);
-//                $hash = '';
-//
-//                foreach($coordinators as $coordinator) {
-//                    $hash .= 'e' . $event_id . '-s' . $coordinator . '_'; // e1-s2_...
-//                }
-//
-//                $assoc_hash['hash'] = $hash;
-//                array_push($coordinators, $assoc_hash);
-//
-////                dd($coordinators);
-
                 $event->staff()->attach($coordinators);
                 $event->save();
             DB::commit();
