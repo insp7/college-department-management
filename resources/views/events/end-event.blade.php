@@ -20,7 +20,7 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="institute_funding">Institute Funding</label>
+                            <label class="text-sm" for="institute_funding">Institute Funding</label>
                             <div class="input-group">
                                 <textarea id="institute_funding" name="institute_funding" placeholder="Institute Funding" class="form-control @error('institute_funding') is-invalid @enderror">{{ $event->institute_funding }}</textarea>
                             </div>
@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="sponsor_funding">Sponsor Funding</label>
+                            <label class="text-sm" for="sponsor_funding">Sponsor Funding</label>
                             <div class="input-group">
                                 <textarea id="sponsor_funding" name="sponsor_funding" placeholder="Sponsor Funding" class="form-control @error('sponsor_funding') is-invalid @enderror">{{ $event->sponsor_funding }}</textarea>
                             </div>
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="expenditure">Expenditure</label>
+                            <label class="text-sm" for="expenditure">Expenditure</label>
                             <div class="input-group">
                                 <textarea id="expenditure" name="expenditure" placeholder="Expenditure" class="form-control @error('expenditure') is-invalid @enderror">{{ $event->expenditure }}</textarea>
                             </div>
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="internal_participants_count">Internal Participants Count</label>
+                            <label class="text-sm" for="internal_participants_count">Internal Participants Count</label>
                             <div class="input-group">
                                 <textarea id="internal_participants_count" name="internal_participants_count"  placeholder="Internal Participants Count" class="form-control @error('internal_participants_count') is-invalid @enderror">{{ $event->internal_participants_count }}</textarea>
                             </div>
@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="external_participants_count">External Participants Count</label>
+                            <label class="text-sm" for="external_participants_count">External Participants Count</label>
                             <div class="input-group">
                                 <textarea id="external_participants_count" name="external_participants_count"  placeholder="External Participants Count" class="form-control @error('external_participants_count') is-invalid @enderror">{{ $event->external_participants_count }}</textarea>
                             </div>
@@ -70,7 +70,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="event_images">Event Images</label>
+                            <label class="text-sm" for="event_images">Event Images</label>
                             <div class="input-group">
                                 <input type="file" id="event_images" name="event_images[]"  placeholder="Event Images" multiple="multiple" class="form-control @error('event_images') is-invalid @enderror"></input>
                             </div>

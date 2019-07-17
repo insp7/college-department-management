@@ -9,3 +9,12 @@ TO BE DONE:
 - Changing the controller naming conovention is pending
 - haven't removed transactions from all the services & haven't used findOrFail() method(for specific operations)
 - To have a view to "show all coordinators for a particular event"
+
+// DO TODAY:
+change the input type of "type" from "textarea" to "select"
+add view coordinators option in the events table in admin panel
+Add Labels in the edit event page(edit event page can be found by clicking on edit event in the events table in the admin panel) OR use external logic to remove the zeros and keep the placeholders as they were before
+Remove additional columns from the view for all tables
+If event is ended, then remove the edit button in the events table for staff
+Fix the sidebar tabs
+events table for admin should have a button to end the event!

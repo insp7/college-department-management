@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Constants\FileConstants;
 use App\Event;
-use App\User;
+use App\Services\StaffService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,11 +14,18 @@ use App\Services\EventsService;
 class EventsController extends Controller
 {
 
-    protected $eventsService;
+    protected $eventsService, $staffService;
 
-    public function __construct(EventsService $eventsService)
+    /**
+     * EventsController constructor.
+     *
+     * @param EventsService $eventsService
+     * @param StaffService $staffService
+     */
+    public function __construct(EventsService $eventsService, StaffService $staffService)
     {
         $this->eventsService = $eventsService;
+        $this->staffService = $staffService;
     }
 
     /**
@@ -54,22 +61,22 @@ class EventsController extends Controller
             'details' => 'required|max:255',
             'address' => 'required|max:255',
             'type' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'start_date' => 'required|date|before:end_date',
+            'end_date' => 'required|date|after:start_date',
         ]);
 
         try {
             $this->eventsService->store($validatedData, Auth::id());
             return redirect('/admin/events')->with([
                 'type' => 'success',
-                'title' => 'IPR added successfully',
-                'message' => 'The given Publication has been added successfully'
+                'title' => 'Event added successfully',
+                'message' => 'The given Event has been added successfully'
             ]);
         } catch (Exception $exception) {
             return redirect()->back()->with([
                 'type' => 'danger',
-                'title' => 'Failed to add the Publication',
-                'message' => "There was some issue in adding the Publication"
+                'title' => 'Failed to add the Event',
+                'message' => "There was some issue in adding the Event"
             ]);
         }
     }
@@ -77,12 +84,11 @@ class EventsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Event  $event
-     * @return \Illuminate\Http\Response
+     * @param Event $event
      */
     public function show(Event $event)
     {
-        //
+
     }
 
     /**
@@ -92,7 +98,7 @@ class EventsController extends Controller
     public function edit(Request $request)
     {
         $id = $request->event;
-        $event = Event::find($id);
+        $event = $this->eventsService->getEventDetailsById($id);
         return view('events.edit-event')->with('event', $event);
     }
 
@@ -110,8 +116,8 @@ class EventsController extends Controller
             'details' => 'required|max:255',
             'address' => 'required|max:255',
             'type' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'start_date' => 'required|date|before:end_date',
+            'end_date' => 'required|date|after:start_date',
             'internal_participants_count' => 'required|numeric',
             'external_participants_count' => 'required|numeric',
             'institute_funding' => 'required|numeric',
@@ -137,6 +143,8 @@ class EventsController extends Controller
     }
 
     /**
+     * Soft delete the event specified by the id.
+     *
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -158,6 +166,14 @@ class EventsController extends Controller
         }
     }
 
+    // CUSTOM METHODS
+
+    /**
+     * Fetch all events and display them in the form of datatables.
+     *
+     * @return mixed
+     * @throws \Exception
+     */
     public function getEvents() {
         $events = $this->eventsService->getDatatable(Auth::id());
 
@@ -171,14 +187,16 @@ class EventsController extends Controller
             ->addColumn('duration', function(Event $event) {
                 return 'Started from: ' . $event->start_date . ' End Date: ' . $event->end_date;
             })
-            ->addColumn('total_participants', function (Event $event) {
+            ->addColumn('total_participants', function(Event $event) {
                 return $event->internal_participants_count + $event->external_participants_count . '. (Internal: ' . $event->internal_participants_count . ' External: ' . $event->external_participants_count . ')';
+            })
+            ->addColumn('view_coordinators', function(Event $event) {
+                return '<button id="' . $event->id . '" class="view_coordinators fa fa-eye btn-sm btn-success"></button>';
             })
             ->addColumn('add_coordinator', function(Event $event) {
                 return '<button id="' . $event->id . '" class="add_coordinator fa fa-plus-square btn-sm btn-primary"></button>';
             })
             ->addColumn('edit', function(Event $event) {
-//                Redirect to page
                 return '<button id="' . $event->id . '" class="edit fa fa-pencil-alt btn-sm btn-warning"></button>';
             })
             ->addColumn('delete', function(Event $event) {
@@ -187,23 +205,32 @@ class EventsController extends Controller
             ->addColumn('date', function(Event $event) {
                 return date('F d, Y', strtotime($event->created_at));
             })
-            ->rawColumns(['add_coordinator', 'edit', 'delete'])
+            ->rawColumns(['view_coordinators', 'add_coordinator', 'edit', 'delete'])
             ->make(true);
     }
 
 
+    /**
+     * Returns the Available coordinators which can be assigned to an event.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function assignCoordinator(Request $request) {
         $event_id = $request->event;
-////        $event = Event::find($id);
-//        $staff = Staff::all();
-        $results = DB::select('SELECT id, first_name, last_name FROM users WHERE id IN (SELECT user_id FROM staff)');
-//        select id, name from users where id = select user_id from staff;
-//        dd($result);
+        $unassigned_coordinators = $this->eventsService->getUnassignedCoordinators($event_id);
 
-//        $users = User::select('id', 'first_name', 'last_name')->where()
-        return view('events.add-event-coordinators')->with('results', $results)->with('event_id', $event_id);
+        return view('events.add-event-coordinators')
+            ->with('event_id', $event_id)
+            ->with('unassigned_coordinators', $unassigned_coordinators);
     }
 
+    /**
+     * Specified coordinators from the request are stored in the database.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function addCoordinator(Request $request) {
         $event_id = $request->id;
         $coordinators = $request->input('event_coordinators');
@@ -225,6 +252,75 @@ class EventsController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function viewCoordinators(Request $request) {
+        return view('events.view-coordinators');
+    }
+
+    /**
+     * Fetch coordinators for a particular event specified in the request.
+     *
+     * @param Request $request
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getCoordinators(Request $request) {
+
+        $event_id = $request->event;
+        $coordinators = $this->eventsService->getCoordinatorsForEvent($event_id);
+
+        return DataTables::of($coordinators)
+            ->addColumn('name', function ($coordinator) {
+                return $coordinator->first_name . ' ' . $coordinator->last_name;
+            })
+            ->addColumn('email', function ($coordinator) {
+                return $coordinator->email;
+            })
+            ->addColumn('delete', function($coordinator) {
+                return '<button id="' . $coordinator->id . '" class="delete fa fa-trash btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal"></button>';
+            })
+
+            ->rawColumns(['delete'])
+            ->make(true);
+    }
+
+    /**
+     * Deletes a coordinator for the particular event(specified in the request).
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function removeCoordinator(Request $request) {
+        $event_id = $request->event;
+        $staff_id = $request->coordinator;
+
+        $coordinatorRemoved = $this->eventsService->removeCoordinator($event_id, $staff_id);
+
+        if($coordinatorRemoved) {
+            return redirect()->back()->with([
+                'type' => 'success',
+                'title' => 'Coordinator Removed',
+                'message' => 'The given Coordinator has been removed successfully'
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'type' => 'danger',
+            'title' => 'Failed to remove coordinator',
+            'message' => "There was some issue in removing the coordinator"
+        ]);
+    }
+
+
+    /**
+     * Fetch events assigned for a particular staff.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getEventsByStaffId(Request $request) {
         $user_id = $request->staff;
         $events = DB::select('SELECT * FROM events WHERE id IN (SELECT event_id FROM event_staff WHERE staff_id = ?)', [$user_id]);
@@ -232,6 +328,12 @@ class EventsController extends Controller
         return view('events.events-to-coordinate')->with('events', $events);
     }
 
+    /**
+     * Fetch end-event form for filling final details.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getEndEventForm(Request $request) {
         $event_id = $request->event;
 
@@ -240,6 +342,12 @@ class EventsController extends Controller
         return view('events.end-event')->with('event', $event);
     }
 
+    /**
+     * Marks the event as completed.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function endEvent(Request $request) {
         $event_id = $request->event;
 
@@ -253,18 +361,16 @@ class EventsController extends Controller
             'event_images.*' =>'sometimes|mimes:jpeg,png,bmp,tiff'
         ]);
 
-        /****/
-
         $image_relative_paths = [];
         $user_id = Auth::id();
 
         if($request->hasfile('event_images')) {
-            $i=0;
+            $i = 0;
 
             foreach($request->file('event_images') as $news_feed_image) {
 
                 // The file name of the attachment
-                $fileName = $user_id.'_'.$i++.'_'.time().'.'.$news_feed_image->getClientOriginalExtension();
+                $fileName = $user_id . '_' . $i++ . '_' . time() . '.' . $news_feed_image->getClientOriginalExtension();
 
                 // exact path on the current machine
                 $destinationPath = public_path(FileConstants::EVENT_IMAGES_ATTACHMENTS_PATH);
@@ -276,10 +382,6 @@ class EventsController extends Controller
                 $image_relative_paths[]= FileConstants::EVENT_IMAGES_ATTACHMENTS_PATH.$fileName;
             }
         }
-
-        /****/
-
-//        dd($image_relative_paths);
 
         $eventSuccessfullyEnded = $this->eventsService->eventEnd($event_id, $event_data, $image_relative_paths, Auth::id());
 
@@ -298,6 +400,12 @@ class EventsController extends Controller
         ]);
     }
 
+    /**
+     * Fetches images uploaded for a particular event specified in the request.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getEventImages(Request $request) {
         $event_id = $request->event;
         $event_images_path = $this->eventsService->getImagesPath($event_id);
@@ -308,6 +416,12 @@ class EventsController extends Controller
             ->with('hostName', $hostName);
     }
 
+    /**
+     * Converts a particular event(specified in the request) to news.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function publishAsNews(Request $request) {
         $event_id = $request->event;
 

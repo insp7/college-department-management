@@ -18,11 +18,12 @@
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" action="/admin/events/{{ $event->id }}">
                         @csrf
-                        @method('PATCH');
+                        @method('PATCH')
 
                         <div class="form-group">
+                            <label for="name" class="text-sm">Name</label>
                             <div class="input-group">
-                                <textarea  name="name" placeholder="Name" class="form-control @error('name') is-invalid @enderror">{{ $event->name }}</textarea>
+                                <textarea  id="name" name="name" placeholder="Name" class="form-control @error('name') is-invalid @enderror">{{ $event->name }}</textarea>
                             </div>
                             @error('name')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -30,8 +31,9 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="details" class="text-sm">Details</label>
                             <div class="input-group">
-                                <textarea name="details" placeholder="Details" class="form-control @error('details') is-invalid @enderror">{{ $event->details }}</textarea>
+                                <textarea id="details" name="details" placeholder="Details" class="form-control @error('details') is-invalid @enderror">{{ $event->details }}</textarea>
                             </div>
                             @error('details')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -39,8 +41,9 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="address" class="text-sm">Address</label>
                             <div class="input-group">
-                                <textarea name="address" placeholder="Address" class="form-control @error('address') is-invalid @enderror">{{ $event->address }}</textarea>
+                                <textarea id="address" name="address" placeholder="Address" class="form-control @error('address') is-invalid @enderror">{{ $event->address }}</textarea>
                             </div>
                             @error('address')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -48,8 +51,9 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="type" class="text-sm">Type</label>
                             <div class="input-group">
-                                <textarea name="type" placeholder="Type" class="form-control @error('type') is-invalid @enderror">{{ $event->type  }}</textarea>
+                                <textarea id="type" name="type" placeholder="Type" class="form-control @error('type') is-invalid @enderror">{{ $event->type  }}</textarea>
                             </div>
                             @error('type')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -57,8 +61,9 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="start_date" class="text-sm">Start Date</label>
                             <div class="input-group">
-                                <input type="date" value="{{ $event->start_date }}" name="start_date" placeholder="Start Date" class="form-control @error('start_date') is-invalid @enderror">
+                                <input id="start_date" type="date" value="{{ $event->start_date }}" name="start_date" placeholder="Start Date" class="form-control @error('start_date') is-invalid @enderror">
                             </div>
                             @error('start_date')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -66,8 +71,9 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="end_date" class="text-sm">End Date</label>
                             <div class="input-group">
-                                <input type="date" value="{{ $event->end_date }}"  name="end_date" placeholder="End Date" class="form-control @error('end_date') is-invalid @enderror"></input>
+                                <input id="end_date" type="date" value="{{ $event->end_date }}"  name="end_date" placeholder="End Date" class="form-control @error('end_date') is-invalid @enderror"></input>
                             </div>
                             @error('end_date')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -75,8 +81,9 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="institute_funding" class="text-sm">Institute Funding</label>
                             <div class="input-group">
-                                <input type="number" value="{{ $event->institute_funding }}" name="institute_funding" placeholder="Institute funding" class="form-control @error('institute_funding') is-invalid @enderror">
+                                <input id="institute_funding" type="number" value="{{ $event->institute_funding }}" name="institute_funding" placeholder="Institute funding" class="form-control @error('institute_funding') is-invalid @enderror">
                             </div>
                             @error('institute_funding')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -84,8 +91,9 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="sponsor_funding" class="text-sm">Sponsor Funding</label>
                             <div class="input-group">
-                                <input type="number" value="{{ $event->sponsor_funding }}" name="sponsor_funding" placeholder="Sponsor funding" class="form-control @error('sponsor_funding') is-invalid @enderror">
+                                <input id="sponsor_funding" type="number" value="{{ $event->sponsor_funding }}" name="sponsor_funding" placeholder="Sponsor funding" class="form-control @error('sponsor_funding') is-invalid @enderror">
                             </div>
                             @error('sponsor_funding')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -93,8 +101,9 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="expenditure" class="text-sm">Expenditure</label>
                             <div class="input-group">
-                                <input type="number" value="{{ $event->expenditure }}" name="expenditure" placeholder="Expenditure" class="form-control @error('expenditure') is-invalid @enderror">
+                                <input id="expenditure" type="number" value="{{ $event->expenditure }}" name="expenditure" placeholder="Expenditure" class="form-control @error('expenditure') is-invalid @enderror">
                             </div>
                             @error('expenditure')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -102,8 +111,9 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="internal_participants_count" class="text-sm">Internal Participants Count</label>
                             <div class="input-group">
-                                <input type="number" value="{{ $event->internal_participants_count  }}" name="internal_participants_count" placeholder="Internal Participants Count" class="form-control @error('internal_participants_count') is-invalid @enderror">
+                                <input id="internal_participants_count" type="number" value="{{ $event->internal_participants_count  }}" name="internal_participants_count" placeholder="Internal Participants Count" class="form-control @error('internal_participants_count') is-invalid @enderror">
                             </div>
                             @error('internal_participants_count')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -111,22 +121,24 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="external_participants_count" class="text-sm">External Participants Count</label>
                             <div class="input-group">
-                                <input type="number" value="{{ $event->external_participants_count  }}" name="external_participants_count" placeholder="External Participants Count" class="form-control @error('external_participants_count') is-invalid @enderror">
+                                <input id="external_participants_count" type="number" value="{{ $event->external_participants_count  }}" name="external_participants_count" placeholder="External Participants Count" class="form-control @error('external_participants_count') is-invalid @enderror">
                             </div>
                             @error('external_participants_count')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <div class="input-group">
-                                <textarea name="additional_columns"  placeholder="additional_columns" class="form-control @error('additional_columns') is-invalid @enderror">{{ $event->additional_columns }}</textarea>
-                            </div>
-                            @error('additional_columns')
-                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                            @enderror
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <label for="additional_columns" class="text-sm">Columns</label>--}}
+{{--                            <div class="input-group">--}}
+{{--                                <textarea name="additional_columns"  placeholder="additional_columns" class="form-control @error('additional_columns') is-invalid @enderror">{{ $event->additional_columns }}</textarea>--}}
+{{--                            </div>--}}
+{{--                            @error('additional_columns')--}}
+{{--                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>--}}
+{{--                            @enderror--}}
+{{--                        </div>--}}
 
 {{--                        Add checkbox for if event is completed --}}
 

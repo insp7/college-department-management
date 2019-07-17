@@ -39,10 +39,11 @@
                             <th>Funding</th> <!-- $total_funding. (institute: $institute_funding, sponsor: $sponsor_funding) -->
                             <th>Duration</th> <!-- Started from: $start_date. Ended on $end_date -->
                             <th>Total Participants</th> <!-- $internal + $external. (Internal: $internal. External: $external) -->
-                            <th> Date </th>
-                            <th>Add Cooordinator</th>
-                            <th> Edit </th>
-                            <th> Delete </th>
+                            <th>Date</th>
+                            <th>View Co-ordinators</th>
+                            <th>Add Co-ordinator</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                         </thead>
                         <tfoot>
@@ -54,7 +55,8 @@
                             <th>Duration</th> <!-- Started from: $start_date. Ended on $end_date -->
                             <th>Total Participants</th> <!-- $internal + $external. (Internal: $internal. External: $external) -->
                             <th>Date</th>
-                            <th>Add Cooordinator</th>
+                            <th>View Co-ordinators</th>
+                            <th>Add Co-ordinator</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -126,10 +128,16 @@
                 {data: 'duration', name: 'duration'},
                 {data: 'total_participants', name: 'total_participants'},
                 {data: 'date', name: 'date'},
+                {data: 'view_coordinators', name: 'view_coordinators'},
                 {data: 'add_coordinator', name: 'add_coordinator'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
             ]
+        });
+
+        manageEventsTable.on('click', '.view_coordinators', function () {
+            $id = $(this).attr('id');
+            window.location.pathname = '/admin/events/' + $id + '/view-coordinators';
         });
 
         manageEventsTable.on('click', '.add_coordinator', function() {
@@ -144,7 +152,6 @@
 
         manageEventsTable.on('click', '.edit', function () {
             $id = $(this).attr('id');
-            // console.log(window.location.pathname);
             window.location.pathname = '/admin/events/' + $id + '/edit';
         });
 

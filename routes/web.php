@@ -27,8 +27,8 @@ Route::middleware(['auth'])->group(function () {
         // Route::resource('/student-courses', 'StudentCourseController');
 
         /**
-     * General Routes
-     */
+        * General Routes
+        */
         Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
         Route::redirect('/', '/dashboard');
         Route::get('/dashboard', 'DashboardController@index');
@@ -37,8 +37,8 @@ Route::middleware(['auth'])->group(function () {
 
 
         /**
-     * Staff Routes
-     */
+        * Staff Routes
+        */
         Route::group(['middleware'=> ['role:Staff|Admin']], function () {
 
                 /*ROUTES TO COMPLETE REGISTRATION*/
@@ -46,8 +46,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/staff/complete-registration', 'StaffController@completeRegistration');
 
                 /**
-         * Staff Routes When Registration Completed(is_fully_registered =1)
-         */
+                * Staff Routes When Registration Completed(is_fully_registered =1)
+                */
                 Route::group(['middleware'=> ['staff_registration']], function () {
 
 
@@ -85,8 +85,8 @@ Route::middleware(['auth'])->group(function () {
 
 
                         /**
-             * Admin Routes
-             */
+                        * Admin Routes
+                        */
                         Route::group(['middleware'=> ['role:Admin']], function () {
                                 /*STAFF ROUTES*/
 
@@ -95,6 +95,9 @@ Route::middleware(['auth'])->group(function () {
                                 Route::resource('/admin/staff', 'StaffController');
 
                                 // Events
+                                Route::delete('/admin/event/{event}/coordinator/{coordinator}/delete', 'EventsController@removeCoordinator');
+                                Route::get('/admin/events/{event}/view-coordinators', 'EventsController@viewCoordinators');
+                                Route::get('/admin/events/{event}/get-coordinators', 'EventsController@getCoordinators');
                                 Route::post('/admin/events/{id}/coordinators/add', 'EventsController@addCoordinator');
                                 Route::get('/admin/events/{event}/assign-coordinator', 'EventsController@assignCoordinator');
                                 Route::get('/admin/events/get-events', 'EventsController@getEvents');
@@ -123,8 +126,8 @@ Route::middleware(['auth'])->group(function () {
         );
 
         /**
-     * Student Routes
-     */
+        * Student Routes
+        */
         Route::group(['middleware'=> ['role:Student']], function () {
 
                 // /*ROUTES TO COMPLETE REGISTRATION*/
@@ -150,6 +153,5 @@ Route::middleware(['auth'])->group(function () {
 
         );
     }
-
 );
 Auth::routes();

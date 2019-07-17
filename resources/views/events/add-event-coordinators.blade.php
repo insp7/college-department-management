@@ -1,9 +1,18 @@
+<?php
+////dd($assigned_coordinators);
+//$coordinators = json_encode($assigned_coordinators, true);
+//$coordinators = json_decode($coordinators, true);
+//
+//foreach ($coordinators as $coordinator) {
+//    echo $coordinator['email'];
+//}
+//?>
 @extends('layouts.base')
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="/admin/admin/events"><i class="fas fa-book"></i></a></li>
     <li class="breadcrumb-item"><a href="/admin/admin/events/create">Events</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Assign Co-ordinator {{ $event_id }}</li>
+    <li class="breadcrumb-item active" aria-current="page">Assign Co-ordinator</li>
 @endsection
 
 @section('page-content')
@@ -18,17 +27,23 @@
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="post" action="/admin/events/{{ $event_id }}/coordinators/add">
-                        @csrf
-                        <select id="add-event-coordinator" name="event_coordinators[]" multiple="multiple">
-                            @foreach($results as $result)
-                                <option value="{{ $result->id }}">{{ $result->first_name . $result->last_name }}</option>
-                            @endforeach
-                        </select>
+                    @if(!empty($unassigned_coordinators))
 
-                        <br>
-                        <button class="btn btn-primary" type="submit">Add Event</button>
-                    </form>
+                        <form method="post" action="/admin/events/{{ $event_id }}/coordinators/add">
+                            @csrf
+                            <div class="form-group">
+                                <select id="add-event-coordinator" name="event_coordinators[]" multiple="multiple">
+                                        @foreach($unassigned_coordinators as $unassigned_coordinator)
+                                            <option value="{{ $unassigned_coordinator->id }}">{{ $unassigned_coordinator->first_name . $unassigned_coordinator->last_name }}</option>
+                                        @endforeach
+                                </select>
+                            </div>
+
+                            <button class="btn btn-primary" type="submit">Add Coordinator</button>
+                        </form>
+                    @else
+                        <p>All existing coordinators are already assigned to this event. No coordinator remaining to add!</p>
+                    @endif
                 </div>
             </div>
         </div>

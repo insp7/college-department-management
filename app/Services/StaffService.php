@@ -80,8 +80,6 @@ class StaffService {
             throw BaseException('Error while updating user details');
         }
 
-
-
         DB::commit();
     }
 
@@ -93,5 +91,14 @@ class StaffService {
     public function getUnRegisteredStaffDatatable()
     {
         return Staff::where('is_fully_registered', 0)->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Fetch id, first_name, last_name of all the staff
+     *
+     * @return array
+     */
+    public function fetchAllStaff() {
+        return DB::select('SELECT id, first_name, last_name, email FROM users WHERE id IN (SELECT user_id FROM staff)');
     }
 }

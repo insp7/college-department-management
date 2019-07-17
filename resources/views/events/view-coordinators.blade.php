@@ -1,3 +1,7 @@
+<?php
+    $request_uri = "{$_SERVER['REQUEST_URI']}";
+    $event_id = substr($request_uri, 14, 1); // get the event id from the url
+?>
 @extends('layouts.base')
 
 @section('custom-styles')
@@ -7,13 +11,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/dashboard"><i class="fas fa-user"></i></a></li>
-    <li class="breadcrumb-item"><a href="/admin/staff">Staff</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Staff</li>
+    <li class="breadcrumb-item"><a href="/admin/events"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/admin/events">Events</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Coordinators</li>
 @endsection
 
 @section('actions')
-    <a href="/admin/staff/create" class="btn btn-sm btn-neutral">New</a>
+    <a href="/admin/events/<?php echo $event_id; ?>/assign-coordinator" class="btn btn-sm btn-neutral">New</a>
 @endsection
 
 @section('page-content')
@@ -23,65 +27,25 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Staff</h3>
-                    <p class="text-sm mb-0 text-success">
-                        Registration Completed
+                    <h3 class="mb-0">Datatable</h3>
+                    <p class="text-sm mb-0">
+                        This is an exmaple of datatable using the well known datatables.net plugin. This is a minimal setup in order to get started fast.
                     </p>
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table  table-flush" id="staff-registration-completed-list">
+                    <table class="table table-flush table-sm" id="coordinators-list">
                         <thead class="thead-light">
                         <tr>
-                            <th> Name </th>
-                            <th> DOB </th>
-                            <th> Email </th>
-                            <th> Contact No </th>
-                            <th> Pan </th>
-                            <th> Employee Id </th>
-                            <th>edit</th>
-                            <th>delete</th>
-                            <th>view</th>
+                            <th>Nameh>
+                            <th>Email</th>
+                            <th>Remove</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
-                            <th> Name </th>
-                            <th> DOB </th>
-                            <th> Email </th>
-                            <th> Contact No </th>
-                            <th> Pan </th>
-                            <th> Employee Id </th>
-                            <th>edit</th>
-                            <th>delete</th>
-                            <th>view</th>
-                        </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-
-            <div class="card">
-                <!-- Card header -->
-                <div class="card-header">
-                    <h3 class="mb-0">Staff</h3>
-                    <p class="text-sm mb-0 text-danger">
-                        Registration Pending
-                    </p>
-                </div>
-                <div class="table-responsive py-4">
-                    <table class="table table-flush " id="staff-registration-pending-list">
-                        <thead class="thead-light">
-                        <tr>
-                            <th> Email </th>
-                            <th>edit</th>
-                            <th>delete</th>
-                        </tr>
-                        </thead>
-                        <tfoot>
-                        <tr>
-                            <th> Email </th>
-                            <th>edit</th>
-                            <th>delete</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Remove</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -98,12 +62,13 @@
         <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Delete Published Book</h6>
+                    <h6 class="modal-title" id="modal-title-default">Delete Events</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form  id="delete_form" method="POST">
+                {{--action needs to be set to blank by default--}}
+                <form action="" id="delete_form" method="POST">
                     <div class="modal-body">
 
                         @method('DELETE')
@@ -111,13 +76,13 @@
                         <div class="form-body">
                             <!-- START OF MODAL BODY -->
                             <div class="container">
-                                <label>Are you sure you want to delete the Published Book ?</label>
+                                <label>Are you sure you want to remove this coordinator?</label>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default  ml-auto" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger">Remove</button>
                     </div>
                 </form>
             </div>
@@ -137,41 +102,22 @@
     <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
     <script>
-        let manageRegistrationCompletedStaffTable = $('#staff-registration-completed-list');
+        let manageCoordinatorsTable = $('#coordinators-list');
 
-        manageRegistrationCompletedStaffTable.DataTable({
+        manageCoordinatorsTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/admin/staff/get-registered-staff',
+            ajax: '/admin/events/<?php echo $event_id; ?>/get-coordinators',
             columns: [
                 {data: 'name', name: 'name'},
-                {data: 'dob', name: 'dob'},
                 {data: 'email', name: 'email'},
-                {data: 'contact_no', name: 'contact_no'},
-                {data: 'pan', name: 'pan'},
-                {data: 'employee_id', name: 'employee_id'},
-                {data: 'delete', name: 'delete'},
-                {data: 'edit', name: 'edit'},
-                {data: 'view', name: 'view'}
+                {data: 'delete', name: 'delete'}
             ]
         });
 
-        manageRegistrationCompletedStaffTable.on('click', '.delete', function(e) {
+        manageCoordinatorsTable.on('click', '.delete', function() {
             $id = $(this).attr('id');
-            $('#delete_form').attr('action', '/published-books/' + $id);
-        })
-
-        let manageRegistrationPendingStaffTable = $('#staff-registration-pending-list');
-
-        manageRegistrationPendingStaffTable.DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '/admin/staff/get-unregistered-staff',
-            columns: [
-                {data: 'email', name: 'email'},
-                {data: 'edit', name: 'edit'},
-                {data: 'delete', name: 'delete'}
-            ]
+            $('#delete_form').attr('action', '/admin/event/<?php echo $event_id; ?>/coordinator/' + $id + '/delete');
         });
 
     </script>
