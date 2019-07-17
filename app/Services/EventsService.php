@@ -46,12 +46,24 @@ class EventsService {
     /**
      * @param $id
      * @param $user_id
-     * @return mixed
      */
     public function delete($id, $user_id) {
-        return Event::where('created_by', $user_id)
-            ->where('id', $id)
-            ->delete();
+        DB::beginTransaction();
+            $event = Event::findOrFail($id);
+            $coordinators = DB::select('SELECT id FROM users WHERE id IN (SELECT staff_id FROM event_staff WHERE event_id = :event_id)', ["event_id" => $id]);
+            $finalCoordinators = array();
+
+            foreach ($coordinators as $coordinator) {
+                $finalCoordinators[] = $coordinator->id;
+            }
+
+            $event->staff()->detach($finalCoordinators);
+            $event->save();
+
+            Event::where('created_by', $user_id)
+                ->where('id', $id)
+                ->delete();
+        DB::commit();
     }
 
     /**
@@ -235,4 +247,9 @@ class EventsService {
     public function getCoordinatorsForEvent($event_id) {
         return DB::select('SELECT id, first_name, last_name, email FROM users WHERE id IN (SELECT staff_id FROM event_staff WHERE event_id = :event_id)', ["event_id" => $event_id]);
     }
+
+    public function getEventsByStaffId($user_id) {
+        return DB::select('SELECT * FROM events WHERE id IN (SELECT event_id FROM event_staff WHERE staff_id = ?)', [$user_id]);
+    }
+
 }

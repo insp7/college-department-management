@@ -88,7 +88,7 @@
                         <div class="form-body">
                             <!-- START OF MODAL BODY -->
                             <div class="container">
-                                <label>Are you sure you want to delete the Events ?</label>
+                                <label>Are you sure you want to delete the Events?</label>
                             </div>
                         </div>
                     </div>

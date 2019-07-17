@@ -7,7 +7,6 @@ use App\Event;
 use App\Services\StaffService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use App\Services\EventsService;
 
@@ -323,7 +322,7 @@ class EventsController extends Controller
      */
     public function getEventsByStaffId(Request $request) {
         $user_id = $request->staff;
-        $events = DB::select('SELECT * FROM events WHERE id IN (SELECT event_id FROM event_staff WHERE staff_id = ?)', [$user_id]);
+        $events = $this->eventsService->getEventsByStaffId($user_id);
 
         return view('events.events-to-coordinate')->with('events', $events);
     }

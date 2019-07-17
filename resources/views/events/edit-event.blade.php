@@ -1,8 +1,8 @@
 @extends('layouts.base')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/publications"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/publications/create">Events</a></li>
+    <li class="breadcrumb-item"><a href="/events/"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/events/create">Events</a></li>
     <li class="breadcrumb-item active" aria-current="page">Edit Event</li>
 @endsection
 
@@ -130,17 +130,15 @@
                             @enderror
                         </div>
 
-{{--                        <div class="form-group">--}}
-{{--                            <label for="additional_columns" class="text-sm">Columns</label>--}}
-{{--                            <div class="input-group">--}}
-{{--                                <textarea name="additional_columns"  placeholder="additional_columns" class="form-control @error('additional_columns') is-invalid @enderror">{{ $event->additional_columns }}</textarea>--}}
-{{--                            </div>--}}
-{{--                            @error('additional_columns')--}}
-{{--                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>--}}
-{{--                            @enderror--}}
-{{--                        </div>--}}
-
-{{--                        Add checkbox for if event is completed --}}
+                        <div class="form-group">
+                            <label class="text-sm" for="event_images">Event Images</label>
+                            <div class="input-group">
+                                <input type="file" id="event_images" name="event_images[]"  placeholder="Event Images" multiple="multiple" class="form-control @error('event_images') is-invalid @enderror"></input>
+                            </div>
+                            @error('event_images')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <button class="btn btn-primary" type="submit">Update Event</button>
 
