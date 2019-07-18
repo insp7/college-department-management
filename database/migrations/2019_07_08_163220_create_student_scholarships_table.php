@@ -15,6 +15,14 @@ class CreateStudentScholarshipsTable extends Migration
     {
         Schema::create('student_scholarships', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('details');
+            $table->string('sponsors_name');
+            $table->float('amount');
+            $table->integer('year');
+            $table->boolean('isPrivate');
+            $table->integer('created_by');
+            $table->integer('updated_by')->nullable();
+
             $table->timestamps();
         });
     }
