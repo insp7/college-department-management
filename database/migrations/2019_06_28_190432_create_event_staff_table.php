@@ -15,8 +15,8 @@ class CreateEventStaffTable extends Migration
     {
         Schema::create('event_staff', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('staff_id'); // the value for staff_id will come from user_id in the staff relation
             $table->unsignedBigInteger('event_id');
+            $table->unsignedBigInteger('staff_id'); // the value for staff_id will come from user_id in the staff relation
             $table->timestamps();
         });
     }

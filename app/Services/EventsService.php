@@ -7,15 +7,14 @@ use App\Event;
 use App\EventImage;
 use App\NewsFeed;
 use App\NewsFeedImage;
-use http\Env\Request;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Class EventsService
  * @package App\Services
  */
-class EventsService
-{
+class EventsService {
+
     /**
      * @param $validatedData
      * @param $user_id
@@ -37,28 +36,34 @@ class EventsService
 
     }
 
-
-//    public function getDatatable($id)
-//    {
-//        return Event::where('created_by', $id)->orderBy('created_at', 'desc');
-//    }
     /**
      * @return Event[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getDatatable()
-    {
+    public function getDatatable() {
         return Event::all();
     }
 
     /**
      * @param $id
      * @param $user_id
-     * @return mixed
      */
     public function delete($id, $user_id) {
-        return Event::where('created_by', $user_id)
-            ->where('id', $id)
-            ->delete();
+        DB::beginTransaction();
+            $event = Event::findOrFail($id);
+            $coordinators = DB::select('SELECT id FROM users WHERE id IN (SELECT staff_id FROM event_staff WHERE event_id = :event_id)', ["event_id" => $id]);
+            $finalCoordinators = array();
+
+            foreach ($coordinators as $coordinator) {
+                $finalCoordinators[] = $coordinator->id;
+            }
+
+            $event->staff()->detach($finalCoordinators);
+            $event->save();
+
+            Event::where('created_by', $user_id)
+                ->where('id', $id)
+                ->delete();
+        DB::commit();
     }
 
     /**
@@ -82,7 +87,6 @@ class EventsService
             $event->internal_participants_count = $validatedData['internal_participants_count'];
             $event->external_participants_count = $validatedData['external_participants_count'];
             $event->expenditure = $validatedData['expenditure'];
-            $event->additional_columns = $validatedData['additional_columns'];
             $event->updated_by = $user_id;
             $event->save();
 
@@ -99,11 +103,30 @@ class EventsService
      */
     public function addCoordinators($event_id, $coordinators) {
         try {
-//            DB::beginTransaction();
-                $event = Event::find($event_id);
+            DB::beginTransaction();
+                $event = Event::findOrFail($event_id);
                 $event->staff()->attach($coordinators);
                 $event->save();
-//            DB::commit();
+            DB::commit();
+
+            return true;
+        } catch (Exception $exception) {
+            return false;
+        }
+    }
+
+    /**
+     * @param $event_id
+     * @param $coordinator_id
+     * @return bool
+     */
+    public function removeCoordinator($event_id, $coordinator_id) {
+        try {
+            DB::beginTransaction();
+                $event = Event::findOrFail($event_id);
+                $event->staff()->detach($coordinator_id);
+                $event->save();
+            DB::commit();
 
             return true;
         } catch (Exception $exception) {
@@ -120,7 +143,6 @@ class EventsService
      */
     public function eventEnd($event_id, $event, $image_relative_paths, $user_id) {
         try {
-//            dd($event);
             DB::beginTransaction();
                 // Insert final details about event and end
                 $event_row = Event::findOrFail($event_id);
@@ -133,8 +155,6 @@ class EventsService
                 $event_row->updated_by = $user_id;
                 $event_row->updated_at = now();
                 $event_row->save();
-
-//                dd($image_relative_paths);
 
                 foreach ($image_relative_paths as $image_relative_path){
                     EventImage::create([
@@ -190,14 +210,46 @@ class EventsService
 
                     ]);
                 }
-
             DB::commit();
 
             return true;
         } catch(Exception $exception) {
             return false;
         }
-
-
     }
+
+    /**
+     * Fetch event details for a given Event id
+     *
+     * @param $event_id
+     * @return mixed
+     */
+    public function getEventDetailsById($event_id) {
+        return Event::findOrFail($event_id);
+    }
+
+    /**
+     * Fetches unassigned coordinators for the particular event i.e. yet to be assigned
+     *
+     * @param $event_id
+     * @return array
+     */
+    public function getUnassignedCoordinators($event_id) {
+        return DB::select('SELECT id, first_name, last_name FROM users WHERE id NOT IN (SELECT staff_id FROM event_staff WHERE event_id = :event_id)', ["event_id" => $event_id]);
+    }
+
+    /**
+     * Fetches all coordinators assigned for a particular event
+     *
+     * @param $event_id
+     * @return array
+     */
+    public function getCoordinatorsForEvent($event_id) {
+        return DB::select('SELECT id, first_name, last_name, email FROM users WHERE id IN (SELECT staff_id FROM event_staff WHERE event_id = :event_id)', ["event_id" => $event_id]);
+    }
+
+    public function getEventsByStaffId($user_id) {
+        return DB::select('SELECT * FROM events WHERE id IN (SELECT event_id FROM event_staff WHERE staff_id = ?)', [$user_id]);
+    }
+
 }

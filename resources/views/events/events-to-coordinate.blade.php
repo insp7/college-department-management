@@ -6,16 +6,6 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
 @endsection
 
-{{--@section('breadcrumb')--}}
-{{--    <li class="breadcrumb-item"><a href="/admin/events"><i class="fas fa-book"></i></a></li>--}}
-{{--    <li class="breadcrumb-item"><a href="/admin/events">Events</a></li>--}}
-{{--    <li class="breadcrumb-item active" aria-current="page">Manage Events</li>--}}
-{{--@endsection--}}
-
-{{--@section('actions')--}}
-{{--    <a href="/admin/events/create" class="btn btn-sm btn-neutral">New</a>--}}
-{{--@endsection--}}
-
 @section('page-content')
 
     <div class="row">
@@ -81,14 +71,6 @@
 @endsection
 
 @section ('custom-script')
-{{--    <script src="{{ asset('assets/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>--}}
-{{--    <script src="{{ asset('assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>--}}
-{{--    <script src="{{ asset('assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>--}}
-{{--    <script src="{{ asset('assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>--}}
-{{--    <script src="{{ asset('assets/vendor/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>--}}
-{{--    <script src="{{ asset('assets/vendor/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>--}}
-{{--    <script src="{{ asset('assets/vendor/datatables.net-buttons/js/buttons.print.min.js') }}"></script>--}}
-{{--    <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>--}}
 
     <script>
         let manageEventsTable = $('#events-list');

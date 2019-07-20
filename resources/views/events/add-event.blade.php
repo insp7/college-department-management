@@ -48,7 +48,12 @@
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea  value="{{ old('type') }}"  name="type" placeholder="Type" class="form-control @error('type') is-invalid @enderror"></textarea>
+                                <select name="type" placeholder="Type" class="form-control @error('type') is-invalid @enderror">
+                                    <option selected disabled hidden>Type</option>
+                                    <option value="FDP">FDP</option>
+                                    <option value="EVENT-FOR-STUDENTS">EVENT FOR STUDENTS</option>
+                                    <option value="FOR-ALL">FOR-ALL</option>
+                                </select>
                             </div>
                             @error('type')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -57,7 +62,7 @@
 
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="date" value="{{ old('start_date') }}"  name="start_date" placeholder="Start Date" class="form-control @error('start_date') is-invalid @enderror"></input>
+                                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" value="{{ old('start_date') }}" id="start_date" name="start_date" placeholder="Start Date" class="form-control textbox-n @error('start_date') is-invalid @enderror"></input>
                             </div>
                             @error('start_date')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -66,7 +71,7 @@
 
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="date" value="{{ old('end_date') }}"  name="end_date" placeholder="End Date" class="form-control @error('end_date') is-invalid @enderror"></input>
+                                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" value="{{ old('end_date') }}" id="end_date" name="end_date" placeholder="End Date" class="form-control textbox-n @error('end_date') is-invalid @enderror"></input>
                             </div>
                             @error('end_date')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
