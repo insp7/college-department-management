@@ -138,8 +138,9 @@ Route::middleware(['auth'])->group(function () {
                 // Route::post('/student/complete-registration', 'StaffController@completeRegistration');
 
                 /*Student Internship*/
-                Route::resource('/student-internship', 'StudentInternshipController');
                 Route::get('/student-internship/get-student-internship', 'StudentInternshipController@getStudentInternships');
+                Route::resource('/student-internship', 'StudentInternshipController');
+
 
                 // Student Courses; later move to staff routes!
                 Route::get('/student-courses/get-student-courses', 'StudentCourseController@getStudentCourses');
