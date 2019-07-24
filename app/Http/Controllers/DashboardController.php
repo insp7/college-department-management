@@ -15,9 +15,9 @@ class DashboardController extends Controller
         if($user->hasRole('Admin')){
             return view('dashboard.admin');
         }elseif ($user->hasRole('Staff')){
-            return view('dashboard');
+            return view('dashboard.staff');
         }elseif ($user->hasRole('Student')){
-            return view('dashboard');
+            return view('dashboard.student');
         }else{
             abort(404);
         }
