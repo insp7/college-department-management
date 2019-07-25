@@ -19,20 +19,10 @@
                 <form method="POST" action="/student-internship" enctype="multipart/form-data" id="frmTarget">
 
                     @csrf
-
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
                     <div class="form-group">
                         <div class="input-group input-group-merge @error('company_name') has-danger @enderror">
                             <div class="input-group-prepend"> <span class="input-group-text"> <i
-                                        class="fa fa-newspaper"></i> </span> </div> <input value="{{ old('title') }}"
+                                        class="fa fa-newspaper"></i> </span> </div> <input value="{{ old('company_name') }}"
                                 required name="company_name" type="company_name" placeholder="Company Name"
                                 class="form-control @error('company_name') is-invalid @enderror">
                         </div>
@@ -45,14 +35,17 @@
 
                     <div>
                         <div class="custom-control custom-radio custom-control-inline mb-3">
-                            <input type="radio" id="is_paid1" name="is_paid" class="custom-control-input" value='0'>
+                            <input type="radio" required id="is_paid1" name="is_paid" class="custom-control-input" value='0'>
                             <label class="custom-control-label" for="is_paid1">Unpaid</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="is_paid" name="is_paid" class="custom-control-input" value='1'>
+                            <input type="radio" required id="is_paid" name="is_paid" class="custom-control-input" value='1'>
                             <label class="custom-control-label" for="is_paid">Paid</label>
                         </div>
                     </div>
+                    @error('is_paid')
+                        <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                    @enderror
 
                     <div class="input-daterange datepicker row align-items-center" data-provide="datepicker"
                         data-date-format="yyyy/mm/dd" data-orientation="top auto" aria-orientation="vertical">
@@ -62,7 +55,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input class="form-control" name="start_date" placeholder="Start date" type="text">
+                                    <input class="form-control" name="start_date" placeholder="Start date" value="{{old('start_date')}}" type="text" required>
                                 </div>
                             </div>
                         </div>
@@ -72,11 +65,17 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input class="form-control" name="end_date" placeholder="End date" type="text">
+                                    <input class="form-control" name="end_date" placeholder="End date" value="{{old('end_date')}}" type="text" required>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @error('end_date')
+                        <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                    @enderror
+                    @error('start_date')
+                        <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                    @enderror
 
 
 

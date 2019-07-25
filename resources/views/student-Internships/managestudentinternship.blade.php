@@ -34,8 +34,10 @@
                             <th> COMAPNY NAME </th>
                             <th> START DATE </th>
                             <th> END DATE </th>
+                            <th> Status </th>
                             <th> Edit </th>
                             <th> Delete </th>
+                            <th> View </th>
                         </tr>
                         </thead>
                         <tfoot>
@@ -43,8 +45,10 @@
                                 <th> COMAPNY NAME </th>
                                 <th> START DATE </th>
                                 <th> END DATE </th>
+                                <th> Status </th>
                                 <th> Edit </th>
                                 <th> Delete </th>
+                                <th> View </th>
                             </tr>
                         </tfoot>
                     </table>
@@ -86,6 +90,23 @@
             </div>
         </div>
     </div>
+<!-- View MODAL -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="viewModal">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <div class="">
+                    <img  id="InternshipImage" style="width: 400px; height: 400px;"  src="" alt="student internship image.jpeg">
+        </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -105,14 +126,18 @@
         managedStudentInternshipTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/studnet-internship/get-student-internship',
+            ajax: '/student-internship/get-student-internship',
             columns: [
                 {data: 'company_name', name: 'company_name'},
                 {data: 'start_date', name: 'start_date'},
                 {data: 'end_date', name: 'end_date'},
+                {data: 'status', name: 'status'},
                 {data: 'edit', name: 'edit'},
-                {data: 'delete', name: 'delete'}
-            ]
+                {data: 'delete', name: 'delete'},
+                {data: 'view', name: 'view'}
+            ],
+            language: {paginate:{previous:"<i class='fa fa-angle-left'>",next:"<i class='fa fa-angle-right'>"}}
+
         });
             managedStudentInternshipTable.on('click', '.edit', function () {
             $id = $(this).attr('id');
@@ -121,6 +146,10 @@
         managedStudentInternshipTable.on('click', '.delete', function(e) {
             $id = $(this).attr('id');
             $('#delete_form').attr('action', '/student-internship/' + $id);
+        })
+        managedStudentInternshipTable.on('click', '.view', function(e) {
+            $id = $(this).attr('id');
+            $('#InternshipImage').attr('src', $id);
         })
 
     </script>
