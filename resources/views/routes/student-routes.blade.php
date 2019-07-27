@@ -15,6 +15,7 @@
         </ul>
     </div>
 </li>
+
 <li class="nav-item">
     <a class="nav-link  {{Request::is('student-internship*') ? 'active' : ''}}" href="#navbar-internship"
         data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-internship">
@@ -33,8 +34,8 @@
     </div>
 </li>
 
-<li class="nav-item">
-    <a class="nav-link {{Request::is('student-internship*') ? 'active' : ''}}" href="#navbar-scholarship"
+<!-- <li class="nav-item">
+    <a class="nav-link {{Request::is('student-scholarship*') ? 'active' : ''}}" href="#navbar-scholarship"
         data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-scholarship">
         <i class="ni ni-hat-3 text-primary"></i>
         <span class="nav-link-text">Student Scholarships</span>
@@ -50,3 +51,21 @@
         </ul>
     </div>
 </li>
+
+<li class="nav-item">
+    <a class="nav-link {{Request::is('student-furtherstudies*') ? 'active' : ''}}" href="#navbar-furtherstudies"
+        data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-furtherstudies">
+        <i class="ni ni-hat-3 text-primary"></i>
+        <span class="nav-link-text">Student Further Studies</span>
+    </a>
+    <div class="collapse {{Request::is('student-furtherstudies*') ? 'show' : 'hide'}} " id="navbar-furtherstudies">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="/student-further-studies/create" class="nav-link">Add Further Studies</a>
+            </li>
+            <li class="nav-item">
+                <a href="/student-further-studies" class="nav-link">Manage Further Studies</a>
+            </li>
+        </ul>
+    </div>
+</li> -->

@@ -142,6 +142,10 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/student-scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
                 Route::resource('/student-scholarships', 'StudentScholarshipController');
 
+                // Further Studies
+                Route::get('/student-further-studies/get-furtherstudies', 'StudentFurtherStudiesController@getStudentFurtherStudies');
+                Route::resource('/student-further-studies', 'StudentFurtherStudiesController');
+
                 // Profile
                 Route::get('/profile', 'UserController@myProfile');
                 Route::get('/staff/edit', 'StaffController@staffEdit');

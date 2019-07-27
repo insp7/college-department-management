@@ -2,42 +2,41 @@
 
 namespace App\Services;
 
-use App\StudentScholarship;
+use App\StudentFurtherStudies;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 
-class StudentScholarshipService
+class StudentFurtherStudiesService
 {
     public function create($validatedData, $user_id)
     {
         DB::beginTransaction();
 
-        $student_scholarship = StudentScholarship::create([
-            'sponsors_name' => $validatedData['sponsors_name'],
-            'details' => $validatedData['details'],
-            'amount' => $validatedData['amount'],
-            'isPrivate' => $validatedData['isPrivate'],
-            'year' => $validatedData['year'],
+        $student_furtherstudies = StudentFurtherStudies::create([
+            'hasOpted' => $validatedData['hasOpted'],
+            'type' => $validatedData['type'],
+            'hasGiven' => $validatedData['hasGiven'],
+            'obtained' => $validatedData['obtained'],
+            'outof' => $validatedData['outof'],
             'created_by' => $user_id
         ]);
 
         DB::commit();
     }
-    
     /**
      * Returns the list of states for datatables.net
      * @return mixed : List of States.
      */
     public function getDatatable($id)
     {
-        return StudentScholarship::where('created_by', $id)->orderBy('created_at', 'desc');;
+        return StudentFurtherStudies::where('created_by', $id)->orderBy('created_at', 'desc');;
     }
 
     public function delete($id, $user_id)
     {
         DB::beginTransaction();
-        StudentScholarship::where('created_by', $user_id)
+        StudentFurtherStudies::where('created_by', $user_id)
             ->where('id', $id)
             ->delete();
         DB::commit();
@@ -46,12 +45,12 @@ class StudentScholarshipService
     public function update($validatedData,$user_id,$id)
     {
         DB::beginTransaction();
-        StudentScholarship::where('id',$user_id)
+        StudentFurtherStudies::where('id',$user_id)
                 ->where('created_by',$id)
                 ->update($validatedData);
-        $student_scholarship = StudentScholarship::where('id', $user_id);
+        $student_furtherstudies = StudentFurtherStudies::where('id', $user_id);
 
         DB::commit();
         return true;
-    }
+}
 }
