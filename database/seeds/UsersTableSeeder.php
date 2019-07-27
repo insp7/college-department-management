@@ -69,5 +69,28 @@ class UsersTableSeeder extends Seeder
 
         $user->assignRole('Staff');
 
+        $user = User::create([
+            'first_name' => 'Rohin',
+            'last_name' => 'Vaidya',
+            'middle_name' => 'M',
+            'email' => 'student2@gmail.com',
+            'password'  => Hash::make('stud123'),
+            'contact_no' => '1234567890',
+            'date_of_birth' => '2019-02-20',
+            'role' => 3,
+            'additional_columns' => 'additional columns',
+            'gender' => 'M',
+            'created_at' => '2019-07-27 12:23:45',
+            'updated_at' => '2019-07-27 12:23:45',
+        ]);
+        
+        $user->assignRole('Student');
+        
+        Student::create(['user_id' => $user->id,
+        'created_by' => $user->id, 
+        'updated_by' =>$user->id,
+        'roll_no'=>111,
+        'class_id' =>1
+        ]);
     }
 }
