@@ -78,10 +78,6 @@ Route::middleware(['auth'])->group(function () {
                         Route::get('/publications/get-publications', 'PublicationsController@getPublications');
                         Route::resource('/publications', 'PublicationsController');
 
-                        //Scholarships
-                        Route::get('/student-scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
-                        Route::resource('/student-scholarships', 'StudentScholarshipController');
-
                         // Profile
                         Route::get('/profile', 'UserController@myProfile');
                         Route::get('/staff/edit', 'StaffController@staffEdit');
@@ -143,8 +139,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::resource('/student-courses', 'StudentCourseController');
 
                 // Scholarships
-                // Route::get('/student-scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
-                // Route::resource('/student-scholarships', 'StudentScholarshipController');
+                Route::get('/student-scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
+                Route::resource('/student-scholarships', 'StudentScholarshipController');
 
                 // Profile
                 Route::get('/profile', 'UserController@myProfile');

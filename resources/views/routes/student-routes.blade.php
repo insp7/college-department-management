@@ -34,12 +34,12 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link {{Request::is('student-internship*') ? 'active' : ''}}" href="#navbar-dashboards"
-        data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
-        <i class="ni ni-single-02 text-primary"></i>
+    <a class="nav-link {{Request::is('student-internship*') ? 'active' : ''}}" href="#navbar-scholarship"
+        data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-scholarship">
+        <i class="ni ni-hat-3 text-primary"></i>
         <span class="nav-link-text">Student Scholarships</span>
     </a>
-    <div class="collapse {{Request::is('student-courses*') ? 'show' : 'hide'}} " id="navbar-dashboards">
+    <div class="collapse {{Request::is('student-scholarship*') ? 'show' : 'hide'}} " id="navbar-scholarship">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
                 <a href="/student-scholarships/create" class="nav-link">Add Scholarships</a>
