@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', 'DashboardController@index');
         Route::get('/timeline', 'UserController@timeline');
         Route::resource('/news-feed', 'NewsFeedController');
+        Route::get('/profile', 'UserController@myProfile');
 
 
         /**
@@ -78,9 +79,9 @@ Route::middleware(['auth'])->group(function () {
                         Route::get('/publications/get-publications', 'PublicationsController@getPublications');
                         Route::resource('/publications', 'PublicationsController');
 
-                        // Profile
-                        Route::get('/profile', 'UserController@myProfile');
-                        Route::get('/staff/edit', 'StaffController@staffEdit');
+                        // // Profile
+                        // Route::get('/profile', 'UserController@myProfile');
+                        // Route::get('/staff/edit', 'StaffController@staffEdit');
 
                         //Scholarships
                         Route::get('/scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
@@ -146,10 +147,6 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/student-courses/get-student-courses', 'StudentCourseController@getStudentCourses');
                 Route::resource('/student-courses', 'StudentCourseController');
 
-
-                // Profile
-                Route::get('/profile', 'UserController@myProfile');
-                Route::get('/staff/edit', 'StaffController@staffEdit');
 
 
 

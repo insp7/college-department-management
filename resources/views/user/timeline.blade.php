@@ -2,8 +2,8 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="/home"><i class="fas fa-user"></i></a></li>
-    <li class="breadcrumb-item"><a href="/staff">Staff</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add Staff</li>
+    <li class="breadcrumb-item"><a href="/profile">profile</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Timeline</li>
 @endsection
 
 @section('page-content')
