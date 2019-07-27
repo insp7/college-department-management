@@ -149,7 +149,7 @@
                     <i class="fa fa-user text-primary" aria-hidden="true"></i>
                 </span>
                             <div class="media-body ml-2 d-none d-lg-block">
-                                <span class="mb-0 text-sm  font-weight-bold">{{$user->first_name}}</span>
+                                <span class="mb-0 text-sm  font-weight-bold">Profile</span>
                             </div>
                         </div>
                     </a>

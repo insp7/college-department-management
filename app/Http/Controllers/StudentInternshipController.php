@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Services\StudentInternshipService;
 use Yajra\DataTables\Facades\DataTables;
 use App\StudentInternshipImage;
+use Illuminate\Support\Carbon;
 
 class StudentInternshipController extends Controller
 {
@@ -71,6 +72,16 @@ class StudentInternshipController extends Controller
 
         try {
             $this->studentinternshipservice->create($validatedData, $image_relative_path, Auth::id());
+
+            /*LOG ACTIVITY*/
+            activity()
+                ->causedBy(Auth::user())
+                ->withProperties([
+                    'date' => Carbon::now()->toDateTimeString(),
+                    'title' => 'Internship Added',
+                ])
+                ->log("Internship $request->company_name added");
+
             return redirect('student-internship')->with([
                 'type' => 'success',
                 'title' => 'Internship added successfully',
