@@ -1,8 +1,8 @@
 @extends('layouts.base')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/scholarships"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/scholarships/create">Scholarships</a></li>
+    <li class="breadcrumb-item"><a href="/student-scholarships"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/student-scholarships/create">Scholarships</a></li>
     <li class="breadcrumb-item active" aria-current="page">Add Scholarships</li>
 @endsection
 
@@ -16,53 +16,53 @@
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="post" action="/scholarships">
+                    <form method="post" action="/student-scholarships">
                         @csrf
 
-                        <div class="form-group">
-                            <div class="input-group">
-                                 <textarea  value="{{ old('details') }}" required name="details"  placeholder="Details about Scholarship" class="form-control @error('details') is-invalid @enderror"></textarea>
+                            <div class="form-group">
+                                 <input type="text"  value="{{ old('details') }}" name="details" placeholder="Details about Scholarship" class="form-control @error('details') is-invalid @enderror" required>
+                                @error('details')
+                                <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                 <input type="text"  value="{{ old('sponsors_name') }}" required name="sponsors_name"  placeholder="Sponsoror's Name" class="form-control @error('sponsors_name') is-invalid @enderror">
+                            @error('sponsors_name')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                            </div>
+
+                            <div class="form-group">
+                                 <input type="text"  value="{{ old('amount') }}" required name="amount"  placeholder="Amount of Scholarship" class="form-control @error('amount') is-invalid @enderror">
+                            @error('amount')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group @error('year') has-danger @enderror">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                    </div>
+                                    <input class="form-control datepicker" type="text" value="{{ old('year') }}" name="year"  placeholder="Year of Scholarship">
+                                @error('year')
+                                <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                                @enderror
+                                </div>
+                            </div>
+
+                            <div class="custom-control custom-radio mb-3">
+                                 <input class="custom-control-input" id="private" type="radio" required name="isPrivate" value="1" class="form-control @error('details') is-invalid @enderror">
+                                 <label class="custom-control-label" for="private">Private</label>
+                            </div>
+                            <div class="custom-control custom-radio mb-3">
+                            <input class="custom-control-input" id="government" type="radio" required name="isPrivate" value="0" class="form-control @error('details') is-invalid @enderror">
+                            <label class="custom-control-label" for="government">Government</label>
                             </div>
                             @error('details')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
-                            <br>
-
-                            <div class="input-group">
-                                 <textarea  value="{{ old('sponsors_name') }}" required name="sponsors_name"  placeholder="Sponsoror's Name" class="form-control @error('details') is-invalid @enderror"></textarea>
-                            </div>
-                            @error('details')
-                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                            @enderror
-                            <br>
-
-                            <div class="input-group">
-                                 <textarea  value="{{ old('amount') }}" required name="amount"  placeholder="Amount of Scholarship" class="form-control @error('details') is-invalid @enderror"></textarea>
-                            </div>
-                            @error('details')
-                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                            @enderror
-                            <br>
-
-                            <div class="input-group">
-                                 <textarea  value="{{ old('year') }}" required name="year"  placeholder="Year of Scholarship" class="form-control @error('details') is-invalid @enderror"></textarea>
-                            </div>
-                            @error('details')
-                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                            @enderror
-                            <br>
-
-                            <div class="input-group">
-                                 <input type="radio" required name="isPrivate" value="1" class="form-control @error('details') is-invalid @enderror">Private<br>
-                                 <input type="radio" required name="isPrivate" value="0" class="form-control @error('details') is-invalid @enderror">Government
-                            </div>
-                            @error('details')
-                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                            @enderror
-                            <br>
-
-                        </div>
-
 
                         <button class="btn btn-primary" type="submit">Submit form</button>
                     </form>
@@ -74,7 +74,8 @@
 @endsection
 
 @section ('custom-script')
-    <script src="{{ asset("/js/shape/add-shape.js") }}"></script>
+    <script src="{{ asset('/js/shape/add-shape.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 
     @if(session()->has('type'))
         <script>

@@ -1,9 +1,9 @@
 @extends('layouts.base')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/scholarships"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/scholarships/create">Scholarships</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add Scholarships</li>
+    <li class="breadcrumb-item"><a href="/student-scholarships"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/student-scholarships/create">Add Scholarships</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Scholarships</li>
 @endsection
 
 @section('page-content')
@@ -16,13 +16,13 @@
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="post" enctype="multipart/form-data" action="/scholarships/{{ $student->id }}">
+                    <form method="post" enctype="multipart/form-data" action="/student-scholarships/{{ $student->id }}">
+                        @method('PATCH')
                         @csrf
-                        <!-- @method('PATCH') -->
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="details" placeholder="Details about scholarship" class="form-control @error('details') is-invalid @enderror">{{ $student->details }}</textarea>
+                                <input type="text" value="{{ $student->details }}" name="details" class="form-control @error('details') is-invalid @enderror">
                             </div>
                             @error('details')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -40,7 +40,7 @@
 @endsection
 
 @section ('custom-script')
-    <script src="{{ asset("/js/shape/add-shape.js") }}"></script>
+    <script src="{{ asset('/js/shape/add-shape.js') }}"></script>
 
     @if(session()->has('type'))
         <script>

@@ -7,13 +7,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/scholarships"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/scholarships">Scholarships</a></li>
+    <li class="breadcrumb-item"><a href="/student-scholarships"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/student-scholarships">Scholarships</a></li>
     <li class="breadcrumb-item active" aria-current="page">Manage Scholarships</li>
 @endsection
 
 @section('actions')
-    <a href="/scholarships/create" class="btn btn-sm btn-neutral">New</a>
+    <a href="/student-scholarships/create" class="btn btn-sm btn-neutral">New</a>
 @endsection
 
 @section('page-content')
@@ -106,7 +106,7 @@
         managedScholarshipsTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/scholarships/get-scholarships',
+            ajax: '/student-scholarships/get-scholarships',
             columns: [
                 {data: 'details', name: 'details'},
                 {data: 'sponsors_name', name: 'sponsors_name'},
@@ -114,17 +114,18 @@
                 {data: 'year', name: 'year'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
-            ]
+            ],
+            language:{paginate: {previous:"<i class='fa fa-angle-left'>", next:"<i class='fa fa-angle-right'>"}}
         });
 
         managedScholarshipsTable.on('click', '.edit', function(e) {
             $id = $(this).attr('id');
-            window.location.pathname = '/scholarships/' + $id + '/edit';
+            window.location.pathname = '/student-scholarships/' + $id + '/edit';
         });
 
         managedScholarshipsTable.on('click', '.delete', function(e) {
             $id = $(this).attr('id');
-            $('#delete_form').attr('action', '/scholarships/' + $id);
+            $('#delete_form').attr('action', '/student-scholarships/' + $id);
         });
 
     </script>

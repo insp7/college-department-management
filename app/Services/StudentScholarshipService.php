@@ -4,12 +4,17 @@ namespace App\Services;
 
 use App\StudentScholarship;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 class StudentScholarshipService
 {
     public function create($validatedData, $user_id)
     {
+        $year = $validatedData['year'];
+        dd($year[]);
+        $validatedData->year = int($year);
+
         DB::beginTransaction();
 
         $student_scholarship = StudentScholarship::create([
@@ -43,9 +48,13 @@ class StudentScholarshipService
 
     public function update($validatedData,$user_id,$id)
     {
+        // Need to improve
+        $year = Carbon::createFromFormat('Y-m-d', $validatedData->year )->year;
+        dd($year);
+        $validatedData->year = int($year);
         DB::beginTransaction();
-        StudentScholarship::where('id',$id)->update($validatedData);
-        $student_scholarship = StudentScholarship::where('id', $id);
+        StudentScholarship::where('id',$user_id)->update($validatedData);
+        $student_scholarship = StudentScholarship::where('id', $user_id);
 
         DB::commit();
 }
