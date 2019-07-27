@@ -13,11 +13,23 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         if($user->hasRole('Admin')){
-            return view('dashboard.admin');
+            return view('dashboard.admin')->with(
+                [
+                    'user' => $user,
+                ]
+            );;
         }elseif ($user->hasRole('Staff')){
-            return view('dashboard.staff');
+            return view('dashboard.staff')->with(
+                [
+                    'user'=>$user,
+                ]
+            );
         }elseif ($user->hasRole('Student')){
-            return view('dashboard.student');
+            return view('dashboard.student')->with(
+                [
+                    'user' => $user,
+                ]
+            );;
         }else{
             abort(404);
         }
