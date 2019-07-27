@@ -2,6 +2,7 @@
 
 use App\Staff;
 use App\User;
+use App\Student;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -87,10 +88,10 @@ class UsersTableSeeder extends Seeder
         $user->assignRole('Student');
         
         Student::create(['user_id' => $user->id,
-        'created_by' => $user->id, 
+        'created_by' => $user->id,
         'updated_by' =>$user->id,
         'roll_no'=>111,
-        'class_id' =>1
+        'class_id' =>1,
         ]);
     }
 }

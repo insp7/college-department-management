@@ -18,7 +18,7 @@ class CreateStudentScholarshipsTable extends Migration
             $table->text('details');
             $table->string('sponsors_name');
             $table->float('amount');
-            $table->integer('year');
+            $table->date('year');
             $table->boolean('isPrivate');
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();

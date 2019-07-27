@@ -11,10 +11,6 @@ class StudentScholarshipService
 {
     public function create($validatedData, $user_id)
     {
-        $year = $validatedData['year'];
-        dd($year[]);
-        $validatedData->year = int($year);
-
         DB::beginTransaction();
 
         $student_scholarship = StudentScholarship::create([
@@ -48,14 +44,13 @@ class StudentScholarshipService
 
     public function update($validatedData,$user_id,$id)
     {
-        // Need to improve
-        $year = Carbon::createFromFormat('Y-m-d', $validatedData->year )->year;
-        dd($year);
-        $validatedData->year = int($year);
         DB::beginTransaction();
-        StudentScholarship::where('id',$user_id)->update($validatedData);
+        StudentScholarship::where('id',$user_id)
+                ->where('created_by',$id)
+                ->update($validatedData);
         $student_scholarship = StudentScholarship::where('id', $user_id);
 
         DB::commit();
+        return true;
 }
 }

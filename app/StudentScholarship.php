@@ -9,7 +9,9 @@ class StudentScholarship extends Model
     protected $table = 'student_scholarships';
     protected $primaryKey = 'id';
     protected $guarded = [];
-    // protected $fillable = ['start_date','end_date', 'sponsors_name', 'created_by', 'updated_by','isPrivate','year','amount','year'];
+    protected $casts = [
+        'year'  => 'date:Y-m-d',
+    ];
 
     public function user()
     {

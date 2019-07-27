@@ -53,6 +53,15 @@ class StudentScholarshipController extends Controller
             'year' => 'required',
         ]);
 
+            /*LOG ACTIVITY*/
+            activity()
+                ->causedBy(Auth::user())
+                ->withProperties([
+                    'date' => Carbon::now()->toDateTimeString(),
+                    'title' => 'Scholarship Added',
+                ])
+                ->log("StudentScholarship $studentscholarship->details added");
+
         try {
             $this->studentscholarshipservice->create($validatedData, Auth::id());
             return redirect('/student-scholarships')->with([
@@ -109,7 +118,7 @@ class StudentScholarshipController extends Controller
             'year' => 'required',
         ]); 
 
-        $updateSuccessful = $this->studentscholarshipService->update($validatedData, $id, Auth::id());
+        $updateSuccessful = $this->studentscholarshipservice->update($validatedData, $id, Auth::id());
 
         if($updateSuccessful) {
             return redirect('/student-scholarships')->with([
