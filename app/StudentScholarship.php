@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StudentScholarship extends Model
 {
+    use SoftDeletes;
     protected $table = 'student_scholarships';
     protected $primaryKey = 'id';
     protected $guarded = [];
