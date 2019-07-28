@@ -18,9 +18,7 @@
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data" action="/student-further-studies/{{ $student->id }}">
                         @csrf
-                        @dd($student->id)
-                        {{ method_field("PATCH") }}
-                        <!-- @method("PATCH") -->
+                        @method("PATCH")
 
                         <div class="form-group">
                             <h4 class="mb-0 pb-2">Have You Opted For Further Studies?</h4>
