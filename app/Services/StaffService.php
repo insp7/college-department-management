@@ -101,4 +101,48 @@ class StaffService {
     public function fetchAllStaff() {
         return DB::select('SELECT id, first_name, last_name, email FROM users WHERE id IN (SELECT user_id FROM staff)');
     }
+
+    public function delete(int $id) {
+        try {
+            Staff::destroy($id);
+            return true;
+        } catch(Exception $e) {
+            return false;
+        }
+    }
+
+    public function getStaffDetailsById(int $id) {
+        return Staff::findOrFail($id);
+    }
+
+    public function getUserDetailsForStaff(int $id) {
+        return DB::select('SELECT * FROM users WHERE id IN (SELECT user_id FROM staff WHERE id = :id)', ['id' => $id]);
+    }
+
+    public function update($validatedData, $id, $user_id) {
+        try {
+            DB::beginTransaction();
+                $user = User::findOrFail($id);
+                $user->first_name = $validatedData['first_name'];
+                $user->last_name = $validatedData['last_name'];
+                $user->middle_name = $validatedData['middle_name'];
+                $user->gender = $validatedData['gender'];
+                $user->date_of_birth = $validatedData['date_of_birth'];
+                $user->contact_no = $validatedData['contact_no'];
+                $user->updated_by = $user_id;
+                $user->save();
+
+                $staff = Staff::findOrFail($id);
+//                if(isset($validatedData['is_teaching'])) $staff->is_teaching = $validatedData['is_teaching'];
+//                if(isset($validatedData['is_permanent'])) $staff->is_parmanent = $validatedData['is_permanent'];
+                $staff->pan = $validatedData['pan'];
+                $staff->employee_id = $validatedData['employee_id'];
+                $staff->save();
+            DB::commit();
+
+            return true;
+        } catch (Exception $exception) {
+            return false;
+        }
+    }
 }

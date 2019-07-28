@@ -130,7 +130,7 @@
                         <div class="row">
 
                             <div class="col-md-4">
-                                <div class="form-group">
+          event_                      <div class="form-group">
                                     <input type="date" value="{{ old('date_of_joining_institue') }}" required name="date_of_joining_institue" type="date" placeholder="Date of Birth"  class="form-control @error('date_of_joining_institue') is-invalid @enderror">
                                     @error('date_of_joining_institue')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>

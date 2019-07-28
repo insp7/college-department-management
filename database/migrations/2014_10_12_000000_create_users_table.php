@@ -30,6 +30,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
 
+            $table->unsignedBigInteger('updated_by')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

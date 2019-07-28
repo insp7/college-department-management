@@ -14,7 +14,7 @@ use App\Classs;
 class StudentService
 {
 
-    public function store($validatedData, $user_id){
+    public function store($validatedData, $user_id) {
 
         $class=Classs::create([
             'year' => $validatedData['year'],
@@ -25,7 +25,7 @@ class StudentService
 
     }
 
-    public function storeStudentsFromExcelSheet($validatedData, $user_id){
+    public function storeStudentsFromExcelSheet($validatedData, $user_id) {
 
         $class=Classs::create([
             'year' => $validatedData['year'],
@@ -42,12 +42,11 @@ class StudentService
      * Returns the list of states for datatables.net
      * @return mixed : List of States.
      */
-    public function getDatatable()
-    {
+    public function getDatatable() {
         return Classs::orderBy('created_at', 'desc');
     }
 
-    public function delete($id,$user_id){
+    public function delete($id,$user_id) {
         return Classs::where('id', $id)
             ->delete();
     }

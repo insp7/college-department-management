@@ -14,8 +14,13 @@ class CreateStaffTable extends Migration {
 	{
 		Schema::create('staff', function(Blueprint $table)
 		{
-			$table->increments('id');
-            $table->bigInteger('user_id');
+			$table->bigIncrements('id');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
 
 			$table->boolean('is_permanent')->default(0)->nullable();
 			$table->boolean('is_teaching')->default(0)->nullable();

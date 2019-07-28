@@ -1,9 +1,9 @@
 @extends('layouts.base')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/publications"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/publications/create">Publications</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add Publications</li>
+    <li class="breadcrumb-item"><a href="/news-feed"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/news-feed/create">News Feed</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Add News Feed</li>
 @endsection
 
 @section('page-content')
@@ -12,28 +12,28 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Edit Publications</h3>
+                    <h3 class="mb-0">Edit News Feed</h3>
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" action="/publications/{{ $publication->id }}">
+                    <form method="POST" enctype="multipart/form-data" action="/news-feed/{{ $news_feed->id }}">
                         @csrf
-                        @method('PATCH');
+                        @method('PATCH')
 
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="date" value="{{ $publication->year }}"  name="year" placeholder="Year" class="form-control @error('year') is-invalid @enderror"></input>
+                                <input type="text" value="{{ $news_feed->title }}"  name="title" placeholder="Title" class="form-control @error('title') is-invalid @enderror"></input>
                             </div>
-                            @error('year')
+                            @error('title')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="citation" placeholder="Citation" class="form-control @error('citation') is-invalid @enderror">{{ $publication->citation }}</textarea>
+                                <textarea name="description" placeholder="Description" class="form-control @error('description') is-invalid @enderror">{{ $news_feed->description}}</textarea>
                             </div>
-                            @error('citation')
+                            @error('description')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
@@ -77,3 +77,4 @@
         </script>
     @endif
 @endsection
+
