@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \App\StudentScholarship;
+use \App\StudentFurtherStudies;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Services\StudentFurtherStudiesService;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -44,13 +45,32 @@ class StudentFurtherStudiesController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'hasOpted' => 'boolean',
-            'type' => 'sometimes|required',
-            'hasGiven' => 'boolean',
-            'obtained' => 'sometimes|required',
-            'outof' => 'sometimes|required',
-        ]);
+        if($request->has('type')){
+            if($request->has('obtained') && $request->has('outof')){
+                $validatedData = $request->validate([
+                    'hasOpted' => 'boolean',
+                    'type' => 'nullable',
+                    'hasGiven' => 'boolean',
+                    'obtained' => 'nullable',
+                    'outof' => 'nullable',
+                ]);
+            }
+            else if($request->hasGiven == '0'){
+                $validatedData = $request->validate([
+                    'hasOpted' => 'boolean',
+                    'type' => 'nullable',
+                    'hasGiven' => 'boolean',
+                ]);
+            }
+            else{
+                $validatedData = $request->validate([
+                    'hasOpted' => 'boolean',
+                    ]);
+            }
+        }
+
+        try {
+            $student_furtherstudies = $this->studentfurtherstudiesservice->create($validatedData, Auth::id());
 
             /*LOG ACTIVITY*/
             activity()
@@ -59,10 +79,8 @@ class StudentFurtherStudiesController extends Controller
                     'date' => Carbon::now()->toDateTimeString(),
                     'title' => 'Student Further Studies Added',
                 ])
-                ->log("StudentFurtherStudies $studentfurtherstudies->type added");
+                ->log('StudentFurtherStudies $student_furtherstudies->type added');
 
-        try {
-            $this->studentfurtherstudiesservice->create($validatedData, Auth::id());
             return redirect('/student-further-studies')->with([
                 'type' => 'success',
                 'title' => 'Student Further Studies added successfully',
@@ -111,10 +129,10 @@ class StudentFurtherStudiesController extends Controller
      
         $validatedData = $request->validate([
             'hasOpted' => 'boolean',
-            'type' => 'sometimes|required',
+            'type' => 'nullable',
             'hasGiven' => 'boolean',
-            'obtained' => 'sometimes|required',
-            'outof' => 'sometimes|required',
+            'obtained' => 'nullable',
+            'outof' => 'nullable',
         ]); 
 
         $updateSuccessful = $this->studentfurtherstudiesservice->update($validatedData, $id, Auth::id());

@@ -35,9 +35,8 @@
                             @enderror
                         </div>
 
-                        <div disabled="true"><p>HELLO</p></div>
                         <div class="form-group">
-                            <select name="type" id="" required class="form-control @error('type') is-invalid @enderror">
+                            <select name="type" id="choose-type" disabled="disabled" required class="form-control @error('type') is-invalid @enderror">
                                 <option disabled selected>Select Your Exam</option>
                                 <option value="MS" @if(old('type') == 'MS') selected @endif>MS</option>
                                 <option value="MTech" @if(old('type') == 'MTech') selected @endif>MTech</option>
@@ -49,15 +48,30 @@
                             @enderror
                         </div>
 
+                        <div class="form-group" id="given-exam" hidden="true">
+                            <h4 class="mb-0 pb-2">Have You Given the Exam?</h4>
+                            <div class="custom-control custom-radio mb-3">
+                                    <input class="custom-control-input" id="given" type="radio" disabled="disabled" required name="hasGiven" value="1" class="form-control @error('hasGiven') is-invalid @enderror">
+                                    <label class="custom-control-label" for="given">Yes</label>
+                            </div>
+                            <div class="custom-control custom-radio mb-3">
+                                <input class="custom-control-input" id="notgiven" type="radio" disabled="disabled" required name="hasGiven" value="0" class="form-control @error('hasGiven') is-invalid @enderror">
+                                <label class="custom-control-label" for="notgiven">No</label>
+                            </div>
+                            @error('hasGiven')
+                                <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="form-group">
-                                <input type="text" value="{{ old('obtained') }}" autocomplete="off" required name="obtained"  placeholder="Marks Obtained" class="form-control @error('obtained') is-invalid @enderror">
+                                <input type="text" value="{{ old('obtained') }}" disabled="disabled" autocomplete="off" required name="obtained" id="obtained" placeholder="Marks Obtained" class="form-control @error('obtained') is-invalid @enderror">
                             @error('obtained')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                                <input type="text" value="{{ old('outof') }}" autocomplete="off" required name="outof"  placeholder="Marks obtained Out Of" class="form-control @error('outof') is-invalid @enderror">
+                                <input type="text" value="{{ old('outof') }}" disabled="disabled" autocomplete="off" required name="outof" id="outof" placeholder="Marks obtained Out Of" class="form-control @error('outof') is-invalid @enderror">
                             @error('outof')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
@@ -74,6 +88,42 @@
 
 @section ('custom-script')
     <script src="{{ asset('/js/shape/add-shape.js') }}"></script>
+    <script>
+        $('#choose-type').hide();
+        $('input[name="hasOpted"]').on('click', function (event) {
+            var text = $(this).val();
+
+        if (text === '1') {
+            $('#choose-type').show();
+            $('#choose-type').prop('disabled', false);
+            $('#given-exam').prop('hidden', false);
+            $('#given').prop('disabled', false);
+            $('#notgiven').prop('disabled', false);
+        } else {
+            $('#choose-type').prop('disabled', true);
+            $('#choose-type').hide();
+            }
+        });
+    </script>
+        <script>
+        $('#obtained').hide();
+        $('#outof').hide();
+        $('input[name="hasGiven"]').on('click', function (event) {
+            var text = $(this).val();
+
+        if (text === '1') {
+            $('#obtained').show();
+            $('#obtained').prop('disabled', false);
+            $('#outof').show();
+            $('#outof').prop('disabled', false);
+        } else {
+            $('#obtained').prop('disabled', true);
+            $('#obtained').hide();
+            $('#outof').prop('disabled', true);
+            $('#outof').hide();
+        }
+        });
+    </script>
 
     @if(session()->has('type'))
         <script>

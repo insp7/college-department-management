@@ -17,7 +17,7 @@ class CreateStudentFurtherStudiesTable extends Migration
             $table->bigIncrements('id');
             $table->boolean('hasOpted')->default('0');
             $table->text('type')->nullable();
-            $table->boolean('hasGiven');
+            $table->boolean('hasGiven')->default('0');
             $table->text('obtained')->nullable();
             $table->text('outof')->nullable();
             $table->integer('created_by');

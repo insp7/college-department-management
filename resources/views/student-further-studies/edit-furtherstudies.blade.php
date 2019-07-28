@@ -16,78 +16,116 @@
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                <p>Edit Here</p>
-                    <!-- <form method="post"  enctype="multipart/form-data" action="/student-scholarships/{{ $student->id }}">
+                    <form method="post" enctype="multipart/form-data" action="/student-further-studies/{{ $student->id }}">
                         @csrf
-                        @method("PATCH")
+                        @dd($student->id)
+                        {{ method_field("PATCH") }}
+                        <!-- @method("PATCH") -->
 
                         <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" value="{{ $student->details }}" required name="details" autocomplete="off" class="form-control @error('details') is-invalid @enderror">
+                            <h4 class="mb-0 pb-2">Have You Opted For Further Studies?</h4>
+                            <div class="custom-control custom-radio mb-3">
+                                    <input class="custom-control-input" id="opted" type="radio" required name="hasOpted" value="1" class="form-control @error('hasOpted') is-invalid @enderror" {{$student->hasOpted===1?'checked':''}}>
+                                    <label class="custom-control-label" for="opted">Yes</label>
                             </div>
-                            @error('details')
+                            <div class="custom-control custom-radio mb-3">
+                                <input class="custom-control-input" id="notopted" type="radio" required name="hasOpted" value="0" class="form-control @error('hasOpted') is-invalid @enderror" {{$student->hasOpted===0?'checked':''}}>
+                                <label class="custom-control-label" for="notopted">No</label>
+                            </div>
+                            @error('hasOpted')
+                                <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <select name="type" id="choose-type" disabled="disabled" required class="form-control @error('type') is-invalid @enderror">
+                                <option disabled selected>Select Your Exam</option>
+                                <option value="MS" @if($student->type == 'MS') selected @endif>MS</option>
+                                <option value="MTech" @if($student->type == 'MTech') selected @endif>MTech</option>
+                                <option value="ME" @if($student->type == 'ME') selected @endif>ME</option>
+                                <option value="MBA" @if($student->type == 'MBA') selected @endif>MBA</option>
+                            </select>
+                            @error('type')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
-
-                            <div class="form-group">
-                                 <input type="text"  value="{{ $student->sponsors_name }}" autocomplete="off" required name="sponsors_name"  placeholder="Sponsoror's Name" class="form-control @error('sponsors_name') is-invalid @enderror">
-                            @error('sponsors_name')
-                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                            @enderror
-                            </div>
-
-                            <div class="form-group">
-                                 <input type="text"  value="{{ $student->amount }}" autocomplete="off" required name="amount"  placeholder="Amount of Scholarship" class="form-control @error('amount') is-invalid @enderror">
-                            @error('amount')
-                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                            @enderror
-                            </div>
-
-                            <div class="input-daterange datepicker" data-provide="datepicker" data-date-format="yyyy/mm/dd" data-orientation="top auto" aria-orientation="vertical">
-                                <div class="form-group">
-                                    <div class="input-group @error('year') has-danger @enderror">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                        </div>
-                                        <input class="form-control datepicker" type="text" autocomplete="off" value="{{ $student->year->toDateString() }}" name="year" placeholder="Year of Scholarship">
-                                    @error('year')
-                                    <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                                    @enderror
-                                    </div>
-                                </div>
-                             </div>
-
+                        <div class="form-group" id="given-exam" hidden="true">
+                            <h4 class="mb-0 pb-2">Have You Given the Exam?</h4>
                             <div class="custom-control custom-radio mb-3">
-                                 <input class="custom-control-input" id="private" type="radio" required name="isPrivate" value="1" class="form-control @error('details') is-invalid @enderror" {{$student->isPrivate===1?'checked':''}}>
-                                 <label class="custom-control-label" for="private">Private</label>
+                                    <input class="custom-control-input" id="given" type="radio" disabled="disabled" required name="hasGiven" value="1" class="form-control @error('hasGiven') is-invalid @enderror" {{$student->hasGiven===1?'checked':''}}>
+                                    <label class="custom-control-label" for="given">Yes</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                            <input class="custom-control-input" id="government" type="radio" required name="isPrivate" value="0" class="form-control @error('details') is-invalid @enderror" {{$student->isPrivate===0?'checked':''}}>
-                            <label class="custom-control-label" for="government">Government</label>
+                                <input class="custom-control-input" id="notgiven" type="radio" disabled="disabled" required name="hasGiven" value="0" class="form-control @error('hasGiven') is-invalid @enderror" {{$student->hasGiven===1?'checked':''}}>
+                                <label class="custom-control-label" for="notgiven">No</label>
                             </div>
-                            @error('details')
+                            @error('hasGiven')
+                                <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                                <input type="text" value="{{ $student->obtained }}" disabled="disabled" autocomplete="off" required name="obtained" id="obtained" placeholder="Marks Obtained" class="form-control @error('obtained') is-invalid @enderror">
+                            @error('obtained')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
+                        </div>
+
+                        <div class="form-group">
+                                <input type="text" value="{{ $student->outof }}" disabled="disabled" autocomplete="off" required name="outof" id="outof" placeholder="Marks obtained Out Of" class="form-control @error('outof') is-invalid @enderror">
+                            @error('outof')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <button class="btn btn-primary" type="submit">Update</button>
                     </form>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
 @endsection
 
 @section ('custom-script')
     <script src="{{ asset('/js/shape/add-shape.js') }}"></script>
     <script>
-        $('.datepicker').datepicker({
-            orientation: "top"
+        $('#choose-type').hide();
+        $('input[name="hasOpted"]').on('click', function (event) {
+            var text = $(this).val();
+
+        if (text === '1') {
+            $('#choose-type').show();
+            $('#choose-type').prop('disabled', false);
+            $('#given-exam').prop('hidden', false);
+            $('#given').prop('disabled', false);
+            $('#notgiven').prop('disabled', false);
+        } else {
+            $('#choose-type').prop('disabled', true);
+            $('#choose-type').hide();
+            }
         });
     </script>
-    <script src="{{ asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+        <script>
+        $('#obtained').hide();
+        $('#outof').hide();
+        $('input[name="hasGiven"]').on('click', function (event) {
+            var text = $(this).val();
+            
+        if (text === '1') {
+            $('#obtained').show();
+            $('#obtained').prop('disabled', false);
+            $('#outof').show();
+            $('#outof').prop('disabled', false);
+        } else {
+            $('#obtained').prop('disabled', true);
+            $('#obtained').hide();
+            $('#outof').prop('disabled', true);
+            $('#outof').hide();
+        }
+        });
+    </script>
 
 
     @if(session()->has('type'))

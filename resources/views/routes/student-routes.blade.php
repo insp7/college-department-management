@@ -34,8 +34,8 @@
     </div>
 </li>
 
-<!-- <li class="nav-item">
-    <a class="nav-link {{Request::is('student-scholarship*') ? 'active' : ''}}" href="#navbar-scholarship"
+<li class="nav-item">
+    <a class="nav-link {{Request::is('student-internship*') ? 'active' : ''}}" href="#navbar-scholarship"
         data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-scholarship">
         <i class="ni ni-hat-3 text-primary"></i>
         <span class="nav-link-text">Student Scholarships</span>
@@ -53,7 +53,7 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link {{Request::is('student-furtherstudies*') ? 'active' : ''}}" href="#navbar-furtherstudies"
+    <a class="nav-link {{Request::is('student-scholarship*') ? 'active' : ''}}" href="#navbar-furtherstudies"
         data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-furtherstudies">
         <i class="ni ni-hat-3 text-primary"></i>
         <span class="nav-link-text">Student Further Studies</span>
@@ -68,4 +68,4 @@
             </li>
         </ul>
     </div>
-</li> -->
+</li>

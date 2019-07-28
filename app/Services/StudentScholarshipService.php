@@ -23,6 +23,7 @@ class StudentScholarshipService
         ]);
 
         DB::commit();
+        return $student_scholarship;
     }
     
     /**

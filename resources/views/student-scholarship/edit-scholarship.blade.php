@@ -59,14 +59,14 @@
                              </div>
 
                             <div class="custom-control custom-radio mb-3">
-                                 <input class="custom-control-input" id="private" type="radio" required name="isPrivate" value="1" class="form-control @error('details') is-invalid @enderror" {{$student->isPrivate===1?'checked':''}}>
+                                 <input class="custom-control-input" id="private" type="radio" required name="isPrivate" value="1" class="form-control @error('isPrivate') is-invalid @enderror" {{$student->isPrivate===1?'checked':''}}>
                                  <label class="custom-control-label" for="private">Private</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                            <input class="custom-control-input" id="government" type="radio" required name="isPrivate" value="0" class="form-control @error('details') is-invalid @enderror" {{$student->isPrivate===0?'checked':''}}>
+                            <input class="custom-control-input" id="government" type="radio" required name="isPrivate" value="0" class="form-control @error('isPrivate') is-invalid @enderror" {{$student->isPrivate===0?'checked':''}}>
                             <label class="custom-control-label" for="government">Government</label>
                             </div>
-                            @error('details')
+                            @error('isPrivate')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
 

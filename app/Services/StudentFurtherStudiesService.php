@@ -13,20 +13,35 @@ class StudentFurtherStudiesService
     {
         DB::beginTransaction();
 
-        $student_furtherstudies = StudentFurtherStudies::create([
-            'hasOpted' => $validatedData['hasOpted'],
-            'type' => $validatedData['type'],
-            'hasGiven' => $validatedData['hasGiven'],
-            'obtained' => $validatedData['obtained'],
-            'outof' => $validatedData['outof'],
-            'created_by' => $user_id
-        ]);
-
+        if(! isset($validatedData['type'])){
+            $student_furtherstudies = StudentFurtherStudies::create([
+                'hasOpted' => $validatedData['hasOpted'],
+                'created_by' => $user_id
+            ]);
+        }
+        else if(! isset($validatedData['obtained'])){
+            $student_furtherstudies = StudentFurtherStudies::create([
+                'hasOpted' => $validatedData['hasOpted'],
+                'type' => $validatedData['type'],
+                'hasGiven' => $validatedData['hasGiven'],
+                'created_by' => $user_id
+            ]); 
+        }
+        else{
+            $student_furtherstudies = StudentFurtherStudies::create([
+                'hasOpted' => $validatedData['hasOpted'],
+                'type' => $validatedData['type'],
+                'hasGiven' => $validatedData['hasGiven'],
+                'obtained' => $validatedData['obtained'],
+                'outof' => $validatedData['outof'],
+                'created_by' => $user_id
+            ]);
+        }
+        
         DB::commit();
+        return $student_furtherstudies;
     }
     /**
-     * Returns the list of states for datatables.net
-     * @return mixed : List of States.
      */
     public function getDatatable($id)
     {

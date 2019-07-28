@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\StudentScholarship;
+use \App\User;
+use \App\Student;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Services\StudentScholarshipService;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -52,6 +55,9 @@ class StudentScholarshipController extends Controller
             'isPrivate' => 'boolean',
             'year' => 'required',
         ]);
+        
+        try {
+            $studentscholarship=$this->studentscholarshipservice->create($validatedData, Auth::id());
 
             /*LOG ACTIVITY*/
             activity()
@@ -62,8 +68,6 @@ class StudentScholarshipController extends Controller
                 ])
                 ->log("StudentScholarship $studentscholarship->details added");
 
-        try {
-            $this->studentscholarshipservice->create($validatedData, Auth::id());
             return redirect('/student-scholarships')->with([
                 'type' => 'success',
                 'title' => 'Scholarship added successfully',
