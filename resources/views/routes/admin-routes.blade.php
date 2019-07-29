@@ -16,12 +16,12 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link {{Request::is('admin/events*') ? 'active' : ''}}" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
-        <i class="ni ni-single-02 text-primary"></i>
+    <a class="nav-link {{Request::is('admin/events*') ? 'active' : ''}}" href="#navbar-events" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+        <i class="ni ni-calendar-grid-58 text-primary"></i>
         <span class="nav-link-text">Events</span>
     </a>
 
-    <div class="collapse {{Request::is('admin/events*') ? 'show' : ''}}" id="navbar-dashboards">
+    <div class="collapse {{Request::is('admin/events*') ? 'show' : ''}}" id="navbar-events">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
                 <a href="/admin/events/create" class="nav-link">Add Events</a>
@@ -51,11 +51,11 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link {{ Request::is('/news-feed*') ? 'active' : '' }}" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
-        <i class="ni ni-single-02 text-primary"></i>
+    <a class="nav-link {{ Request::is('/news-feed*') ? 'active' : '' }}" href="#navbar-news-feed" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+        <i class="ni ni-single-copy-04 text-primary"></i>
         <span class="nav-link-text">News</span>
     </a>
-    <div class="collapse {{ Request::is('/news-feed*') ? 'show' : '' }}" id="navbar-dashboards">
+    <div class="collapse {{ Request::is('/news-feed*') ? 'show' : '' }}" id="navbar-news-feed">
         <ul class="nav nav-sm flex-column">
             <li class="nav-item">
                 <a href="/news-feed/create" class="nav-link">Publish News</a>

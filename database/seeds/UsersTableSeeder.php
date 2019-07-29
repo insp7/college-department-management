@@ -1,6 +1,7 @@
 <?php
 
 use App\Staff;
+use App\Student;
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;

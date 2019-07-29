@@ -18,92 +18,84 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-//Route::get('/notification', 'StaffController@showNotification');
+
 
 Route::middleware(['auth'])->group(function () {
 
-        // // Student Courses; later move to staff routes!
-        // Route::get('/student-courses/get-student-courses', 'StudentCourseController@getStudentCourses');
-        // Route::resource('/student-courses', 'StudentCourseController');
-
-        /**
-     * General Routes
-     */
-        Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-        Route::redirect('/', '/dashboard');
-        Route::get('/dashboard', 'DashboardController@index');
-        Route::get('/timeline', 'UserController@timeline');
-
-        // will organize more efficiently later
-        Route::group(['middleware' => ['role:Staff|Student']], function () {
-            Route::get('/news-feed/view-all-news', 'NewsFeedController@showAllNewsFeeds');
-        });
-
-        // Add an admin prefix to this route, because only the admin can view the datatable for all the news-feeds
-        Route::group(['middleware' => ['role:Admin']], function() {
-            Route::get('/news-feed/images/{id}/show', 'NewsFeedController@getImagesForNewsFeed');
-            Route::get('/news-feed/get-all-news-feeds', 'NewsFeedController@getAllNewsFeeds');
-        });
-        Route::resource('/news-feed', 'NewsFeedController');
-        Route::get('/profile', 'UserController@myProfile');
-
-        Route::get('/notification/mark-all-as-read', 'NotificationController@markAllAsRead');
+        /*GENERAL ROUTES*/
 
 
-        /**
-     * Staff Routes
-     */
+        Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+        Route::get('/news-feed/view-all-news', 'NewsFeedController@showAllNewsFeeds');
+
+
+        /*STAFF ROUTES*/
         Route::group(['middleware'=> ['role:Staff|Admin']], function () {
+
+
+
 
                 /*ROUTES TO COMPLETE REGISTRATION*/
                 Route::get('/staff/fill-details', 'StaffController@fillDetails');
                 Route::post('/staff/complete-registration', 'StaffController@completeRegistration');
 
-                /**
-         * Staff Routes When Registration Completed(is_fully_registered =1)
-         */
+
+         /*Staff Routes When Registration Completed(is_fully_registered =1)*/
                 Route::group(['middleware'=> ['staff_registration']], function () {
 
 
-                        // events to manage
-                        Route::get('/events/manage/{staff}', 'EventsController@getEventsByStaffId');
-                        Route::get('/events/end-event/{event}/end', 'EventsController@getEndEventForm');
-                        Route::post('/events/end/{event}', 'EventsController@endEvent'); // change this to get request if required.
-                        Route::get('/events/{event}/publish-as-news/', 'EventsController@publishAsNews');
+                    Route::redirect('/', '/dashboard');
+                    Route::get('/dashboard', 'DashboardController@index');
 
-                        // event images
-                        Route::get('/events/images/{event}/show', 'EventsController@getEventImages');
+                    Route::get('/timeline', 'UserController@timeline');
+                    Route::get('/profile', 'UserController@myProfile');
+
+                    Route::get('/notification/mark-all-as-read', 'NotificationController@markAllAsRead');
+
+                    // events to manage
+                    Route::get('/events/manage/{staff}', 'EventsController@getEventsByStaffId');
+                    Route::get('/events/end-event/{event}/end', 'EventsController@getEndEventForm');
+                    Route::post('/events/end/{event}', 'EventsController@endEvent'); // change this to get request if required.
+                    Route::get('/events/{event}/publish-as-news/', 'EventsController@publishAsNews');
+
+                    // event images
+                    Route::get('/events/images/{event}/show', 'EventsController@getEventImages');
 
 
-                        /*Published Books*/
-                        Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
-                        Route::resource('/published-books', 'PublishedBookController');
+                    /*News Feed*/
+                    Route::get('/news-feed/images/{id}/show', 'NewsFeedController@getImagesForNewsFeed');
+                    Route::get('/news-feed/get-all-news-feeds', 'NewsFeedController@getAllNewsFeeds');
+                    Route::resource('/news-feed', 'NewsFeedController');
 
 
-                        // Research Projects
-                        Route::get('/research-projects/get-research-projects', 'ResearchProjectsController@getResearchProjects');
-                        Route::resource('/research-projects', 'ResearchProjectsController');
+                    /*Published Books*/
+                    Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
+                    Route::resource('/published-books', 'PublishedBookController');
 
-                        // IPRController
-                        Route::get('/ipr/get-ipr', 'IPRController@getIPR');
-                        Route::resource('/ipr', 'IPRController');
 
-                        // Publications
-                        Route::get('/publications/get-publications', 'PublicationsController@getPublications');
-                        Route::resource('/publications', 'PublicationsController');
+                    // Research Projects
+                    Route::get('/research-projects/get-research-projects', 'ResearchProjectsController@getResearchProjects');
+                    Route::resource('/research-projects', 'ResearchProjectsController');
 
-                        // Profile
-                        Route::get('/profile', 'UserController@myProfile');
-                        Route::get('/staff/edit', 'StaffController@staffEdit');
+                    // IPRController
+                    Route::get('/ipr/get-ipr', 'IPRController@getIPR');
+                    Route::resource('/ipr', 'IPRController');
 
-                        // Scholarships
-                        Route::get('/scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
-                        //Route::get('/scholarships/edit', 'StudentScholarshipController@edit');
-                        Route::resource('/scholarships', 'StudentScholarshipController');
+                    // Publications
+                    Route::get('/publications/get-publications', 'PublicationsController@getPublications');
+                    Route::resource('/publications', 'PublicationsController');
 
-                        /**
-             * Admin Routes
-             */
+                    // Profile
+                    Route::get('/profile', 'UserController@myProfile');
+                    Route::get('/staff/edit', 'StaffController@staffEdit');
+
+                    // Scholarships
+                    Route::get('/scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
+                    //Route::get('/scholarships/edit', 'StudentScholarshipController@edit');
+                    Route::resource('/scholarships', 'StudentScholarshipController');
+
+                        /*ADMIN ROUTES*/
                         Route::group(['middleware'=> ['role:Admin']], function () {
                                 /*STAFF ROUTES*/
 
@@ -147,9 +139,7 @@ Route::middleware(['auth'])->group(function () {
 
         );
 
-        /**
-     * Student Routes
-     */
+        /*STUDENT ROUTES*/
         Route::group(['middleware'=> ['role:Student']], function () {
 
                 // /*ROUTES TO COMPLETE REGISTRATION*/
@@ -174,14 +164,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::patch('/student-further-studies/{id}', 'StudentFurtherStudiesController@update');
                 Route::resource('/student-further-studies', 'StudentFurtherStudiesController');
 
-                // Profile
-                Route::get('/profile', 'UserController@myProfile');
-                Route::get('/staff/edit', 'StaffController@staffEdit');
-
-
-
             }
-
         );
     }
 
