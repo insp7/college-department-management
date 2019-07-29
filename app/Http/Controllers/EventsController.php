@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Constants\FileConstants;
 use App\Event;
+use App\Notifications\EventCompleted;
 use App\Services\StaffService;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use App\Services\EventsService;
@@ -237,6 +240,9 @@ class EventsController extends Controller
         $insertionSuccessful = $this->eventsService->addCoordinators($event_id, $coordinators);
 
         if($insertionSuccessful) {
+
+            // ************* THIS IS WHERE CORDINATOR IS ADDED TO AN EVENT **************
+
             return redirect('/admin/events/')->with([
                 'type' => 'success',
                 'title' => 'Coordinator added successfully',
@@ -320,9 +326,8 @@ class EventsController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getEventsByStaffId(Request $request) {
-        $user_id = $request->staff;
-        $events = $this->eventsService->getEventsByStaffId($user_id);
+    public function getEventsByStaffId() {
+        $events = $this->eventsService->getEventsByStaffId(Auth::id());
 
         return view('events.events-to-coordinate')->with('events', $events);
     }
@@ -385,6 +390,13 @@ class EventsController extends Controller
         $eventSuccessfullyEnded = $this->eventsService->eventEnd($event_id, $event_data, $image_relative_paths, Auth::id());
 
         if($eventSuccessfullyEnded) {
+            $admins = User::whereHas("roles", function ($q) {
+                $q->where("name", "Admin");
+            })->get();
+
+            // **************** TODO: CHANGE HERE. CALL TO UNDEFINED METHOD SEND
+            Notification::send($admins, new EventCompleted($event_id));
+
             return redirect('/events/manage/' . Auth::id())->with([
                 'type' => 'success',
                 'title' => 'Event Ended',
