@@ -22,7 +22,6 @@ class PublicationsService
             'staff_id' => $user_id,
             'year' => $validatedData['year'],
             'citation' => $validatedData['citation'],
-            'additional_columns' => $validatedData['additional_columns'],
             'created_by' => $user_id
         ]);
 
@@ -62,7 +61,6 @@ class PublicationsService
             $publication = Publication::find($id);
             $publication->year = $validatedData['year'];
             $publication->citation = $validatedData['citation'];
-            $publication->additional_columns = $validatedData['additional_columns'];
             $publication->updated_by = $user_id;
             $publication->save();
 

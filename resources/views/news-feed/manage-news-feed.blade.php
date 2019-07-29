@@ -7,13 +7,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/dashboard"><i class="fas fa-user"></i></a></li>
-    <li class="breadcrumb-item"><a href="/admin/staff">Staff</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Staff</li>
+    <li class="breadcrumb-item"><a href="/news-feed"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/news-feed">News Feed</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage News Feed</li>
 @endsection
 
 @section('actions')
-    <a href="/admin/staff/create" class="btn btn-sm btn-neutral">New</a>
+    <a href="/news-feed/create" class="btn btn-sm btn-neutral">New</a>
 @endsection
 
 @section('page-content')
@@ -23,65 +23,31 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Staff</h3>
-                    <p class="text-sm mb-0 text-success">
-                        Registration Completed
+                    <h3 class="mb-0">Datatable</h3>
+                    <p class="text-sm mb-0">
+                        This is an exmaple of datatable using the well known datatables.net plugin. This is a minimal setup in order to get started fast.
                     </p>
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table  table-flush" id="staff-registration-completed-list">
+                    <table class="table table-flush" id="news-feed-list">
                         <thead class="thead-light">
                         <tr>
-                            <th> Name </th>
-                            <th> DOB </th>
-                            <th> Email </th>
-                            <th> Contact No </th>
-                            <th> Pan </th>
-                            <th> Employee Id </th>
-                            <th>edit</th>
-                            <th>delete</th>
-                            <th>view</th>
+                            <th> Title </th>
+                            <th> Description </th>
+                            <th> Posted On </th>
+                            <th> View News Images </th>
+                            <th> Edit </th>
+                            <th> Delete </th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
-                            <th> Name </th>
-                            <th> DOB </th>
-                            <th> Email </th>
-                            <th> Contact No </th>
-                            <th> Pan </th>
-                            <th> Employee Id </th>
-                            <th>edit</th>
-                            <th>delete</th>
-                            <th>view</th>
-                        </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-
-            <div class="card">
-                <!-- Card header -->
-                <div class="card-header">
-                    <h3 class="mb-0">Staff</h3>
-                    <p class="text-sm mb-0 text-danger">
-                        Registration Pending
-                    </p>
-                </div>
-                <div class="table-responsive py-4">
-                    <table class="table table-flush " id="staff-registration-pending-list">
-                        <thead class="thead-light">
-                        <tr>
-                            <th> Email </th>
-                            <th>edit</th>
-                            <th>delete</th>
-                        </tr>
-                        </thead>
-                        <tfoot>
-                        <tr>
-                            <th> Email </th>
-                            <th>edit</th>
-                            <th>delete</th>
+                            <th> Year </th>
+                            <th> Citation </th>
+                            <th> Posted On </th>
+                            <th> View News Images </th>
+                            <th> Edit </th>
+                            <th> Delete </th>
                         </tr>
                         </tfoot>
                     </table>
@@ -98,7 +64,7 @@
         <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Delete Published Book</h6>
+                    <h6 class="modal-title" id="modal-title-default">Delete News Feed</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -111,7 +77,7 @@
                         <div class="form-body">
                             <!-- START OF MODAL BODY -->
                             <div class="container">
-                                <label>Are you sure you want to delete this Staff?</label>
+                                <label>Are you sure you want to delete the News Feed ?</label>
                             </div>
                         </div>
                     </div>
@@ -137,48 +103,36 @@
     <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
     <script>
-        let manageRegistrationCompletedStaffTable = $('#staff-registration-completed-list');
+        let manageNewsFeedTable = $('#news-feed-list');
 
-        manageRegistrationCompletedStaffTable.DataTable({
+        manageNewsFeedTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/admin/staff/get-registered-staff',
+            ajax: '/news-feed/get-all-news-feeds',
             columns: [
-                {data: 'name', name: 'name'},
-                {data: 'dob', name: 'dob'},
-                {data: 'email', name: 'email'},
-                {data: 'contact_no', name: 'contact_no'},
-                {data: 'pan', name: 'pan'},
-                {data: 'employee_id', name: 'employee_id'},
-                {data: 'edit', name: 'edit'},
-                {data: 'delete', name: 'delete'},
-                {data: 'view', name: 'view'}
-            ],
-            language: {paginate: {previous: "<i class='fa fa-angle-left'>", next: "<i class='fa fa-angle-right'>"}}
-        });
-
-        manageRegistrationCompletedStaffTable.on('click', '.delete', function() {
-            $id = $(this).attr('id');
-            $('#delete_form').attr('action', '/admin/staff/' + $id);
-        });
-
-        manageRegistrationCompletedStaffTable.on('click', '.edit', function() {
-            $id = $(this).attr('id');
-            window.location.pathname = '/admin/staff/' + $id + '/edit';
-        });
-
-        let manageRegistrationPendingStaffTable = $('#staff-registration-pending-list');
-
-        manageRegistrationPendingStaffTable.DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '/admin/staff/get-unregistered-staff',
-            columns: [
-                {data: 'email', name: 'email'},
+                {data: 'title', name: 'title'},
+                {data: 'description', name: 'description'},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'view_news_feed_images', name: 'view_news_feed_images'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
-            ],
-            language: {paginate: {previous: "<i class='fa fa-angle-left'>", next: "<i class='fa fa-angle-right'>"}}
+            ]
+        });
+
+        manageNewsFeedTable.on('click', '.view-news-feed-images', function () {
+            $id = $(this).attr('id');
+            window.location.pathname = '/news-feed/images/' + $id + '/show';
+        });
+
+        manageNewsFeedTable.on('click', '.delete', function() {
+            $id = $(this).attr('id');
+            $('#delete_form').attr('action', '/news-feed/' + $id);
+        });
+
+        manageNewsFeedTable.on('click', '.edit', function () {
+            $id = $(this).attr('id');
+            // console.log(window.location.pathname);
+            window.location.pathname = '/news-feed/' + $id + '/edit';
         });
 
     </script>
@@ -190,6 +144,7 @@
                 title: '<h4 style="color:white">{{ session('title') }}</h4>',
                 message: '{{ session('message') }}',
             },{
+
                 // settings
                 type: '{{ session('type') }}',
                 allow_dismiss: true,

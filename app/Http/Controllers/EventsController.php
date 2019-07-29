@@ -174,7 +174,7 @@ class EventsController extends Controller
      * @throws \Exception
      */
     public function getEvents() {
-        $events = $this->eventsService->getDatatable(Auth::id());
+        $events = $this->eventsService->getDatatable();
 
         return DataTables::of($events)
             ->addColumn('details', function (Event $event) {

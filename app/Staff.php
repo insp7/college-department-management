@@ -10,12 +10,12 @@ namespace App;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Staff extends Model
-{
+class Staff extends Model {
+    use SoftDeletes;
+
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
-
-
     // Change if required
     public function researchProjects() {
         return $this->hasMany('App\ResearchProject');

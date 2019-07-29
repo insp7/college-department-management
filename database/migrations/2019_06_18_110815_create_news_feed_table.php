@@ -14,7 +14,7 @@ class CreateNewsFeedTable extends Migration {
 	{
 		Schema::create('news_feed', function(Blueprint $table)
 		{
-			$table->increments('id');
+			$table->bigIncrements('id');
 			$table->string('title');
 
 			$table->text('description');

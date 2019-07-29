@@ -49,7 +49,6 @@ class PublicationsController extends Controller
         $validatedData = $request->validate([
             'year' => ['required', 'date'],
             'citation' => ['required'],
-            'additional_columns' => ''
         ]);
 
         try {
@@ -102,7 +101,6 @@ class PublicationsController extends Controller
         $validatedData = $request->validate([
             'year' => ['required', 'date'],
             'citation' => ['required'],
-            'additional_columns' => ''
         ]);
 
         $updateSuccessful = $this->publicationsService->update($validatedData, $id, Auth::id());
@@ -163,6 +161,6 @@ class PublicationsController extends Controller
                 return date('F d, Y', strtotime($publication->created_at));
             })
             ->rawColumns(['edit', 'delete'])
-            ->make(true);
+            ->make(true);dd($id);
     }
 }

@@ -33,6 +33,17 @@ Route::middleware(['auth'])->group(function () {
         Route::redirect('/', '/dashboard');
         Route::get('/dashboard', 'DashboardController@index');
         Route::get('/timeline', 'UserController@timeline');
+
+        // will organize more efficiently later
+        Route::group(['middleware' => ['role:Staff|Student']], function () {
+            Route::get('/news-feed/view-all-news', 'NewsFeedController@showAllNewsFeeds');
+        });
+
+        // Add an admin prefix to this route, because only the admin can view the datatable for all the news-feeds
+        Route::group(['middleware' => ['role:Admin']], function() {
+            Route::get('/news-feed/images/{id}/show', 'NewsFeedController@getImagesForNewsFeed');
+            Route::get('/news-feed/get-all-news-feeds', 'NewsFeedController@getAllNewsFeeds');
+        });
         Route::resource('/news-feed', 'NewsFeedController');
         Route::get('/profile', 'UserController@myProfile');
 
@@ -85,10 +96,13 @@ Route::middleware(['auth'])->group(function () {
                         Route::get('/profile', 'UserController@myProfile');
                         Route::get('/staff/edit', 'StaffController@staffEdit');
 
-                        //Scholarships
+                        // Scholarships
                         Route::get('/scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
                         //Route::get('/scholarships/edit', 'StudentScholarshipController@edit');
                         Route::resource('/scholarships', 'StudentScholarshipController');
+
+                        // News feed
+
 
                         /**
                         * Admin Routes
@@ -121,6 +135,11 @@ Route::middleware(['auth'])->group(function () {
                                 Route::post('classes/{id}/students/store', 'ClassController@storeClassStudents');
 
                                 Route::resource('/classes', 'ClassController');
+
+                                // Add the table view routes for managing news here
+
+                                // Adding news_feed_images route
+
                             }
 
                         );

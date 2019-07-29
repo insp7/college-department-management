@@ -16,10 +16,15 @@ class CreateNewsFeedImagesTable extends Migration {
 		{
 
 			$table->increments('id');
-			$table->integer('news_feed_id');
+
+			$table->unsignedBigInteger('news_feed_id');
+			$table->foreign('news_feed_id')
+                ->references('id')
+                ->on('news_feed')
+                ->onDelete('cascade');
 			$table->string('image_path');
 
-//			$table->integer('created_by')->nullable();
+			$table->integer('created_by')->nullable();
 //			$table->integer('updated_by')->nullable();
 			$table->softDeletes();
             $table->timestamps();

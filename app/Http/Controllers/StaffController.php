@@ -127,15 +127,20 @@ class StaffController extends Controller
      */
 
     /*admin*/
-    public function edit($id){
+    public function edit($id) {
+        // later make this happen in 1 function call
+        $staff = $this->staffService->getStaffDetailsById($id);
+        $staff_details = $this->staffService->getUserDetailsForStaff($id);
 
+        return view('staff.admin-edit-staff')
+            ->with('staff', $staff)
+            ->with('staff_details', $staff_details);
     }
 
 
     /*staff*/
     public function staffEdit()
     {
-        //
         return view('staff.edit-staff');
     }
 
@@ -164,7 +169,36 @@ class StaffController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+
+            /*DATA FOR USERS TABLE*/
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'last_name' => 'required',
+            'contact_no' => 'required|digits:10',
+            'date_of_birth' => 'required|date',
+            'gender' => 'required|in:M,F,O',
+//            'is_teaching' => 'sometimes|in:1,0',
+//            'is_permanent' => 'sometimes|in:1,0',
+            'pan' => 'required|digits:10',
+            'employee_id' => 'required'
+        ]);
+
+        $updateSuccessful = $this->staffService->update($validatedData, $id, Auth::id());
+
+        if($updateSuccessful) {
+            return redirect('/admin/staff')->with([
+                'type' => 'success',
+                'title' => 'Staff updated successfully',
+                'message' => 'The given Staff has been updated successfully'
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'type' => 'danger',
+            'title' => 'Failed to update the Staff',
+            'message' => "There was some issue in updating the Staff"
+        ]);
     }
 
     public function staffUpdate(Request $request, $id)
@@ -172,10 +206,7 @@ class StaffController extends Controller
         //
     }
 
-    public function completeRegistration(Request $request)
-    {
-
-
+    public function completeRegistration(Request $request) {
 
         $userValidatedData=$request->validate([
 
@@ -336,7 +367,20 @@ class StaffController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->staffService->delete($id);
+            return redirect()->back()->with([
+                'type' => 'success',
+                'title' => 'Staff Deleted successfully',
+                'message' => 'The given Staff has been deleted successfully'
+            ]);
+        } catch (Exception $exception) {
+            return redirect()->back()->with([
+                'type' => 'danger',
+                'title' => 'Failed To Delete Staff',
+                'message' => 'Error in deleting Staff'
+            ]);
+        }
     }
 
     /**

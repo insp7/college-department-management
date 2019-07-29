@@ -34,8 +34,6 @@
                         <tr>
                             <th> Year </th>
                             <th> Citation </th>
-
-                            <th> Additional Columns </th>
                             <th> Date </th>
                             <th> Edit </th>
                             <th> Delete </th>
@@ -45,7 +43,6 @@
                         <tr>
                             <th> Year </th>
                             <th> Citation </th>
-                            <th> Additional Columns </th>
                             <th> Date </th>
                             <th> Edit </th>
                             <th> Delete </th>
@@ -113,7 +110,6 @@
             columns: [
                 {data: 'year', name: 'year'},
                 {data: 'citation', name: 'citation'},
-                {data: 'additional_columns', name: 'additional_columns'},
                 {data: 'date', name: 'date'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
