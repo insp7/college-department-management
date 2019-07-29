@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classs;
 use App\Exports\StudentsExport;
 use App\Imports\StudentsImport;
+use App\Notifications\EventAssigned;
 use App\PublishedBook;
 use App\Services\ClassService;
 use App\Services\PublishedBookService;
@@ -14,7 +15,9 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
 
 class ClassController extends Controller
@@ -97,6 +100,11 @@ class ClassController extends Controller
                 ])
                 ->log("Class $class->year added");
 
+            /*CREATE NOTIFICATION*/
+
+            $admins=User::whereHas("roles", function($q){ $q->where("name", "Admin"); })->get();
+
+            Notification::send($admins, new EventAssigned(1));
 
             return redirect('/classes')->with([
                 'type' => 'success',

@@ -56,7 +56,7 @@ class StudentScholarshipController extends Controller
 
         try {
             $this->studentscholarshipservice->create($validatedData, Auth::id());
-            return redirect('scholarships/get-scholarships')->with([
+            return redirect('/scholarships')->with([
                 'type' => 'success',
                 'title' => 'Scholarship added successfully',
                 'message' => 'The Scholarship has been added successfully'

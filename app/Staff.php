@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
 class Staff extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
+
+
     // Change if required
     public function researchProjects() {
         return $this->hasMany('App\ResearchProject');

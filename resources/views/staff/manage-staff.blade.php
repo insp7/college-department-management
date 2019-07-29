@@ -153,7 +153,8 @@
                 {data: 'delete', name: 'delete'},
                 {data: 'edit', name: 'edit'},
                 {data: 'view', name: 'view'}
-            ]
+            ],
+            language: {paginate: {previous: "<i class='fa fa-angle-left'>", next: "<i class='fa fa-angle-right'>"}}
         });
 
         manageRegistrationCompletedStaffTable.on('click', '.delete', function(e) {
@@ -171,7 +172,8 @@
                 {data: 'email', name: 'email'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
-            ]
+            ],
+            language: {paginate: {previous: "<i class='fa fa-angle-left'>", next: "<i class='fa fa-angle-right'>"}}
         });
 
     </script>

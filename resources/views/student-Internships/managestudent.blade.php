@@ -105,7 +105,7 @@
         managedStudentInternshipTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/studnet-internship/get-student-internship',
+            ajax: '/student-internship/get-student-internship',
             columns: [
                 {data: 'company_name', name: 'company_name'},
                 {data: 'start_date', name: 'start_date'},

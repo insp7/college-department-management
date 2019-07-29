@@ -20,6 +20,7 @@
                         @csrf
 
                         <div class="form-group">
+
                             <div class="input-group">
                                  <textarea  value="{{ old('details') }}" required name="details"  placeholder="Details about Scholarship" class="form-control @error('details') is-invalid @enderror"></textarea>
                             </div>

@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
 
+
         // // Student Courses; later move to staff routes!
         // Route::get('/student-courses/get-student-courses', 'StudentCourseController@getStudentCourses');
         // Route::resource('/student-courses', 'StudentCourseController');
@@ -29,11 +30,13 @@ Route::middleware(['auth'])->group(function () {
         /**
         * General Routes
         */
-        Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
         Route::redirect('/', '/dashboard');
         Route::get('/dashboard', 'DashboardController@index');
+        Route::get('/logout', 'Auth\LoginController@logout');
         Route::get('/timeline', 'UserController@timeline');
         Route::resource('/news-feed', 'NewsFeedController');
+
+        Route::get('/notification/mark-all-as-read', 'NotificationController@markAllAsRead');
 
 
         /**
@@ -62,7 +65,8 @@ Route::middleware(['auth'])->group(function () {
 
 
                         /*Published Books*/
-                        Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
+
+                    Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
                         Route::resource('/published-books', 'PublishedBookController');
 
 
@@ -82,10 +86,6 @@ Route::middleware(['auth'])->group(function () {
                         Route::get('/profile', 'UserController@myProfile');
                         Route::get('/staff/edit', 'StaffController@staffEdit');
 
-                        //Scholarships
-                        Route::get('/scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
-                        //Route::get('/scholarships/edit', 'StudentScholarshipController@edit');
-                        Route::resource('/scholarships', 'StudentScholarshipController');
 
                         /**
                         * Admin Routes
@@ -151,11 +151,15 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/profile', 'UserController@myProfile');
                 Route::get('/staff/edit', 'StaffController@staffEdit');
 
-
+                //Scholarships
+                Route::get('/scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');
+                //Route::get('/scholarships/edit', 'StudentScholarshipController@edit');
+                Route::resource('/scholarships', 'StudentScholarshipController');
 
             }
 
         );
     }
 );
+
 Auth::routes();

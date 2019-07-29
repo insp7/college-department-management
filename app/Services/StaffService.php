@@ -101,4 +101,15 @@ class StaffService {
     public function fetchAllStaff() {
         return DB::select('SELECT id, first_name, last_name, email FROM users WHERE id IN (SELECT user_id FROM staff)');
     }
+
+    public function getStaffGroupByDateOfJoiningInstitute(){
+        $staff = Staff::where('is_fully_registered', 1)->select('date_of_joining_institute')->get();
+        $year_count_array = array();
+
+        foreach ($staff as $s) {
+            $year_count_array[] = Carbon::createFromFormat('Y-m-d', $s->date_of_joining_institute)->year;
+        }
+
+        return array_count_values($year_count_array);
+    }
 }

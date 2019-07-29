@@ -180,6 +180,7 @@ class StaffController extends Controller
         $userValidatedData=$request->validate([
 
             /*DATA FOR USERS TABLE*/
+            'photo' => 'required|image|mimes:jpg,jpeg,png',
             'first_name' => 'required',
             'middle_name' => 'required',
             'last_name' => 'required',
@@ -192,6 +193,7 @@ class StaffController extends Controller
         $staffValidatedData=$request->validate([
 
             /*DATA FOR STAFF TABLE*/
+            'designation' => 'required|in:Assistant,Associate,Professor,HOD',
             'is_teaching' => 'sometimes|in:1,0',
             'is_permanent' => 'sometimes|in:1,0',
             'pan' => 'required|digits:10',
@@ -294,8 +296,13 @@ class StaffController extends Controller
             // Moving the image
             $attachment->move($destinationPath, $fileName);
             // The relative path to the image
-            $staffValidatedData[$name]= FileConstants::STAFF_ATTACHMENTS_PATH.$fileName;
-            error_log($staffValidatedData[$name]);
+            if($name = 'photo'){
+                $userValidatedData[$name]= FileConstants::STAFF_ATTACHMENTS_PATH.$fileName;
+            }else{
+                $staffValidatedData[$name]= FileConstants::STAFF_ATTACHMENTS_PATH.$fileName;
+            }
+
+
         }
 
         try {

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->date('date_of_birth')->nullable();
             $table->integer('role')->default(0)->nullable();
             $table->enum('gender', ['M', 'F' ,'O'])->nullable();
+            $table->text('photo')->nullable();
             $table->text('additional_columns')->nullable();
 
             $table->string('email')->unique();

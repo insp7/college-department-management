@@ -25,6 +25,20 @@
                         @csrf
 
                         <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Photo</label>
+                                    <input   type="file" required name="photo"  class="form-control @error('photo') is-invalid @enderror">
+                                    @error('photo')
+                                    <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+
+                        <div class="row">
 
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -152,6 +166,25 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select name="designation" id="" required class="form-control @error('designation') is-invalid @enderror">
+                                        <option disabled selected>Select Designation</option>
+                                        <option value="HOD" @if(old('designation') == 'HOD') selected @endif>HOD</option>
+                                        <option value="Professor" @if(old('designation') == 'Professor') selected @endif>Professor</option>
+                                        <option value="Associate" @if(old('designation') == 'Associate') selected @endif>Associate</option>
+                                        <option value="Assistant" @if(old('designation') == 'Assistant') selected @endif>Assistant</option>
+                                    </select>
+                                    @error('designation')
+                                    <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
 
                             <div class="col-md-4">
                                 <div class="custom-control custom-checkbox">
@@ -1103,7 +1136,7 @@
 
                         </div>
 
-
+                        <br>
                         <button class="btn btn-primary" type="submit">Fill Details</button>
 
 

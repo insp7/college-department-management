@@ -60,6 +60,7 @@ class EventAssigned extends Notification
         return [
             //
             'event_id' => $this->event_id,
+
         ];
     }
 }

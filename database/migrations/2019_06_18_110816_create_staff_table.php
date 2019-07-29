@@ -17,6 +17,8 @@ class CreateStaffTable extends Migration {
 			$table->increments('id');
             $table->bigInteger('user_id');
 
+            $table->enum('designation',['Assistant', 'Associate', 'Professor', 'HOD'])->nullable();
+
 			$table->boolean('is_permanent')->default(0)->nullable();
 			$table->boolean('is_teaching')->default(0)->nullable();
 			$table->string('pan')->nullable();
