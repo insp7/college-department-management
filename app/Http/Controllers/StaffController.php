@@ -207,7 +207,7 @@ class StaffController extends Controller
     }
 
     public function completeRegistration(Request $request) {
-
+        
         $userValidatedData=$request->validate([
 
             /*DATA FOR USERS TABLE*/
@@ -215,10 +215,13 @@ class StaffController extends Controller
             'first_name' => 'required',
             'middle_name' => 'required',
             'last_name' => 'required',
+            'adress' => 'required',
+            'city' => 'required',
             'contact_no' => 'required|digits:10',
             'date_of_birth' => 'required|date',
             'gender' => 'required|in:M,F,O',
             'password' => 'required|confirmed|min:6',
+            
         ]);
 
         $staffValidatedData=$request->validate([

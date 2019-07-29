@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
+
 class UserController extends Controller
 {
     /**
@@ -29,10 +30,12 @@ class UserController extends Controller
         //CALCULATING USER AGE
         $date_of_birth=Auth::user()->date_of_birth;
         $age=Carbon::parse($date_of_birth)->age;
+        $staff=Auth::user()->staff;
         return view('user.profile')->with(
             [
                 'user' => Auth::user(),
                 'age' => $age,
+                'staff'=>$staff,
             ]);
     }
 

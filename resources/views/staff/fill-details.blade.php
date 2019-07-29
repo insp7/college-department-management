@@ -142,6 +142,7 @@
 
                         </div>
 
+                        
                         <div class="row">
 
                             <div class="col-md-4">
@@ -183,6 +184,33 @@
                             </div>
 
                         </div>
+                        <div class="row">
+
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class="input-group @error('adress') has-danger @enderror">
+                                        
+                                        <input type="text" value="{{ old('adress') }}" required name="adress"  placeholder="Address"  class="form-control  @error('adress') is-invalid @enderror">
+                                    </div>
+                                    @error('adress')
+                                    <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input  value="{{ old('city') }}" required name="city" type="text" placeholder="City"  class="form-control @error('city') is-invalid @enderror">
+                                    @error('employee_id')
+                                    <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            
+
+                        </div>
+
 
                         <div class="row">
 
