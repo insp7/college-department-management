@@ -15,10 +15,4 @@ class IPR extends Model
         'staff_id', 'year', 'patents_published_count', 'patents_granted_count', 'additional_columns', 'created_by', 'created_at', 'updated_at'
     ];
 
-
-    public function staff()
-    {
-        return $this->belongsTo('staff','created_by');
-    }
-
 }

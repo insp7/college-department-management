@@ -23,7 +23,7 @@ class Staff extends Model {
 
     // Change if required
     public function ipr() {
-        return $this->hasMany('App\IPR');
+        return $this->hasMany('App\IPR', 'staff_id', 'id');
     }
 
     public function events() {

@@ -20,8 +20,10 @@ class DashboardController extends Controller
     //
     public function index(){
 
+
         $user = Auth::user();
 
+        error_log(json_encode(Auth::user()->staff->id));
         if($user->hasRole('Admin')){
 
             $staff_count=$this->staffService->getStaffGroupByDateOfJoiningInstitute();

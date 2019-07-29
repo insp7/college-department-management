@@ -54,7 +54,7 @@ class IPRController extends Controller
         ]);
 
         try {
-            $this->iprService->store($validatedData, Auth::id());
+            $this->iprService->store($validatedData, Auth::user()->staff->id);
             return redirect('/ipr')->with([
                 'type' => 'success',
                 'title' => 'IPR added successfully',
