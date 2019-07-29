@@ -16,25 +16,19 @@
             </div>
             <!-- Card body -->
             <div class="card-body">
-            <form method="POST" action="/student-internship/{{$student->id}}" enctype="multipart/form-data" id="frmTarget">
-                @csrf        
-                @method('PATCH')
-                        
+                <form method="POST" action="/student-internship/{{$student->id}}" enctype="multipart/form-data"
+                    id="frmTarget">
+                    @csrf
+                    @method('PATCH')
 
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
                     <div class="form-group">
+                        <label for="example-text-input" class="form-control-label" for="company_name">Company Name</label>
                         <div class="input-group input-group-merge @error('company_name') has-danger @enderror">
+                            
                             <div class="input-group-prepend"> <span class="input-group-text"> <i
-                                        class="fa fa-newspaper"></i> </span> </div> <input value="{{ $student->company_name }}"
-                                required name="company_name" type="company_name" placeholder="Company Name"
+                                        class="fa fa-newspaper"></i> </span> </div> <input
+                                value="{{ $student->company_name }}" id="company_name" required name="company_name" type="company_name"
+                                placeholder="Company Name"
                                 class="form-control @error('company_name') is-invalid @enderror">
                         </div>
                         @error('company_name')
@@ -46,11 +40,13 @@
 
                     <div>
                         <div class="custom-control custom-radio custom-control-inline mb-3">
-                            <input type="radio" id="is_paid1" name="is_paid" class="custom-control-input" value='0' {{$student->is_paid===0?'checked':''}}>
+                            <input type="radio" id="is_paid1" name="is_paid" class="custom-control-input" value='0'
+                                {{$student->is_paid===0?'checked':''}}>
                             <label class="custom-control-label" for="is_paid1">Unpaid</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="is_paid" name="is_paid" class="custom-control-input" value='1'  {{$student->is_paid===1?'checked':''}}>
+                            <input type="radio" id="is_paid" name="is_paid" class="custom-control-input" value='1'
+                                {{$student->is_paid===1?'checked':''}}>
                             <label class="custom-control-label" for="is_paid">Paid</label>
                         </div>
                     </div>
@@ -59,21 +55,25 @@
                         data-date-format="yyyy/mm/dd" data-orientation="top auto" aria-orientation="vertical">
                         <div class="col">
                             <div class="form-group">
+                                <label for="example-text-input" class="form-control-label" for="company_name">Start Date</label>
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input class="form-control" name="start_date" placeholder="Start date" value={{$student->start_date}} type="text">
+                                    <input class="form-control" name="start_date" placeholder="Start date"
+                                        value={{$student->start_date}} type="text">
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
+                                <label for="example-text-input" class="form-control-label" for="company_name">End Date</label>
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input class="form-control" name="end_date" placeholder="End date" value={{$student->end_date}}  type="text">
+                                    <input class="form-control" name="end_date" placeholder="End date"
+                                        value={{$student->end_date}} type="text">
                                 </div>
                             </div>
                         </div>
@@ -116,29 +116,33 @@
 </script>
 
 @if(session()->has('type'))
-        <script>
-            $.notify({
-                // options
-                title: '<h4 style="color:white">{{ session('title') }}</h4>',
-                message: '{{ session('message') }}',
-            },{
-                // settings
-                type: '{{ session('type') }}',
-                allow_dismiss: true,
-                placement: {
-                    from: "top",
-                    align: "right"
-                },
-                offset: 20,
-                spacing: 10,
-                z_index: 1031,
-                delay: 3000,
-                timer: 1000,
-                animate: {
-                    enter: 'animated fadeInDown',
-                    exit: 'animated fadeOutUp'
-                }
-            });
-        </script>
-    @endif
+<script>
+    $.notify({
+        // options
+        title: '<h4 style="color:white">{{ session('
+        title ') }}</h4>',
+        message: '{{ session('
+        message ') }}',
+    }, {
+        // settings
+        type: '{{ session('
+        type ') }}',
+        allow_dismiss: true,
+        placement: {
+            from: "top",
+            align: "right"
+        },
+        offset: 20,
+        spacing: 10,
+        z_index: 1031,
+        delay: 3000,
+        timer: 1000,
+        animate: {
+            enter: 'animated fadeInDown',
+            exit: 'animated fadeOutUp'
+        }
+    });
+
+</script>
+@endif
 @endsection

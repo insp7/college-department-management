@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Services\StudentInternshipService;
 use Yajra\DataTables\Facades\DataTables;
-
-
+use App\StudentInternshipImage;
+use Illuminate\Support\Carbon;
 
 class StudentInternshipController extends Controller
 {
@@ -26,7 +26,7 @@ class StudentInternshipController extends Controller
      */
     public function index()
     {
-        return view('student-Internships.managestudent');
+        return view('student-Internships.managestudentinternship');
     }
 
     /**
@@ -51,13 +51,9 @@ class StudentInternshipController extends Controller
             'company_name' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'is_paid' => 'boolean',
+            'is_paid' => 'boolean|required',
             'student_internship_image' => 'sometimes|file|mimes:jpeg,png,bmp,tiff'
         ]);
-
-
-
-
 
         $user_id = Auth::id();
         $attachments = $request->file();
@@ -76,6 +72,16 @@ class StudentInternshipController extends Controller
 
         try {
             $this->studentinternshipservice->create($validatedData, $image_relative_path, Auth::id());
+
+            /*LOG ACTIVITY*/
+            activity()
+                ->causedBy(Auth::user())
+                ->withProperties([
+                    'date' => Carbon::now()->toDateTimeString(),
+                    'title' => 'Internship Added',
+                ])
+                ->log("Internship $request->company_name added");
+
             return redirect('student-internship')->with([
                 'type' => 'success',
                 'title' => 'Internship added successfully',
@@ -156,7 +162,7 @@ class StudentInternshipController extends Controller
 
             return redirect()->back()->with([
                 'type' => 'danger',
-                'title' => 'Failed to add the Internship',
+                'title' => 'Failed to update the Internship',
                 'message' => "There was some issue in adding the Internship"
             ]);
         }
@@ -200,13 +206,24 @@ class StudentInternshipController extends Controller
         $studentInternship = $this->studentinternshipservice->getDatatable(Auth::id());
 
         return DataTables::of($studentInternship)
+            ->addColumn('status', function (StudentInternship $studentInternship) {
+                if($studentInternship->is_paid===1){
+                return 'Paid';
+            } else{
+                return 'Unpaid';
+            }
+            })
             ->addColumn('edit', function (StudentInternship $studentInternship) {
             return '<button id="' . $studentInternship->id . '" class="edit fa fa-pencil-alt btn-sm btn-warning"></button>'
             ;})
             ->addColumn('delete', function ( StudentInternship $studentInternship) {
                 return '<button id="' . $studentInternship->id . '" class="delete fa fa-trash btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal"></button>';
             })
-            ->rawColumns(['edit', 'delete'])
+            ->addColumn('view', function (StudentInternship $studentInternship) {
+                $studentinternshipImage=StudentInternshipImage::where('student_internship_id', $studentInternship->id)->first();
+                return '<button id="'.$studentinternshipImage->image_path. '" class="view fa fa-eye btn-sm btn-success" data-toggle="modal" data-target="#viewModal" ></button>';
+            })
+            ->rawColumns(['status','edit', 'delete','view'])
             ->make(true);
     }
 }

@@ -6,7 +6,6 @@ use App\Services\StaffService;
 use App\Staff;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -36,11 +35,17 @@ class DashboardController extends Controller
             ]);
 
         }elseif ($user->hasRole('Staff')){
-
-            return view('dashboard.staff');
-
+            return view('dashboard.staff')->with(
+                [
+                    'user'=>$user,
+                ]
+            );
         }elseif ($user->hasRole('Student')){
-            return view('dashboard.student');
+            return view('dashboard.student')->with(
+                [
+                    'user' => $user,
+                ]
+            );
         }else{
             abort(404);
         }
