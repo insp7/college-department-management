@@ -1,7 +1,7 @@
 <li class="nav-item">
     <a class="nav-link {{ Request::is('/published-books*') ? 'active' : '' }}" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true"
         aria-controls="navbar-dashboards">
-        <i class="ni ni-single-02 text-primary"></i>
+        <i class="ni ni-books text-primary"></i>
         <span class="nav-link-text">Published Books</span>
     </a>
     <div class="collapse {{ Request::is('/published-books*') ? 'show' : '' }}" id="navbar-dashboards">
@@ -19,7 +19,7 @@
 <li class="nav-item">
     <a class="nav-link {{ Request::is('/research-projects*') ? 'active' : '' }}" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true"
         aria-controls="navbar-dashboards">
-        <i class="ni ni-single-02 text-primary"></i>
+        <i class="ni ni-spaceship text-primary"></i>
         <span class="nav-link-text">Research Projects</span>
     </a>
     <div class="collapse {{ Request::is('/research-projects*') ? 'show' : '' }}" id="navbar-dashboards">
@@ -36,7 +36,7 @@
 
 <li class="nav-item">
     <a class="nav-link {{ Request::is('/ipr*') ? 'active' : '' }}" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
-        <i class="ni ni-single-02 text-primary"></i>
+        <i class="ni ni-badge text-primary"></i>
         <span class="nav-link-text">IPR</span>
     </a>
     <div class="collapse {{ Request::is('/ipr*') ? 'show' : '' }}" id="navbar-dashboards">
@@ -53,7 +53,7 @@
 
 <li class="nav-item">
     <a class="nav-link {{ Request::is('/publications*') ? 'active' : '' }}" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
-        <i class="ni ni-single-02 text-primary"></i>
+        <i class="ni ni-book-bookmark text-primary"></i>
         <span class="nav-link-text">Publications</span>
     </a>
     <div class="collapse {{ Request::is('/publications*') ? 'show' : '' }}" id="navbar-dashboards">
@@ -70,7 +70,7 @@
 
 <li class="nav-item">
     <a class="nav-link {{ Request::is('/news-feed*') ? 'active' : '' }}" href="#navbar-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
-        <i class="ni ni-single-02 text-primary"></i>
+        <i class="ni ni-archive-2 text-primary"></i>
         <span class="nav-link-text">News</span>
     </a>
     <div class="collapse {{ Request::is('/news-feed*') ? 'show' : '' }}" id="navbar-dashboards">
@@ -87,7 +87,7 @@
 
 <li class="nav-item">
     <a class="nav-link {{ Request::is('/events*') ? 'active' : '' }}" href="/events/manage/{{ Auth::id() }}" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
-        <i class="ni ni-single-02 text-primary"></i>
+        <i class="ni ni-calendar-grid-58 text-primary"></i>
         <span class="nav-link-text">Events</span>
     </a>
 </li>
