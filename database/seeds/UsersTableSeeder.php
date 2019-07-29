@@ -4,6 +4,7 @@ use App\Staff;
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use App\Student;
 
 class UsersTableSeeder extends Seeder
 {

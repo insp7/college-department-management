@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
         Route::redirect('/', '/dashboard');
         Route::get('/dashboard', 'DashboardController@index');
         Route::get('/timeline', 'UserController@timeline');
+        Route::get('/profile', 'UserController@myProfile');
 
         // will organize more efficiently later
         Route::group(['middleware' => ['role:Staff|Student']], function () {
@@ -45,7 +46,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/news-feed/get-all-news-feeds', 'NewsFeedController@getAllNewsFeeds');
         });
         Route::resource('/news-feed', 'NewsFeedController');
-        Route::get('/profile', 'UserController@myProfile');
+       
 
         Route::get('/notification/mark-all-as-read', 'NotificationController@markAllAsRead');
 
@@ -93,7 +94,7 @@ Route::middleware(['auth'])->group(function () {
                         Route::resource('/publications', 'PublicationsController');
 
                         // Profile
-                        Route::get('/profile', 'UserController@myProfile');
+                        // Route::get('/profile', 'UserController@myProfile');
                         Route::get('/staff/edit', 'StaffController@staffEdit');
 
                         // Scholarships
@@ -175,7 +176,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::resource('/student-further-studies', 'StudentFurtherStudiesController');
 
                 // Profile
-                Route::get('/profile', 'UserController@myProfile');
+                // Route::get('/profile', 'UserController@myProfile');
                 Route::get('/staff/edit', 'StaffController@staffEdit');
 
 
