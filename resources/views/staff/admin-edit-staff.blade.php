@@ -118,7 +118,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="employee_id" class="text-xs">Employee Id</label>
-                                    <input  value="{{ $staff->employee_id }}" id="employee_id" required name="employee_id" type="number" placeholder="Employee Id"  class="form-control @error('employee_id') is-invalid @enderror">
+                                    <input  value="{{ $staff->employee_id }}" id="employee_id" required name="employee_id" type="text" placeholder="Employee Id"  class="form-control @error('employee_id') is-invalid @enderror">
                                     @error('employee_id')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror

@@ -86,7 +86,7 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link {{ Request::is('events*') ? 'active' : '' }}" href="/events/manage/{{ Auth::id() }}" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+    <a class="nav-link {{ Request::is('events*') ? 'active' : '' }}" href="/events/manage" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
         <i class="ni ni-calendar-grid-58 text-primary"></i>
         <span class="nav-link-text">Events</span>
     </a>

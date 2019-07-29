@@ -10,15 +10,16 @@ use Illuminate\Notifications\Messages\MailMessage;
 class EventCompleted extends Notification
 {
     use Queueable;
-
+    private $event_id;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($event_id)
     {
         //
+        $this->event_id = $event_id;
     }
 
     /**
@@ -29,7 +30,7 @@ class EventCompleted extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**

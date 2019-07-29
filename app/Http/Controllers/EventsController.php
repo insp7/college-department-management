@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Constants\FileConstants;
 use App\Event;
+use App\Notifications\EventAssigned;
+use App\Notifications\EventCompleted;
 use App\Services\StaffService;
+use App\Staff;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Yajra\DataTables\Facades\DataTables;
 use App\Services\EventsService;
 
@@ -234,9 +239,19 @@ class EventsController extends Controller
         $event_id = $request->id;
         $coordinators = $request->input('event_coordinators');
 
+
+
         $insertionSuccessful = $this->eventsService->addCoordinators($event_id, $coordinators);
 
+        foreach ($coordinators as $coordinator){
+            Notification::send(User::findOrFail($coordinator), new EventAssigned($event_id));
+        }
+
+
         if($insertionSuccessful) {
+
+            // ************* THIS IS WHERE CORDINATOR IS ADDED TO AN EVENT **************
+
             return redirect('/admin/events/')->with([
                 'type' => 'success',
                 'title' => 'Coordinator added successfully',
@@ -320,9 +335,8 @@ class EventsController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getEventsByStaffId(Request $request) {
-        $user_id = $request->staff;
-        $events = $this->eventsService->getEventsByStaffId($user_id);
+    public function getEventsByStaffId() {
+        $events = $this->eventsService->getEventsByStaffId(Auth::id());
 
         return view('events.events-to-coordinate')->with('events', $events);
     }
@@ -385,7 +399,14 @@ class EventsController extends Controller
         $eventSuccessfullyEnded = $this->eventsService->eventEnd($event_id, $event_data, $image_relative_paths, Auth::id());
 
         if($eventSuccessfullyEnded) {
-            return redirect('/events/manage/' . Auth::id())->with([
+
+            $admins = User::whereHas("roles", function ($q) {
+                $q->where("name", "Admin");
+            })->get();
+
+            Notification::send($admins, new EventCompleted($event_id));
+
+            return redirect('/events/manage')->with([
                 'type' => 'success',
                 'title' => 'Event Ended',
                 'message' => 'Event Details Saved'

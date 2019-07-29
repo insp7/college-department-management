@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/notification/mark-all-as-read', 'NotificationController@markAllAsRead');
 
             // events to manage
-            Route::get('/events/manage/{staff}', 'EventsController@getEventsByStaffId');
+            Route::get('/events/manage', 'EventsController@getEventsByStaffId');
             Route::get('/events/end-event/{event}/end', 'EventsController@getEndEventForm');
             Route::post('/events/end/{event}', 'EventsController@endEvent'); // change this to get request if required.
             Route::get('/events/{event}/publish-as-news/', 'EventsController@publishAsNews');

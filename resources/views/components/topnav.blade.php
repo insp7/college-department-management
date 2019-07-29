@@ -50,7 +50,7 @@
                                         <div class="row align-items-center">
                                             <div class="col-auto">
                                                 <!-- Avatar -->
-                                                <img alt="Image placeholder" src="../../assets/img/theme/team-5.jpg" class="avatar rounded-circle">
+                                                <img alt="Image placeholder" src="{{ $notification->notifiable->photo }}" class="avatar rounded-circle">
                                             </div>
                                             <div class="col ml--2">
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -70,7 +70,7 @@
                                         <div class="row align-items-center">
                                             <div class="col-auto">
                                                 <!-- Avatar -->
-                                                <img alt="Image placeholder" src="../../assets/img/theme/team-5.jpg" class="avatar rounded-circle">
+                                                <img alt="Image placeholder" src="{{ $notification->notifiable->photo }}" class="avatar rounded-circle">
                                             </div>
                                             <div class="col ml--2">
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -81,7 +81,7 @@
                                                         <small>3 hrs ago</small>
                                                     </div>
                                                 </div>
-                                                <p class="text-sm mb-0">Completed Event</p>
+                                                <p class="text-sm mb-0">Completed Assigned Event</p>
                                             </div>
                                         </div>
                                     </a>
@@ -92,7 +92,7 @@
                             @endforeach
                         </div>
                         <!-- View all -->
-                        <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">Mark All Read</a>
+                        <a href="/notification/mark-all-as-read" class="dropdown-item text-center text-primary font-weight-bold py-3">Mark All Read</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
