@@ -16,7 +16,7 @@
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="post"  enctype="multipart/form-data" action="/student-scholarships/{{ $student->id }}">
+                    <form method="post" enctype="multipart/form-data" action="/student-scholarships/{{ $student->id }}">
                         @csrf
                         @method("PATCH")
 

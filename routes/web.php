@@ -144,7 +144,6 @@ Route::middleware(['auth'])->group(function () {
 
                 // Further Studies
                 Route::get('/student-further-studies/get-furtherstudies', 'StudentFurtherStudiesController@getStudentFurtherStudies');
-                Route::patch('/student-further-studies/{id}', 'StudentFurtherStudiesController@update');
                 Route::resource('/student-further-studies', 'StudentFurtherStudiesController');
 
                 // Profile

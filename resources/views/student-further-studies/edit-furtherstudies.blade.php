@@ -1,4 +1,21 @@
 @extends('layouts.base')
+<script>
+    $('input[name="hasGiven"]').on('click', function (event) {
+        var text = $(this).val();
+        
+    if (text === '1') {
+        $('#obtained').show();
+        $('#obtained').prop('disabled', false);
+        $('#outof').show();
+        $('#outof').prop('disabled', false);
+    } else {
+        $('#obtained').prop('disabled', true);
+        $('#obtained').hide();
+        $('#outof').prop('disabled', true);
+        $('#outof').hide();
+    }
+    });
+    </script>
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="/student-further-studies"><i class="fas fa-book"></i></a></li>
@@ -16,46 +33,31 @@
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="post" enctype="multipart/form-data" action="/student-further-studies/{{ $student->id }}">
+                    <form method="post" enctype="multipart/form-data" action="/student-further-studies/{{ $studentfurtherstudies->id }}">
                         @csrf
                         @method("PATCH")
 
                         <div class="form-group">
-                            <h4 class="mb-0 pb-2">Have You Opted For Further Studies?</h4>
-                            <div class="custom-control custom-radio mb-3">
-                                    <input class="custom-control-input" id="opted" type="radio" required name="hasOpted" value="1" class="form-control @error('hasOpted') is-invalid @enderror" {{$student->hasOpted===1?'checked':''}}>
-                                    <label class="custom-control-label" for="opted">Yes</label>
-                            </div>
-                            <div class="custom-control custom-radio mb-3">
-                                <input class="custom-control-input" id="notopted" type="radio" required name="hasOpted" value="0" class="form-control @error('hasOpted') is-invalid @enderror" {{$student->hasOpted===0?'checked':''}}>
-                                <label class="custom-control-label" for="notopted">No</label>
-                            </div>
-                            @error('hasOpted')
-                                <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <select name="type" id="choose-type" disabled="disabled" required class="form-control @error('type') is-invalid @enderror">
+                            <select name="type" id="choose-type" required class="form-control @error('type') is-invalid @enderror">
                                 <option disabled selected>Select Your Exam</option>
-                                <option value="MS" @if($student->type == 'MS') selected @endif>MS</option>
-                                <option value="MTech" @if($student->type == 'MTech') selected @endif>MTech</option>
-                                <option value="ME" @if($student->type == 'ME') selected @endif>ME</option>
-                                <option value="MBA" @if($student->type == 'MBA') selected @endif>MBA</option>
+                                <option value="MS" @if($studentfurtherstudies->type == 'MS') selected @endif>MS</option>
+                                <option value="MTech" @if($studentfurtherstudies->type == 'MTech') selected @endif>MTech</option>
+                                <option value="ME" @if($studentfurtherstudies->type == 'ME') selected @endif>ME</option>
+                                <option value="MBA" @if($studentfurtherstudies->type == 'MBA') selected @endif>MBA</option>
                             </select>
                             @error('type')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="form-group" id="given-exam" hidden="true">
+                        <div class="form-group" id="given-exam">
                             <h4 class="mb-0 pb-2">Have You Given the Exam?</h4>
                             <div class="custom-control custom-radio mb-3">
-                                    <input class="custom-control-input" id="given" type="radio" disabled="disabled" required name="hasGiven" value="1" class="form-control @error('hasGiven') is-invalid @enderror" {{$student->hasGiven===1?'checked':''}}>
+                                    <input class="custom-control-input" id="given" type="radio" required name="hasGiven" value="1" class="form-control @error('hasGiven') is-invalid @enderror" {{$studentfurtherstudies->hasGiven===1?'checked':''}}>
                                     <label class="custom-control-label" for="given">Yes</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input class="custom-control-input" id="notgiven" type="radio" disabled="disabled" required name="hasGiven" value="0" class="form-control @error('hasGiven') is-invalid @enderror" {{$student->hasGiven===1?'checked':''}}>
+                                <input class="custom-control-input" id="notgiven" type="radio" required name="hasGiven" value="0" class="form-control @error('hasGiven') is-invalid @enderror" {{$studentfurtherstudies->hasGiven===0?'checked':''}}>
                                 <label class="custom-control-label" for="notgiven">No</label>
                             </div>
                             @error('hasGiven')
@@ -64,14 +66,14 @@
                         </div>
 
                         <div class="form-group">
-                                <input type="text" value="{{ $student->obtained }}" disabled="disabled" autocomplete="off" required name="obtained" id="obtained" placeholder="Marks Obtained" class="form-control @error('obtained') is-invalid @enderror">
+                                <input type="text" value="{{$studentfurtherstudies->obtained }}"  autocomplete="off" required name="obtained" id="obtained" placeholder="Marks Obtained" class="form-control @error('obtained') is-invalid @enderror">
                             @error('obtained')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                                <input type="text" value="{{ $student->outof }}" disabled="disabled" autocomplete="off" required name="outof" id="outof" placeholder="Marks obtained Out Of" class="form-control @error('outof') is-invalid @enderror">
+                                <input type="text" value="{{ $studentfurtherstudies->outof }}" autocomplete="off" required name="outof" id="outof" placeholder="Marks obtained Out Of" class="form-control @error('outof') is-invalid @enderror">
                             @error('outof')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
@@ -88,43 +90,6 @@
 
 @section ('custom-script')
     <script src="{{ asset('/js/shape/add-shape.js') }}"></script>
-    <script>
-        $('#choose-type').hide();
-        $('input[name="hasOpted"]').on('click', function (event) {
-            var text = $(this).val();
-
-        if (text === '1') {
-            $('#choose-type').show();
-            $('#choose-type').prop('disabled', false);
-            $('#given-exam').prop('hidden', false);
-            $('#given').prop('disabled', false);
-            $('#notgiven').prop('disabled', false);
-        } else {
-            $('#choose-type').prop('disabled', true);
-            $('#choose-type').hide();
-            }
-        });
-    </script>
-        <script>
-        $('#obtained').hide();
-        $('#outof').hide();
-        $('input[name="hasGiven"]').on('click', function (event) {
-            var text = $(this).val();
-            
-        if (text === '1') {
-            $('#obtained').show();
-            $('#obtained').prop('disabled', false);
-            $('#outof').show();
-            $('#outof').prop('disabled', false);
-        } else {
-            $('#obtained').prop('disabled', true);
-            $('#obtained').hide();
-            $('#outof').prop('disabled', true);
-            $('#outof').hide();
-        }
-        });
-    </script>
-
 
     @if(session()->has('type'))
         <script>
