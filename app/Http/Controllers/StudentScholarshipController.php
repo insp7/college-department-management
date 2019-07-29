@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\StudentScholarship;
+use \App\User;
+use \App\Student;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Services\StudentScholarshipService;
 use Yajra\DataTables\Facades\DataTables;
-
 
 
 class StudentScholarshipController extends Controller
@@ -53,10 +55,20 @@ class StudentScholarshipController extends Controller
             'isPrivate' => 'boolean',
             'year' => 'required',
         ]);
-
+        
         try {
-            $this->studentscholarshipservice->create($validatedData, Auth::id());
-            return redirect('/scholarships')->with([
+            $studentscholarship=$this->studentscholarshipservice->create($validatedData, Auth::id());
+
+            /*LOG ACTIVITY*/
+            activity()
+                ->causedBy(Auth::user())
+                ->withProperties([
+                    'date' => Carbon::now()->toDateTimeString(),
+                    'title' => 'Scholarship Added',
+                ])
+                ->log("StudentScholarship $studentscholarship->details added");
+
+            return redirect('/student-scholarships')->with([
                 'type' => 'success',
                 'title' => 'Scholarship added successfully',
                 'message' => 'The Scholarship has been added successfully'
@@ -109,6 +121,22 @@ class StudentScholarshipController extends Controller
             'isPrivate' => 'boolean',
             'year' => 'required',
         ]); 
+
+        $updateSuccessful = $this->studentscholarshipservice->update($validatedData, $id, Auth::id());
+
+        if($updateSuccessful) {
+            return redirect('/student-scholarships')->with([
+                'type' => 'success',
+                'title' => 'Scholarship updated successfully',
+                'message' => 'The given Scholarship has been updated successfully'
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'type' => 'danger',
+            'title' => 'Failed to update the Scholarship',
+            'message' => "There was some issue in updating the Scholarship"
+        ]);
     }
 
     /**
@@ -120,7 +148,7 @@ class StudentScholarshipController extends Controller
     public function destroy($id)
     {
         try {
-            StudentScholarship::$studentscholarship->delete($id, Auth::id());
+            $this->studentscholarshipservice->delete($id, Auth::id());
             return redirect()->back()->with([
                 'type' => 'success',
                 'title' => 'Student Scholarship Deleted successfully',

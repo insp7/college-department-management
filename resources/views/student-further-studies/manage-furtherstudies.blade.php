@@ -7,13 +7,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/student-scholarships"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/student-scholarships">Scholarships</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Scholarships</li>
+    <li class="breadcrumb-item"><a href="/student-further-studies"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/student-further-studies">Further Studies Information</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage Further Studies Information</li>
 @endsection
 
 @section('actions')
-    <a href="/student-scholarships/create" class="btn btn-sm btn-neutral">New</a>
+    <a href="/student-further-studies/create" class="btn btn-sm btn-neutral">New</a>
 @endsection
 
 @section('page-content')
@@ -27,25 +27,23 @@
                     
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table table-flush" id="scholarships-list">
+                    <table class="table table-flush" id="furtherstudies-list">
                         <thead class="thead-light">
                         <tr>
-                            <th> Details </th>
-                            <th> Sponsor's Name </th>
-                            <th>Amount</th>
-                            <th>Year</th>
+                            <th> Type </th>
+                            <th> Marks Obtained </th>
+                            <th>Out Of</th>
                             <th> Edit </th>
                             <th> Delete </th>
                         </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th> Details </th>
-                                <th> Sponsor's Name </th>
-                                <th>Amount</th>
-                                <th>Year</th>
-                                <th> Edit </th>
-                                <th> Delete </th>
+                            <th> Type </th>
+                            <th> Marks Obtained </th>
+                            <th>Out Of</th>
+                            <th> Edit </th>
+                            <th> Delete </th>
                             </tr>
                         </tfoot>
                     </table>
@@ -101,31 +99,30 @@
     <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
     <script>
-        let managedScholarshipsTable = $('#scholarships-list');
+        let managedFurtherStudiesTable = $('#furtherstudies-list');
 
-        managedScholarshipsTable.DataTable({
+        managedFurtherStudiesTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/student-scholarships/get-scholarships',
+            ajax: '/student-further-studies/get-furtherstudies',
             columns: [
-                {data: 'details', name: 'details'},
-                {data: 'sponsors_name', name: 'sponsors_name'},
-                {data: 'amount', name: 'amount'},
-                {data: 'year', name: 'year'},
+                {data: 'type', name: 'type'},
+                {data: 'obtained', name: 'obtained'},
+                {data: 'outof', name: 'outof'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
             ],
             language:{paginate: {previous:"<i class='fa fa-angle-left'>", next:"<i class='fa fa-angle-right'>"}}
         });
 
-        managedScholarshipsTable.on('click', '.edit', function(e) {
+        managedFurtherStudiesTable.on('click', '.edit', function(e) {
             $id = $(this).attr('id');
-            window.location.pathname = '/student-scholarships/' + $id + '/edit';
+            window.location.pathname = '/student-further-studies/' + $id + '/edit';
         });
 
-        managedScholarshipsTable.on('click', '.delete', function(e) {
+        managedFurtherStudiesTable.on('click', '.delete', function(e) {
             $id = $(this).attr('id');
-            $('#delete_form').attr('action', '/student-scholarships/' + $id);
+            $('#delete_form').attr('action', '/student-further-studies/' + $id);
         });
 
     </script>

@@ -1,9 +1,9 @@
 @extends('layouts.base')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/scholarships"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/scholarships/create">Scholarships</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add Scholarships</li>
+    <li class="breadcrumb-item"><a href="/student-scholarships"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/student-scholarships/create">Add Scholarships</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Scholarships</li>
 @endsection
 
 @section('page-content')
@@ -16,19 +16,59 @@
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="post" enctype="multipart/form-data" action="/scholarships/{{ $student->id }}">
+                    <form method="post"  enctype="multipart/form-data" action="/student-scholarships/{{ $student->id }}">
                         @csrf
-                        <!-- @method('PATCH') -->
+                        @method("PATCH")
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="details" placeholder="Details about scholarship" class="form-control @error('details') is-invalid @enderror">{{ $student->details }}</textarea>
+                                <input type="text" value="{{ $student->details }}" required name="details" autocomplete="off" class="form-control @error('details') is-invalid @enderror">
                             </div>
                             @error('details')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
+
+                            <div class="form-group">
+                                 <input type="text"  value="{{ $student->sponsors_name }}" autocomplete="off" required name="sponsors_name"  placeholder="Sponsoror's Name" class="form-control @error('sponsors_name') is-invalid @enderror">
+                            @error('sponsors_name')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                            </div>
+
+                            <div class="form-group">
+                                 <input type="text"  value="{{ $student->amount }}" autocomplete="off" required name="amount"  placeholder="Amount of Scholarship" class="form-control @error('amount') is-invalid @enderror">
+                            @error('amount')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                            </div>
+
+                            <div class="input-daterange datepicker" data-provide="datepicker" data-date-format="yyyy/mm/dd" data-orientation="top auto" aria-orientation="vertical">
+                                <div class="form-group">
+                                    <div class="input-group @error('year') has-danger @enderror">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                        </div>
+                                        <input class="form-control datepicker" type="text" autocomplete="off" value="{{ $student->year->toDateString() }}" name="year" placeholder="Year of Scholarship">
+                                    @error('year')
+                                    <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                                    @enderror
+                                    </div>
+                                </div>
+                             </div>
+
+                            <div class="custom-control custom-radio mb-3">
+                                 <input class="custom-control-input" id="private" type="radio" required name="isPrivate" value="1" class="form-control @error('isPrivate') is-invalid @enderror" {{$student->isPrivate===1?'checked':''}}>
+                                 <label class="custom-control-label" for="private">Private</label>
+                            </div>
+                            <div class="custom-control custom-radio mb-3">
+                            <input class="custom-control-input" id="government" type="radio" required name="isPrivate" value="0" class="form-control @error('isPrivate') is-invalid @enderror" {{$student->isPrivate===0?'checked':''}}>
+                            <label class="custom-control-label" for="government">Government</label>
+                            </div>
+                            @error('isPrivate')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
 
                         <button class="btn btn-primary" type="submit">Update</button>
                     </form>
@@ -40,7 +80,14 @@
 @endsection
 
 @section ('custom-script')
-    <script src="{{ asset("/js/shape/add-shape.js") }}"></script>
+    <script src="{{ asset('/js/shape/add-shape.js') }}"></script>
+    <script>
+        $('.datepicker').datepicker({
+            orientation: "top"
+        });
+    </script>
+    <script src="{{ asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
 
     @if(session()->has('type'))
         <script>

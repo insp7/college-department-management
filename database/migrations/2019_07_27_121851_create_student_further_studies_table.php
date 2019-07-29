@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStudentScholarshipsTable extends Migration
+class CreateStudentFurtherStudiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateStudentScholarshipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_scholarships', function (Blueprint $table) {
+        Schema::create('student_further_studies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('details');
-            $table->string('sponsors_name');
-            $table->float('amount');
-            $table->date('year');
-            $table->boolean('isPrivate');
+            $table->boolean('hasOpted')->default('0');
+            $table->text('type')->nullable();
+            $table->boolean('hasGiven')->default('0');
+            $table->text('obtained')->nullable();
+            $table->text('outof')->nullable();
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();
 
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -35,6 +35,6 @@ class CreateStudentScholarshipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_scholarships');
+        Schema::dropIfExists('student_further_studies');
     }
 }

@@ -5,15 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class StudentScholarship extends Model
+class StudentFurtherStudies extends Model
 {
     use SoftDeletes;
-    protected $table = 'student_scholarships';
+    protected $table = 'student_further_studies';
     protected $primaryKey = 'id';
     protected $guarded = [];
-    protected $casts = [
-        'year'  => 'date:Y-m-d',
-    ];
 
     public function user()
     {

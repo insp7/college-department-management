@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\StudentScholarship;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 class StudentScholarshipService
@@ -22,7 +23,9 @@ class StudentScholarshipService
         ]);
 
         DB::commit();
+        return $student_scholarship;
     }
+    
     /**
      * Returns the list of states for datatables.net
      * @return mixed : List of States.
@@ -44,9 +47,12 @@ class StudentScholarshipService
     public function update($validatedData,$user_id,$id)
     {
         DB::beginTransaction();
-        StudentScholarship::where('id',$id)->update($validatedData);
-        $student_scholarship = StudentScholarship::where('id', $id);
+        StudentScholarship::where('id',$user_id)
+                ->where('created_by',$id)
+                ->update($validatedData);
+        $student_scholarship = StudentScholarship::where('id', $user_id);
 
         DB::commit();
-}
+        return true;
+    }
 }

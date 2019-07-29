@@ -14,15 +14,15 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create(['first_name' => 'Aninket',
-            'last_name' => 'Konkar',
-            'middle_name' => 'mid-name',
+        $user=User::create(['first_name' => 'Dhananjay',
+            'last_name' => 'sanjay',
+            'middle_name' => 'Dhananjay Ghumare',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin123'),
-            'contact_no' => '1234567890',
+            'contact_no' => '9168977662',
             'date_of_birth' => '2019-05-23',
             'role' => 1,
-            'additional_columns' => 'additional columns',
+            'additional_columns' => 'additional coloumns',
             'gender' => 'M',
             'created_at' => '2019-05-23 07:35:39',
             'updated_at' => '2019-05-23 07:35:39'
@@ -30,7 +30,6 @@ class UsersTableSeeder extends Seeder
 
         $user->assignRole('Admin');
 
-        // Because admin is a staff(i.e. a staff can be a admin)
         Staff::create([
             'user_id' => $user->id,
             'created_by' => $user->id,
@@ -38,14 +37,14 @@ class UsersTableSeeder extends Seeder
 
         ]);
 
-        $user = User::create(['first_name' => 'Dhananjay',
+        $user=User::create(['first_name' => 'Dhananjay',
             'last_name' => 'sanjay',
             'middle_name' => 'Dhananjay Ghumare',
-            'email' => 'staff1@gmail.com',
+            'email' => 'satff1@gmail.com',
             'password' => '$2y$10$zXhY8SU1BlPKbUGOUEWGGOcy1ylX7A3Gh1RfKnrMyL7Y6O2nmBUr.',
             'contact_no' => '9168977662',
             'date_of_birth' => '2019-05-23',
-            'role' => 2,
+            'role' => 1,
             'additional_columns' => 'additional coloumns',
             'gender' => 'M',
             'created_at' => '2019-05-23 07:35:39',
@@ -54,20 +53,14 @@ class UsersTableSeeder extends Seeder
 
         $user->assignRole('Staff');
 
-        Staff::create([
-            'user_id' => $user->id,
-            'created_by' => '1',
-            'updated_by' => '1'
-        ]);
-
-        $user = User::create(['first_name' => 'Dhananjay',
+        $user=User::create(['first_name' => 'Dhananjay',
             'last_name' => 'sanjay',
             'middle_name' => 'Dhananjay Ghumare',
             'email' => 'staff2@gmail.com',
             'password' => '$2y$10$zXhY8SU1BlPKbUGOUEWGGOcy1ylX7A3Gh1RfKnrMyL7Y6O2nmBUr.',
             'contact_no' => '9168977662',
             'date_of_birth' => '2019-05-23',
-            'role' => 2,
+            'role' => 1,
             'additional_columns' => 'additional coloumns',
             'gender' => 'M',
             'created_at' => '2019-05-23 07:35:39',
@@ -76,10 +69,28 @@ class UsersTableSeeder extends Seeder
 
         $user->assignRole('Staff');
 
-        Staff::create([
-            'user_id' => $user->id,
-            'created_by' => '1',
-            'updated_by' => '1'
+        $user = User::create([
+            'first_name' => 'Rohin',
+            'last_name' => 'Vaidya',
+            'middle_name' => 'M',
+            'email' => 'student2@gmail.com',
+            'password'  => Hash::make('stud123'),
+            'contact_no' => '1234567890',
+            'date_of_birth' => '2019-02-20',
+            'role' => 3,
+            'additional_columns' => 'additional columns',
+            'gender' => 'M',
+            'created_at' => '2019-07-27 12:23:45',
+            'updated_at' => '2019-07-27 12:23:45',
+        ]);
+
+        $user->assignRole('Student');
+
+        Student::create(['user_id' => $user->id,
+        'created_by' => $user->id,
+        'updated_by' =>$user->id,
+        'roll_no'=>111,
+        'class_id' =>1,
         ]);
     }
 }
