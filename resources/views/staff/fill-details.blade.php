@@ -28,7 +28,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Photo</label>
-                                    <input   type="file" required name="photo"  class="form-control @error('photo') is-invalid @enderror">
+                                    <input autocomplete="off" type="file" required name="photo"  class="form-control @error('photo') is-invalid @enderror">
                                     @error('photo')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
@@ -42,7 +42,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input  value="{{ old('first_name') }}" required name="first_name" type="text" placeholder="First Name" class="form-control @error('first_name') is-invalid @enderror">
+                                    <input autocomplete="off" value="{{ old('first_name') }}" required name="first_name" type="text" placeholder="First Name" class="form-control @error('first_name') is-invalid @enderror">
                                     @error('first_name')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
@@ -51,7 +51,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input  value="{{ old('middle_name') }}" required name="middle_name" type="text" placeholder="Middle Name" class="form-control @error('middle_name') is-invalid @enderror">
+                                    <input autocomplete="off" value="{{ old('middle_name') }}" required name="middle_name" type="text" placeholder="Middle Name" class="form-control @error('middle_name') is-invalid @enderror">
                                     @error('middle_name')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
@@ -60,7 +60,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input  value="{{ old('last_name') }}" required name="last_name" type="text" placeholder="Last Name" class="form-control @error('last_name') is-invalid @enderror">
+                                    <input autocomplete="off" value="{{ old('last_name') }}" required name="last_name" type="text" placeholder="Last Name" class="form-control @error('last_name') is-invalid @enderror">
                                     @error('last_name')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
@@ -73,7 +73,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input  value="{{ old('contact_no') }}" required name="contact_no" type="number" placeholder="Contact Number"  class="form-control @error('contact_no') is-invalid @enderror">
+                                    <input autocomplete="off" value="{{ old('contact_no') }}" required name="contact_no" type="number" placeholder="Contact Number"  class="form-control @error('contact_no') is-invalid @enderror">
                                     @error('contact_no')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
@@ -133,7 +133,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input  value="{{ old('pan') }}" required name="pan" type="number" placeholder="Pan Number"  class="form-control @error('pan') is-invalid @enderror">
+                                    <input autocomplete="off" value="{{ old('pan') }}" required name="pan" type="number" placeholder="Pan Number"  class="form-control @error('pan') is-invalid @enderror">
                                     @error('pan')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
@@ -161,7 +161,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input  value="{{ old('employee_id') }}" required name="employee_id" type="text" placeholder="Employee Id"  class="form-control @error('employee_id') is-invalid @enderror">
+                                    <input autocomplete="off" value="{{ old('employee_id') }}" required name="employee_id" type="text" placeholder="Employee Id"  class="form-control @error('employee_id') is-invalid @enderror">
                                     @error('employee_id')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
@@ -188,11 +188,10 @@
 
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <div class="input-group @error('adress') has-danger @enderror">
-                                        
-                                        <input type="text" value="{{ old('adress') }}" required name="adress"  placeholder="Address"  class="form-control  @error('adress') is-invalid @enderror">
+                                    <div class="input-group @error('address') has-danger @enderror">
+                                        <input autocomplete="off" type="text" value="{{ old('address') }}" required name="address"  placeholder="Address"  class="form-control  @error('adress') is-invalid @enderror">
                                     </div>
-                                    @error('adress')
+                                    @error('address')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -200,7 +199,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input  value="{{ old('city') }}" required name="city" type="text" placeholder="City"  class="form-control @error('city') is-invalid @enderror">
+                                    <input autocomplete="off" value="{{ old('city') }}" required name="city" type="text" placeholder="City"  class="form-control @error('city') is-invalid @enderror">
                                     @error('employee_id')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror

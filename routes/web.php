@@ -66,7 +66,7 @@ Route::middleware(['auth'])->group(function () {
             /*News Feed*/
             Route::get('/news-feed/images/{id}/show', 'NewsFeedController@getImagesForNewsFeed');
             Route::get('/news-feed/get-all-news-feeds', 'NewsFeedController@getAllNewsFeeds');
-            Route::resource('/news-feed', 'NewsFeedController');
+            Route::resource('//staff/{{ $user->id }}news-feed', 'NewsFeedController');
 
 
             /*Published Books*/
@@ -89,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
             // Profile
             Route::get('/profile', 'UserController@myProfile');
             Route::get('/staff/edit', 'StaffController@staffEdit');
+            Route::post('/staff/updateProfile', 'StaffController@updateStaffProfile'); // NOTE: change this update request to put() later.
 
             // Scholarships
             Route::get('/scholarships/get-scholarships', 'StudentScholarshipController@getStudentScholarships');

@@ -201,6 +201,29 @@ class StaffController extends Controller
         ]);
     }
 
+
+
+    public function updateStaffProfile(Request $request) {
+
+        $validatedData = $request->validate([
+
+            /*DATA FOR USERS TABLE*/
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'designation' => 'required',
+            'contact_no' => 'required|digits:10',
+            'date_of_birth' => 'required|date',
+            'address' => 'required',
+            'city' => 'required'
+        ]);
+
+        $updateSuccessful = $this->staffService->updateStaffProfile($validatedData, Auth::id());
+
+        if(!$updateSuccessful) dd('ERR!', $updateSuccessful);
+    }
+
     public function staffUpdate(Request $request, $id)
     {
         //
