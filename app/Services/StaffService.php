@@ -8,8 +8,6 @@
 
 namespace App\Services;
 
-
-use App\Exceptions\BaseException;
 use App\Staff;
 use App\User;
 use Carbon\Carbon;
@@ -167,7 +165,7 @@ class StaffService {
     public function updateStaffProfile($validatedData, $user_id) {
         try {
             DB::beginTransaction();
-                $user = User::findOrFail($id);
+                $user = User::findOrFail($user_id);
                 $user->first_name = $validatedData['first_name'];
                 $user->last_name = $validatedData['last_name'];
                 $user->middle_name = $validatedData['middle_name'];
@@ -178,7 +176,7 @@ class StaffService {
                 $user->updated_by = $user_id;
                 $user->save();
 
-                $staff = Staff::findOrFail($id);
+                $staff = Staff::where('user_id', $user_id)->first();
                 $staff->designation = $validatedData['designation'];
                 $staff->save();
             DB::commit();

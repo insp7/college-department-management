@@ -68,7 +68,7 @@
                         <h3 class="mb-0">Profile </h3>
                     </div>
                     <div class="col-4 text-right">
-                        <button class="btn btn-outline-primary">Update</button>
+                        <button type="submit" class="btn btn-outline-primary">Update</button>
                     </div>
                 </div>
             </div>
@@ -79,22 +79,22 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label class="form-control-label" for="first-name">First name</label>
-                                <input autocomplete="off" type="text" id="first-name" name="first-name" class="form-control" placeholder="First name"
+                                <label class="form-control-label" for="first_name">First name</label>
+                                <input autocomplete="off" type="text" id="first_name" name="first_name" class="form-control" placeholder="First name"
                                     value="{{ $user->first_name }}">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label class="form-control-label" for="middle-name">Middle name</label>
-                                <input autocomplete="off" type="text" id="middle-name" name="middle-name" class="form-control" placeholder="Middle name"
+                                <label class="form-control-label" for="middle_name">Middle name</label>
+                                <input autocomplete="off" type="text" id="middle_name" name="middle_name" class="form-control" placeholder="Middle name"
                                        value="{{ $user->middle_name }}">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label class="form-control-label" for="last-name">Last name</label>
-                                <input autocomplete="off" type="text" id="last-name" name="last-name" class="form-control" placeholder="Last name"
+                                <label class="form-control-label" for="last_name">Last name</label>
+                                <input autocomplete="off" type="text" id="last_name" name="last_name" class="form-control" placeholder="Last name"
                                     value="{{ $user->last_name }}">
                             </div>
                         </div>
@@ -131,15 +131,15 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-control-label" for="date-of-birth">Date of Birth</label>
-                                <input type="date" id="date-of-birth" name="date-of-birth" class="form-control"
+                                <label class="form-control-label" for="date_of_birth">Date of Birth</label>
+                                <input type="date" id="date_of_birth" name="date_of_birth" class="form-control"
                                     value="{{ $user->date_of_birth }}">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-control-label" for="contact-no">Contact No</label>
-                                <input autocomplete="off" type="text" id="contact-no" name="contact-no" class="form-control"
+                                <label class="form-control-label" for="contact_no">Contact No</label>
+                                <input autocomplete="off" type="text" id="contact_no" name="contact_no" class="form-control"
                                     value="{{ $user->contact_no }}">
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                             <div class="form-group">
                                 <label class="form-control-label" for="address">Address</label>
                                 <input autocomplete="off" id="address" class="form-control" name="address" placeholder="Home Address"
-                            value="{{ $user->adress }}" type="text">
+                            value="{{ $user->address }}" type="text">
                             </div>
                         </div>
                         <div class="col-md-4">
