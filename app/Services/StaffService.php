@@ -8,8 +8,6 @@
 
 namespace App\Services;
 
-
-use App\Exceptions\BaseException;
 use App\Staff;
 use App\User;
 use Carbon\Carbon;
@@ -153,6 +151,38 @@ class StaffService {
 
             return true;
         } catch (Exception $exception) {
+            return false;
+        }
+    }
+
+    /**
+     * This method is called when a staff wants to update his own profile.
+     *
+     * @param $validatedData array Specifies the updated data.
+     * @param $user_id int Specifies the user_id of the staff whose details are to be updated.
+     * @return bool true if update performed is successful, else false.
+     */
+    public function updateStaffProfile($validatedData, $user_id) {
+        try {
+            DB::beginTransaction();
+                $user = User::findOrFail($user_id);
+                $user->first_name = $validatedData['first_name'];
+                $user->last_name = $validatedData['last_name'];
+                $user->middle_name = $validatedData['middle_name'];
+                $user->date_of_birth = $validatedData['date_of_birth'];
+                $user->contact_no = $validatedData['contact_no'];
+                $user->address = $validatedData['address'];
+                $user->email = $validatedData['email'];
+                $user->updated_by = $user_id;
+                $user->save();
+
+                $staff = Staff::where('user_id', $user_id)->first();
+                $staff->designation = $validatedData['designation'];
+                $staff->save();
+            DB::commit();
+
+            return true;
+        } catch(Exception $exception) {
             return false;
         }
     }

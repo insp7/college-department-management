@@ -14,13 +14,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
 
-class StaffController extends Controller
-{
+class StaffController extends Controller {
 
     protected $staffService;
 
-    public function __construct(StaffService $staffService)
-    {
+    public function __construct(StaffService $staffService) {
         $this->staffService = $staffService;
     }
 
@@ -44,14 +42,11 @@ class StaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
         return view('staff.manage-staff');
     }
 
-    public function showProfile()
-    {
+    public function showProfile() {
         return view('user.profile');
     }
 
@@ -60,8 +55,7 @@ class StaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('staff.add-staff');
     }
 
@@ -71,9 +65,8 @@ class StaffController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $validatedData=$request->validate([
+    public function store(Request $request) {
+        $validatedData = $request->validate([
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -100,11 +93,10 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id) {
+
         try{
-            $user=Staff::findOrFail($id)->user;
+            $user = Staff::findOrFail($id)->user;
 
             return view('staff.view-staff')->with([
                 'user' => $user
@@ -139,12 +131,11 @@ class StaffController extends Controller
 
 
     /*staff*/
-    public function staffEdit()
-    {
+    public function staffEdit() {
         return view('staff.edit-staff');
     }
 
-    public function fillDetails(){
+    public function fillDetails() {
 
         /*CHECK IF USER HAS COMPLETED REGISTRATION*/
         /*IF ALREADY COMPLETED REDIRECT TO DASHBOARD*/
@@ -167,8 +158,8 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
+
         $validatedData = $request->validate([
 
             /*DATA FOR USERS TABLE*/
@@ -201,9 +192,32 @@ class StaffController extends Controller
         ]);
     }
 
-    public function staffUpdate(Request $request, $id)
-    {
-        //
+
+
+    public function updateStaffProfile(Request $request) {
+        $validatedData = $request->validate([
+
+            /*DATA FOR USERS TABLE*/
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'designation' => 'required',
+            'contact_no' => 'required|digits:10',
+            'date_of_birth' => 'required|date',
+            'address' => 'required',
+            'city' => 'required'
+        ]);
+
+        $updateSuccessful = $this->staffService->updateStaffProfile($validatedData, Auth::id());
+
+        if(!$updateSuccessful) dd('ERR!', $updateSuccessful);
+
+        return redirect('/profile')->with([
+            'type' => 'success',
+            'title' => 'Staff updated successfully',
+            'message' => 'Your Details are updated successfully.'
+        ]);
     }
 
     public function completeRegistration(Request $request) {

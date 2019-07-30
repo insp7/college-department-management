@@ -59,48 +59,42 @@
 
     </div>
     <div class="card">
-        <div class="card-header">
-            <div class="row align-items-center">
-                <div class="col-8">
-                    <h3 class="mb-0">Profile </h3>
-                </div>
-                <div class="col-4 text-right">
-                    <a href="#!" class="btn btn-sm btn-primary">edit</a>
+        <form action="/staff/updateProfile" method="POST" enctype="multipart/form-data">
+            @csrf
+
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h3 class="mb-0">Profile </h3>
+                    </div>
+                    <div class="col-4 text-right">
+                        <button type="submit" class="btn btn-outline-primary">Update</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card-body">
-            <form>
+
+            <div class="card-body">
                 <h6 class="heading-small text-muted mb-4">User information</h6>
                 <div class="pl-lg-4">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-email">Email address</label>
-                                <input type="email" id="input-email" class="form-control"
-                                    placeholder="jesse@example.com" value="{{ $user->email }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label class="form-control-label" for="designation">Designation</label>
-                                <input type="text" id="designation" class="form-control" placeholder="Designation"
-                                    value="{{$staff->designation }}">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-first-name">First name</label>
-                                <input type="text" id="input-first-name" class="form-control" placeholder="First name"
+                                <label class="form-control-label" for="first_name">First name</label>
+                                <input autocomplete="off" type="text" id="first_name" name="first_name" class="form-control" placeholder="First name"
                                     value="{{ $user->first_name }}">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label class="form-control-label" for="input-last-name">Last name</label>
-                                <input type="text" id="input-last-name" class="form-control" placeholder="Last name"
+                                <label class="form-control-label" for="middle_name">Middle name</label>
+                                <input autocomplete="off" type="text" id="middle_name" name="middle_name" class="form-control" placeholder="Middle name"
+                                       value="{{ $user->middle_name }}">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="last_name">Last name</label>
+                                <input autocomplete="off" type="text" id="last_name" name="last_name" class="form-control" placeholder="Last name"
                                     value="{{ $user->last_name }}">
                             </div>
                         </div>
@@ -109,15 +103,43 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-control-label" for="input-first-name">Date of Birth</label>
-                                <input type="text" id="input-first-name" class="form-control"
+                                <label class="form-control-label" for="email">Email address</label>
+                                <input autocomplete="off" type="email" id="email" name="email" class="form-control"
+                                       placeholder="jesse@example.com" value="{{ $user->email }}">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="designation">Designation</label>
+{{--                                <input type="text" id="designation" name="designation" class="form-control" placeholder="Designation"--}}
+{{--                                       value="{{ $staff->designation }}">--}}
+
+                                <select name="designation" id="designation" required class="form-control @error('designation') is-invalid @enderror">
+                                    <option disabled selected>Select Designation</option>
+                                    <option value="HOD" @if($staff->designation == 'HOD') selected @endif>HOD</option>
+                                    <option value="Professor" @if($staff->designation == 'Professor') selected @endif>Professor</option>
+                                    <option value="Associate" @if($staff->designation == 'Associate') selected @endif>Associate</option>
+                                    <option value="Assistant" @if($staff->designation == 'Assistant') selected @endif>Assistant</option>
+                                </select>
+                                @error('designation')
+                                <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="date_of_birth">Date of Birth</label>
+                                <input type="date" id="date_of_birth" name="date_of_birth" class="form-control"
                                     value="{{ $user->date_of_birth }}">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="form-control-label" for="input-last-name">Contact No</label>
-                                <input type="text" id="input-last-name" class="form-control"
+                                <label class="form-control-label" for="contact_no">Contact No</label>
+                                <input autocomplete="off" type="text" id="contact_no" name="contact_no" class="form-control"
                                     value="{{ $user->contact_no }}">
                             </div>
                         </div>
@@ -130,16 +152,16 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group">
-                                <label class="form-control-label" for="input-address">Address</label>
-                                <input id="input-address" class="form-control" placeholder="Home Address"
-                            value="{{$user->adress}}" type="text">
+                                <label class="form-control-label" for="address">Address</label>
+                                <input autocomplete="off" id="address" class="form-control" name="address" placeholder="Home Address"
+                            value="{{ $user->address }}" type="text">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-control-label" for="input-city">City</label>
-                                <input type="text" id="input-city" class="form-control" placeholder="City"
-                            value="{{$user->city}}">
+                                <label class="form-control-label" for="city">City</label>
+                                <input autocomplete="off" type="text" id="city" name="city" class="form-control" placeholder="City"
+                            value="{{ $user->city }}">
                             </div>
                         </div>
                     </div>
