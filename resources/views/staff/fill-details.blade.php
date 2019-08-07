@@ -119,7 +119,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input  value="{{ old('pan') }}" required name="pan" type="number" placeholder="Pan Number"  class="form-control @error('pan') is-invalid @enderror">
+                                    <input  value="{{ old('pan') }}" required name="pan" type="text" placeholder="Pan Number"  class="form-control @error('pan') is-invalid @enderror">
                                     @error('pan')
                                     <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                                     @enderror
