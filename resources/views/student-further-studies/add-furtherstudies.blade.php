@@ -89,41 +89,41 @@
 @section ('custom-script')
     <script src="{{ asset('/js/shape/add-shape.js') }}"></script>
     <script>
+    $('#choose-type').hide();
+    $('input[name="hasOpted"]').on('click', function (event) {
+        var text = $(this).val();
+
+    if (text === '1') {
+        $('#choose-type').show();
+        $('#choose-type').prop('disabled', false);
+        $('#given-exam').prop('hidden', false);
+        $('#given').prop('disabled', false);
+        $('#notgiven').prop('disabled', false);
+    } else {
+        $('#choose-type').prop('disabled', true);
         $('#choose-type').hide();
-        $('input[name="hasOpted"]').on('click', function (event) {
-            var text = $(this).val();
-
-        if (text === '1') {
-            $('#choose-type').show();
-            $('#choose-type').prop('disabled', false);
-            $('#given-exam').prop('hidden', false);
-            $('#given').prop('disabled', false);
-            $('#notgiven').prop('disabled', false);
-        } else {
-            $('#choose-type').prop('disabled', true);
-            $('#choose-type').hide();
-            }
-        });
-    </script>
-        <script>
-        $('#obtained').hide();
-        $('#outof').hide();
-        $('input[name="hasGiven"]').on('click', function (event) {
-            var text = $(this).val();
-
-        if (text === '1') {
-            $('#obtained').show();
-            $('#obtained').prop('disabled', false);
-            $('#outof').show();
-            $('#outof').prop('disabled', false);
-        } else {
-            $('#obtained').prop('disabled', true);
-            $('#obtained').hide();
-            $('#outof').prop('disabled', true);
-            $('#outof').hide();
         }
-        });
-    </script>
+    });
+</script>
+<script>
+    $('#obtained').hide();
+    $('#outof').hide();
+    $('input[name="hasGiven"]').on('click', function (event) {
+        var text = $(this).val();
+
+    if (text === '1') {
+        $('#obtained').show();
+        $('#obtained').prop('disabled', false);
+        $('#outof').show();
+        $('#outof').prop('disabled', false);
+    } else {
+        $('#obtained').prop('disabled', true);
+        $('#obtained').hide();
+        $('#outof').prop('disabled', true);
+        $('#outof').hide();
+    }
+    });
+</script>
 
     @if(session()->has('type'))
         <script>

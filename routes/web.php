@@ -113,14 +113,13 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/admin/events/get-events', 'EventsController@getEvents');
                 Route::resource('/admin/events', 'EventsController');
 
-                /*STUDENT ROUTES*/
-
-
+                                
 
                 /*CLASS ROUTES*/
                 Route::get('/classes/{id}/get-students', 'ClassController@getClassStudents');
                 Route::get('/classes/get-classes', 'ClassController@getClasses');
                 Route::get('classes/{id}/students/create', 'ClassController@createClassStudents');
+
 
                 Route::post('classes/{id}/students/store', 'ClassController@storeClassStudents');
 
@@ -164,6 +163,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/student-further-studies/get-furtherstudies', 'StudentFurtherStudiesController@getStudentFurtherStudies');
         Route::patch('/student-further-studies/{id}', 'StudentFurtherStudiesController@update');
         Route::resource('/student-further-studies', 'StudentFurtherStudiesController');
+                
 
     }
     );

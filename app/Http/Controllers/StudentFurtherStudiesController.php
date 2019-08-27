@@ -111,10 +111,10 @@ class StudentFurtherStudiesController extends Controller
      * @param  \App\StudentFurtherStudies  $studentfurtherstudies
      * @return \Illuminate\Http\Response
      */
-    public function edit(StudentFurtherStudies $studentfurtherstudies)
+    public function edit($id)
     {
-        
-        return view('student-further-studies.edit-furtherstudies',['student'=>$studentfurtherstudies]);
+        $studentfurtherstudies=StudentFurtherStudies::find($id);
+        return view('student-further-studies.edit-furtherstudies',['studentfurtherstudies'=>$studentfurtherstudies,'user'=>Auth::user()]);
     }
 
     /**

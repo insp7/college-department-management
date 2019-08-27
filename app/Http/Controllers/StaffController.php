@@ -244,70 +244,70 @@ class StaffController extends Controller {
             'designation' => 'required|in:Assistant,Associate,Professor,HOD',
             'is_teaching' => 'sometimes|in:1,0',
             'is_permanent' => 'sometimes|in:1,0',
-            'pan' => 'required|digits:10',
+            'pan' => 'required|alpha_num|max:10',
             'employee_id' => 'required',
             'date_of_joining_institute' => 'required|date',
 
             /*bos_chairman*/
             'is_bos_chairman' => 'sometimes|in:1,0',
             'bos_chairman_details' => 'sometimes|required',
-            'bos_chairman_certificate_path' => 'sometimes|required|image|mimes:jpg,jpeg,png',
+            'bos_chairman_certificate_path' => 'sometimes|required|mimes:jpg,jpeg,png,pdf',
 
             /*bos_member*/
             'is_bos_member' => 'sometimes|in:1,0',
             'bos_member_details' => 'sometimes|nullable',
-            'bos_member_certificate_path' => 'sometimes|nullable|image|mimes:jpg,jpeg,png',
+            'bos_member_certificate_path' => 'sometimes|nullable|mimes:jpg,jpeg,png,pdf',
 
             /*industry_experience*/
             'is_industry_experience' => 'sometimes|in:1,0',
             'industry_experience_years' => 'numeric',
             'industry_experience_details' => 'sometimes|nullable',
-            'industry_experience_certificate_path' => 'sometimes|nullable|image|mimes:jpg,jpeg,png',
+            'industry_experience_certificate_path' => 'sometimes|nullable|mimes:jpg,jpeg,png,pdf',
 
             /*subject_chairman*/
             'is_subject_chairman' => 'sometimes|in:1,0',
             'subject_chairman_details' => 'sometimes|nullable',
-            'subject_chairman_certificate_path' => 'sometimes|nullable|image|mimes:jpg,jpeg,png',
+            'subject_chairman_certificate_path' => 'sometimes|nullable|mimes:jpg,jpeg,png,pdf',
 
             /*subject_expert*/
             'is_subject_expert' => 'sometimes|in:1,0',
             'subject_expert_details' => 'sometimes|nullable',
-            'subject_expert_certificate_path' => 'sometimes|nullable|image|mimes:jpg,jpeg,png',
+            'subject_expert_certificate_path' => 'sometimes|nullable|mimes:jpg,jpeg,png,pdf',
 
             /*staff_selection_committee*/
             'is_staff_selection_committee_member' => 'sometimes|in:1,0',
             'staff_selection_committee_details' => 'sometimes|nullable',
-            'staff_selection_committee_certificate_path' => 'sometimes|nullable|image|mimes:jpg,jpeg,png',
+            'staff_selection_committee_certificate_path' => 'sometimes|nullable|mimes:jpg,jpeg,png,pdf',
 
             /*department_advisory_board*/
             'is_department_advisory_board' => 'sometimes|in:1,0',
             'department_advisory_board_details' => 'sometimes|nullable',
-            'department_advisory_board_certificate_path' => 'sometimes|nullable|image|mimes:jpg,jpeg,png',
+            'department_advisory_board_certificate_path' => 'sometimes|nullable|mimes:jpg,jpeg,png,pdf',
 
             /*academic_audit*/
             'is_academic_audit' => 'sometimes|in:1,0',
             'academic_audit_details' => 'sometimes|nullable',
-            'academic_audit_certificate_path' => 'sometimes|nullable|image|mimes:jpg,jpeg,png',
+            'academic_audit_certificate_path' => 'sometimes|nullable|mimes:jpg,jpeg,png,pdf',
 
             /*subject_expert_phd*/
             'is_subject_expert_phd' => 'sometimes|in:1,0',
             'subject_expert_phd_details' => 'sometimes|nullable',
-            'subject_expert_phd_certificate_path' => 'sometimes|nullable|image|mimes:jpg,jpeg,png',
+            'subject_expert_phd_certificate_path' => 'sometimes|nullable|mimes:jpg,jpeg,png,pdf',
 
             /*other_universities_examiner*/
             'is_other_universities_examiner' => 'sometimes|in:1,0',
             'other_universities_examiner_details' => 'sometimes|nullable',
-            'other_universities_examiner_certificate_path' => 'sometimes|nullable|image|mimes:jpg,jpeg,png',
+            'other_universities_examiner_certificate_path' => 'sometimes|nullable|mimes:jpg,jpeg,png,pdf',
 
             /*examination_auditor*/
             'is_examination_auditor' => 'sometimes|in:1,0',
             'examination_auditor_details' => 'sometimes|nullable',
-            'examination_auditor_certificate_path' => 'sometimes|nullable|image|mimes:jpg,jpeg,png',
+            'examination_auditor_certificate_path' => 'sometimes|nullable|mimes:jpg,jpeg,png,pdf',
 
             /*subject_coordinator_src*/
             'is_subject_coordinator_src' => 'sometimes|in:1,0',
             'subject_coordinator_src_details' => 'sometimes|nullable',
-            'subject_coordinator_src_certificate_path' => 'sometimes|nullable|image|mimes:jpg,jpeg,png',
+            'subject_coordinator_src_certificate_path' => 'sometimes|nullable|mimes:jpg,jpeg,png,pdf',
 
             /*iste*/
             'is_iste' => 'sometimes|in:1,0',
