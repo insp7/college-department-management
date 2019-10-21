@@ -73,6 +73,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/published-books/get-published-books', 'PublishedBookController@getPublishedBooks');
             Route::resource('/published-books', 'PublishedBookController');
 
+            // Staff Courses;
+            Route::get('/staff-courses/get-staff-courses', 'StaffCourseController@getStaffCourses');
+            Route::resource('/staff-courses', 'StaffCourseController');
 
             //Achievements
             Route::get('/sachievement/get-achievement', 'AchievementController@getAchievements');

@@ -7,13 +7,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/student-courses"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/student-courses">Student Courses</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Student Courses</li>
+    <li class="breadcrumb-item"><a href="/staff-courses"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/staff-courses">Staff Courses</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage Staff Courses</li>
 @endsection
 
 @section('actions')
-    <a href="/student-courses/create" class="btn btn-sm btn-neutral">New</a>
+    <a href="/staff-courses/create" class="btn btn-sm btn-neutral">New</a>
 @endsection
 
 @section('page-content')
@@ -29,7 +29,7 @@
                     </p>
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table table-flush" id="student-courses-list">
+                    <table class="table table-flush" id="staff-courses-list">
                         <thead class="thead-light">
                         <tr>
                             <th> Name </th>
@@ -105,12 +105,12 @@
     <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
     <script>
-        let manageStudentCoursesTable = $('#student-courses-list');
+        let manageStaffCoursesTable = $('#staff-courses-list');
 
-        manageStudentCoursesTable.DataTable({
+        manageStaffCoursesTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/student-courses/get-student-courses',
+            ajax: '/staff-courses/get-staff-courses',
             columns: [
                 {data: 'name', name: 'name'},
                 {data: 'details', name: 'details'},
@@ -122,14 +122,14 @@
             ]
         });
 
-        manageStudentCoursesTable.on('click', '.edit', function(e) {
+        manageStaffCoursesTable.on('click', '.edit', function(e) {
             $id = $(this).attr('id');
-            window.location.pathname = '/student-courses/' + $id + '/edit';
+            window.location.pathname = '/staff-courses/' + $id + '/edit';
         });
 
-        manageStudentCoursesTable.on('click', '.delete', function(e) {
+        manageStaffCoursesTable.on('click', '.delete', function(e) {
             $id = $(this).attr('id');
-            $('#delete_form').attr('action', '/student-courses/' + $id);
+            $('#delete_form').attr('action', '/staff-courses/' + $id);
         });
 
     </script>
