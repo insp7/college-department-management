@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Services\SAchievementService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
+use App\sachievement;
 
 
 class AchievementController extends Controller
@@ -30,7 +31,7 @@ class AchievementController extends Controller
      */
     public function index()
     {
-        return view('staff.manage-staff');
+        return view('staff-achievements.manage-achievement');
     }
 
     public function showProfile() {
@@ -94,9 +95,12 @@ class AchievementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
         //
+        $id = $request->sachievement;
+        $sachievement = sachievement::find($id);
+        return view('staff-achievements.edit-achievement')->with('sachievement', $sachievement);
     }
 
     /**
@@ -109,6 +113,31 @@ class AchievementController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $validatedData = $request->validate([
+            'achievement_name' => 'required',
+            'achievement_description' => 'required',
+            'year' => 'required|min:4|max:4'
+        ]);
+
+        $updateSuccessful=$this->staffAchievementService->update($validatedData, $id, Auth::id());
+
+        try {
+            if ($updateSuccessful) {
+                return redirect('/sachievement')->with([
+                    'type' => 'success',
+                    'title' => 'Achievement updated successfully',
+                    'message' => 'The achievement has been updated successfully'
+                ]);
+            }
+        }catch (Exception $exception) {
+            return redirect()->back()->with([
+                'type' => 'danger',
+                'title' => 'Failed to update the achievement',
+                'message' => "There was some issue in updating the achievement"
+            ]);
+        }
+
     }
 
     /**
@@ -119,7 +148,38 @@ class AchievementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->staffAchievementService->delete($id, Auth::id());
+            return redirect()->back()->with([
+                'type' => 'success',
+                'title' => 'Achievement Deleted successfully',
+                'message' => 'The given Ac has been deleted successfully'
+            ]);
+        } catch (Exception $exception) {
+            return redirect()->back()->with([
+                'type' => 'danger',
+                'title' => 'Failed To Delete Research Project',
+                'message' => 'Error in deleting Research Project'
+            ]);
+        }
+    }
+
+    public function getAchievements()
+    {
+        $staffAchievement = $this->staffAchievementService->getDatatable(Auth::id());
+
+        return DataTables::of($staffAchievement)
+            ->addColumn('edit', function (sachievement $sachievement) {
+                return '<button id="' . $sachievement->id . '" class="edit fa fa-pencil-alt btn-sm btn-warning" data-toggle="modal" data-target="#editModal"></button>';
+            })
+            ->addColumn('delete', function (sachievement $sachievement) {
+                return '<button id="' . $sachievement->id . '" class="delete fa fa-trash btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal"></button>';
+            })
+            ->addColumn('date', function (sachievement $sachievement) {
+                return date('F d, Y', strtotime($sachievement->created_at));
+            })
+            ->rawColumns(['edit', 'delete'])
+            ->make(true);
     }
 }
 

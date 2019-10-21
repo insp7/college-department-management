@@ -26,6 +26,34 @@ class SAchievementService
         DB::commit();
 
         return $staff_achievement;
+    }
 
+    public function delete($id, $user_id) {
+        return sachievement::where('created_by', $user_id)
+            ->where('id', $id)
+            ->delete();
+    }
+
+    public function update($validatedData, $id, $user_id) {
+
+        try {
+            DB::beginTransaction();
+            $staffachievement = sachievement::find($id);
+            $staffachievement->achievement_name = $validatedData['achievement_name'];
+            $staffachievement->achievement_description = $validatedData['achievement_description'];
+            $staffachievement->year = $validatedData['year'];
+            $staffachievement->updated_by = $user_id;
+            $staffachievement->save();
+            DB::commit();
+
+            return true;
+        } catch (Exception $exception) {
+            return false;
+        }
+    }
+
+    public function getDatatable($id)
+    {
+        return sachievement::where('created_by', $id)->orderBy('created_at', 'desc');
     }
 }

@@ -75,7 +75,7 @@ Route::middleware(['auth'])->group(function () {
 
 
             //Achievements
-            //Route::get('/research-projects/get-research-projects', 'ResearchProjectsController@getResearchProjects');
+            Route::get('/sachievement/get-achievement', 'AchievementController@getAchievements');
             Route::resource('/sachievement', 'AchievementController');
 
             // Research Projects
