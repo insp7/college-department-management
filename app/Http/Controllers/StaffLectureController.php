@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\StaffLecture;
+use App\User;
 use App\Constants\FileConstants;
 use Illuminate\Support\Facades\Auth;
 use App\Services\StaffLectureService;
@@ -65,11 +66,11 @@ class StaffLectureController extends Controller
             // The file name of the attachment
             $fileName = $user_id . '_' . $name . '_' . time() . '.' . $attachment->getClientOriginalExtension();
             // exact path on the current machine
-            $destinationPath = public_path(FileConstants::STAFF_LECTURE_REPORT_ATTACHMENTS_PATH);
+            $destinationPath = public_path(FileConstants::STAFF_ATTACHMENTS_PATH);
             // Moving the image
             $attachment->move($destinationPath, $fileName);
             // The relative path to the image
-            $report_relative_path = FileConstants::STAFF_LECTURE_REPORT_ATTACHMENTS_PATH . $fileName;
+            $report_relative_path = FileConstants::STAFF_ATTACHMENTS_PATH . $fileName;
         }
 
 
@@ -85,7 +86,7 @@ class StaffLectureController extends Controller
                 ])
                 ->log("Staff Lecture $request->subject added");
 
-            return redirect('staff-lecture')->with([
+            return redirect('staff-lectures')->with([
                 'type' => 'success',
                 'title' => 'Staff Lecture added successfully',
                 'message' => 'The Staff Lecture has been added successfully'
@@ -152,15 +153,15 @@ class StaffLectureController extends Controller
             // The file name of the attachment
             $fileName = $user_id . '_' . $name.''.$attachment->getClientOriginalExtension();
             // exact path on the current machine
-            $destinationPath = public_path(FileConstants::STAFF_LECTURE_REPORT_ATTACHMENTS_PATH);
+            $destinationPath = public_path(FileConstants::STAFF_ATTACHMENTS_PATH);
             // Moving the image
             $attachment->move($destinationPath, $fileName);
             // The relative path to the image
-            $report_path = FileConstants::STAFF_LECTURE_REPORT_ATTACHMENTS_PATH . $fileName;
+            $report_path = FileConstants::STAFF_ATTACHMENTS_PATH . $fileName;
         }
          try {
-            $this->StaffLectureservice->update($validatedData, $image_relative_path, Auth::id(),$id);
-            return redirect('staff-lecture')->with([
+            $this->stafflectureservice->update($validatedData, $report_path, Auth::id(),$id);
+            return redirect('staff-lectures')->with([
                 'type' => 'success',
                 'title' => 'Staff Lecture updated successfully',
                 'message' => 'The Staff Lecture has been updated successfully'

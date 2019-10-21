@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\StaffLecture;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class StaffLectureService
@@ -10,6 +12,8 @@ class StaffLectureService
     public function create($validatedData, $report_path, $user_id)
     {
         DB::beginTransaction();
+
+        $validatedData['date']=Carbon::parse($validatedData['date'])->format('y-m-d');
 
         $staff_lecture = StaffLecture::create([
             'date' => $validatedData['date'],

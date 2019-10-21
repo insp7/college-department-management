@@ -69,6 +69,40 @@
 </li>
 
 <li class="nav-item">
+    <a class="nav-link {{ Request::is('staff-lectures*') ? 'active' : '' }}" href="#navbar-staff-lectures" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+        <i class="ni ni-hat-3 text-primary"></i>
+        <span class="nav-link-text">Staff Lectures</span>
+    </a>
+    <div class="collapse {{ Request::is('staff-lectures*') ? 'show' : '' }}" id="navbar-staff-lectures">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="/staff-lectures/create" class="nav-link">Add Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a href="/staff-lectures" class="nav-link">Manage Staff Lectures</a>
+            </li>
+        </ul>
+    </div>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link {{ Request::is('staff-events*') ? 'active' : '' }}" href="#navbar-staff-events" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+        <i class="ni ni-paper-diploma text-primary"></i>
+        <span class="nav-link-text">Staff Events</span>
+    </a>
+    <div class="collapse {{ Request::is('staff-events*') ? 'show' : '' }}" id="navbar-staff-events">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="/staff-events/create" class="nav-link">Add Events</a>
+            </li>
+            <li class="nav-item">
+                <a href="/staff-events" class="nav-link">Manage Staff Events</a>
+            </li>
+        </ul>
+    </div>
+</li>
+
+<li class="nav-item">
     <a class="nav-link {{ Request::is('news-feed*') ? 'active' : '' }}" href="#navbar-newsfeed" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
         <i class="ni ni-archive-2 text-primary"></i>
         <span class="nav-link-text">News</span>

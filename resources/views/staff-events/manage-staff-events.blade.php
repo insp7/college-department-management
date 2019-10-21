@@ -7,13 +7,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/staff-lectures"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/staff-lectures">Staff Lecture</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Staff Lectures</li>
+    <li class="breadcrumb-item"><a href="/staff-events"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/staff-events">Staff Event</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage Staff Events</li>
 @endsection
 
 @section('actions')
-    <a href="/staff-lectures/create" class="btn btn-sm btn-neutral">New</a>
+    <a href="/staff-events/create" class="btn btn-sm btn-neutral">New</a>
 @endsection
 
 @section('page-content')
@@ -23,38 +23,32 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Staff Lectures</h3>
+                    <h3 class="mb-0">Staff Events</h3>
                     <p class="text-sm mb-0">
                     </p>
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table table-flush" id="staff-lectures">
+                    <table class="table table-flush" id="staff-events">
                         <thead class="thead-light">
                         <tr>
                             <th> Date </th>
-                            <th> Subject Name </th>
-                            <th> Class </th>
-                            <th> No. of Students </th>
-                            <th> Expert Name </th>
-                            <th> Expert Profile Link </th>
-                            <th> Organization </th>
+                            <th> Name of Event </th>
+                            <th> Start Date </th>
+                            <th> End Date</th>
+                            <th> Type </th>
                             <th> Edit </th>
                             <th> Delete </th>
-                            <th> View </th>
                         </tr>
                         </thead>
                         <tfoot>
                             <tr>
                             <th> Date </th>
-                            <th> Subject Name </th>
-                            <th> Class </th>
-                            <th> No. of Students </th>
-                            <th> Expert Name </th>
-                            <th> Expert Profile Link </th>
-                            <th> Organization </th>
+                            <th> Name of Event </th>
+                            <th> Start Date </th>
+                            <th> End Date</th>
+                            <th> Type </th>
                             <th> Edit </th>
                             <th> Delete </th>
-                            <th> View </th>
                             </tr>
                         </tfoot>
                     </table>
@@ -63,7 +57,6 @@
         </div>
     </div>
 
-
     {{--MODAL SECTION--}}
     <!-- DELETE MODAL -->
 
@@ -71,7 +64,7 @@
         <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Delete Staff Lecture</h6>
+                    <h6 class="modal-title" id="modal-title-default">Delete Staff Event</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -84,7 +77,7 @@
                         <div class="form-body">
                             <!-- START OF MODAL BODY -->
                             <div class="container">
-                                <label>Are you sure you want to delete the Staff Lecture ?</label>
+                                <label>Are you sure you want to delete the Staff Event?</label>
                             </div>
                         </div>
                 </div>
@@ -93,22 +86,6 @@
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
                 </form>
-            </div>
-        </div>
-    </div>
-<!-- View MODAL -->
-
-    <div class="modal fade" tabindex="-1" role="dialog" id="viewModal">
-        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                    <div class="">
-                    <img id="Report" style="width: 400px; height: 400px;"  src="report.pdf" alt="report.pdf">
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -137,67 +114,60 @@
     <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
 
     <script>
-        let managedStaffLectureTable = $('#staff-lectures');
+        let managedStaffEventTable = $('#staff-events');
 
-        managedStaffLectureTable.DataTable({
+        managedStaffEventTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/staff-lectures/get-staff-lectures',
+            ajax: '/staff-events/get-staff-events',
             columns: [
                 {data: 'date', name: 'date'},
-                {data: 'subject', name: 'subject'},
-                {data: 'class', name: 'class'},
-                {data: 'no_of_students', name: 'no_of_students'},
-                {data: 'expert_name', name: 'expert_name'},
-                {data: 'expert_profile', name: 'expert_profile'},
-                {data: 'organization', name: 'organization'},
+                {data: 'name_of_event', name: 'name_of_event'},
+                {data: 'start_date', name: 'start_date'},
+                {data: 'end_date', name: 'end_date'},
+                {data: 'type', name: 'type'},
                 {data: 'edit', name: 'edit'},
-                {data: 'delete', name: 'delete'},
-                {data: 'view', name: 'view'}
+                {data: 'delete', name: 'delete'}
             ],
             language: {paginate:{previous:"<i class='fa fa-angle-left'>",next:"<i class='fa fa-angle-right'>"}}
 
         });
-            managedStaffLectureTable.on('click', '.edit', function () {
+            managedStaffEventTable.on('click', '.edit', function () {
             $id = $(this).attr('id');
-            window.location.pathname = '/staff-lectures/' + $id + '/edit';
+            window.location.pathname = '/staff-events/' + $id + '/edit';
             });
-        managedStaffLectureTable.on('click', '.delete', function(e) {
+        managedStaffEventTable.on('click', '.delete', function(e) {
             $id = $(this).attr('id');
-            $('#delete_form').attr('action', '/staff-lectures/' + $id);
-        });
-        managedStaffLectureTable.on('click', '.view', function(e) {
-            $id = $(this).attr('id');
-            $('#Report').attr('src', $id);
+            $('#delete_form').attr('action', '/staff-events/' + $id);
         });
 
-        jQuery(document).ready(function(){
-            managedStaffLectureTable.DataTable.init();
+        // jQuery(document).ready(function(){
+        //     managedStaffEventTable.DataTable.init();
 
-            var buttons = new $.fn.dataTable.Buttons(staff-lectures, {
-                buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    {
-                        extend: 'colvis',
-                        columns: ':not(.noVis)'
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        exportOptions: {
-                            columns: ':visible'}
-                        }
-                ]
-            }).container().appendTo($('#export-buttons'));
+        //     var buttons = new $.fn.dataTable.Buttons(staff-events, {
+        //         buttons: [
+        //             'copyHtml5',
+        //             'excelHtml5',
+        //             'csvHtml5',
+        //             {
+        //                 extend: 'colvis',
+        //                 columns: ':not(.noVis)'
+        //             },
+        //             {
+        //                 extend: 'pdfHtml5',
+        //                 exportOptions: {
+        //                     columns: ':visible'}
+        //                 }
+        //         ]
+        //     }).container().appendTo($('#export-buttons'));
 
 
-            $(".buttons-pdf").addClass("btn btn-default");
-            $(".buttons-excel").addClass("btn btn-danger");
-            $(".buttons-copy").addClass("btn btn-success");
-            $(".buttons-csv").addClass("btn btn-warning");
-            // $('[name="staff-lectures_length"]').addClass("input-sm");
-        });
+        //     $(".buttons-pdf").addClass("btn btn-default");
+        //     $(".buttons-excel").addClass("btn btn-danger");
+        //     $(".buttons-copy").addClass("btn btn-success");
+        //     $(".buttons-csv").addClass("btn btn-warning");
+        //     $('[name="staff-events_length"]').addClass("input-sm");
+        // });
 
     </script>
 
