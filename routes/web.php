@@ -74,6 +74,10 @@ Route::middleware(['auth'])->group(function () {
             Route::resource('/published-books', 'PublishedBookController');
 
 
+            //Achievements
+            //Route::get('/research-projects/get-research-projects', 'ResearchProjectsController@getResearchProjects');
+            Route::resource('/sachievement', 'AchievementController');
+
             // Research Projects
             Route::get('/research-projects/get-research-projects', 'ResearchProjectsController@getResearchProjects');
             Route::resource('/research-projects', 'ResearchProjectsController');
