@@ -1,9 +1,9 @@
 @extends('layouts.base')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/student-courses"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/student-courses/create">Student Courses</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add Student Course</li>
+    <li class="breadcrumb-item"><a href="/staff-courses"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/staff-courses/create">Staff Courses</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Add Staff Course</li>
 @endsection
 
 @section('page-content')
@@ -12,17 +12,17 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Edit Student Course</h3>
+                    <h3 class="mb-0">Edit Staff Course</h3>
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" action="/student-courses/{{ $student_course->id }}">
+                    <form method="POST" enctype="multipart/form-data" action="/staff-courses/{{ $staff_course->id }}">
                         @csrf
                         @method('PATCH');
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="name" placeholder="Name" class="form-control @error('name') is-invalid @enderror">{{ $student_course->name }}</textarea>
+                                <textarea name="name" placeholder="Name" class="form-control @error('name') is-invalid @enderror">{{ $staff_course->name }}</textarea>
                             </div>
                             @error('name')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -31,7 +31,7 @@
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="details" placeholder="Details" class="form-control @error('details') is-invalid @enderror">{{ $student_course->details }}</textarea>
+                                <textarea name="details" placeholder="Details" class="form-control @error('details') is-invalid @enderror">{{ $staff_course->details }}</textarea>
                             </div>
                             @error('details')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -40,7 +40,7 @@
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea name="location" placeholder="Location" class="form-control @error('location') is-invalid @enderror">{{ $student_course->location }}</textarea>
+                                <textarea name="location" placeholder="Location" class="form-control @error('location') is-invalid @enderror">{{ $staff_course->location }}</textarea>
                             </div>
                             @error('location')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -55,7 +55,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input class="form-control" name="start_date" placeholder="Start date" value="{{ $student_course->start_date }}" type="text">
+                                    <input class="form-control" name="start_date" placeholder="Start date" value="{{ $staff_course->start_date }}" type="text">
                                 </div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input class="form-control" name="end_date" placeholder="End date" value="{{ $student_course->end_date }}" type="text">
+                                    <input class="form-control" name="end_date" placeholder="End date" value="{{ $staff_course->end_date }}" type="text">
                                 </div>
                             </div>
                         </div>

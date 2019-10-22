@@ -1,9 +1,9 @@
 @extends('layouts.base')
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="/student-courses"><i class="fas fa-book"></i></a></li>
-<li class="breadcrumb-item"><a href="/student-courses/create">Student Courses</a></li>
-<li class="breadcrumb-item active" aria-current="page">Add Student Course</li>
+<li class="breadcrumb-item"><a href="/staff-courses"><i class="fas fa-book"></i></a></li>
+<li class="breadcrumb-item"><a href="/staff-courses/create">Staff Courses</a></li>
+<li class="breadcrumb-item active" aria-current="page">Add Staff Course</li>
 @endsection
 
 @section('page-content')
@@ -12,11 +12,11 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header">
-                <h3 class="mb-0">Add Student Course</h3>
+                <h3 class="mb-0">Add Staff Course</h3>
             </div>
             <!-- Card body -->
             <div class="card-body">
-                <form method="post" action="/student-courses">
+                <form method="post" action="/staff-courses">
                     @csrf
 
                     <div class="form-group">

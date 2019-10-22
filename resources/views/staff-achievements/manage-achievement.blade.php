@@ -7,13 +7,13 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/student-courses"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/student-courses">Student Courses</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Student Courses</li>
+    <li class="breadcrumb-item"><a href="/research-projects"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/research-projects">Research Projects</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage Achievements</li>
 @endsection
 
 @section('actions')
-    <a href="/student-courses/create" class="btn btn-sm btn-neutral">New</a>
+    <a href="/sachievement/create" class="btn btn-sm btn-neutral">New</a>
 @endsection
 
 @section('page-content')
@@ -29,14 +29,12 @@
                     </p>
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table table-flush" id="student-courses-list">
+                    <table class="table table-flush" id="achievement-list">
                         <thead class="thead-light">
                         <tr>
                             <th> Name </th>
-                            <th> Details </th>
-                            <th> Location </th>
-                            <th> Duration </th>
-                            <th> Date </th>
+                            <th> Description </th>
+                            <th> Year </th>
                             <th> Edit </th>
                             <th> Delete </th>
                         </tr>
@@ -44,10 +42,8 @@
                         <tfoot>
                         <tr>
                             <th> Name </th>
-                            <th> Details </th>
-                            <th> Location </th>
-                            <th> Duration </th>
-                            <th> Date </th>
+                            <th> Description </th>
+                            <th> Year </th>
                             <th> Edit </th>
                             <th> Delete </th>
                         </tr>
@@ -66,7 +62,7 @@
         <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Delete Published Book</h6>
+                    <h6 class="modal-title" id="modal-title-default">Delete Research Project</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -79,7 +75,7 @@
                         <div class="form-body">
                             <!-- START OF MODAL BODY -->
                             <div class="container">
-                                <label>Are you sure you want to delete the Published Book ?</label>
+                                <label>Are you sure you want to delete the Achievement ?</label>
                             </div>
                         </div>
                     </div>
@@ -105,32 +101,31 @@
     <script src="{{ asset('assets/vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
     <script>
-        let manageStudentCoursesTable = $('#student-courses-list');
+        let manageAchievementTable = $('#achievement-list');
 
-        manageStudentCoursesTable.DataTable({
+        manageAchievementTable.DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/student-courses/get-student-courses',
+            ajax: '/sachievement/get-achievement',
             columns: [
-                {data: 'name', name: 'name'},
-                {data: 'details', name: 'details'},
-                {data: 'location', name: 'location'},
-                {data: 'duration', name: 'duration'},
-                {data: 'date', name: 'date'},
+                {data: 'achievement_name', name: 'achievement_name'},
+                {data: 'achievement_description', name: 'achievement_description'},
+                {data: 'year', name: 'year'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
             ]
         });
 
-        manageStudentCoursesTable.on('click', '.edit', function(e) {
+        manageAchievementTable.on('click', '.delete', function(e) {
             $id = $(this).attr('id');
-            window.location.pathname = '/student-courses/' + $id + '/edit';
+            $('#delete_form').attr('action', '/sachievement/' + $id);
         });
 
-        manageStudentCoursesTable.on('click', '.delete', function(e) {
+        manageAchievementTable.on('click', '.edit', function () {
             $id = $(this).attr('id');
-            $('#delete_form').attr('action', '/student-courses/' + $id);
+            window.location.pathname = '/sachievement/' + $id + '/edit';
         });
+
 
     </script>
 
