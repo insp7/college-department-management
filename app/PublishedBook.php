@@ -17,7 +17,7 @@ class PublishedBook extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'staff_id', 'details', 'additional_columns', 'created_by', 'created_at', 'updated_at',
+        'staff_id', 'details','book_name','publisher_name','date','additional_columns', 'created_by', 'created_at', 'updated_at',
     ];
 
 

@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" action="/research-projects/{{ $research_project->id }}">
                         @csrf
-                        @method('PATCH');
+                        @method('PATCH')
 
                         <div class="form-group">
                             <div class="input-group">
@@ -76,6 +76,8 @@
 
 @section ('custom-script')
     <script src="{{ asset("/js/shape/add-shape.js") }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
 
     @if(session()->has('type'))
         <script>

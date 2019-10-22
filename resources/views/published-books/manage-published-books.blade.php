@@ -23,27 +23,31 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Datatable</h3>
-                    <p class="text-sm mb-0">
-                        This is an exmaple of datatable using the well known datatables.net plugin. This is a minimal setup in order to get started fast.
-                    </p>
+                    <h3 class="mb-0">Published Books</h3>
+                   
                 </div>
                 <div class="table-responsive py-4">
                     <table class="table table-flush" id="published-books-list">
                         <thead class="thead-light">
                         <tr>
-                            <th> Details </th>
+                            
+                            <th> Book Name </th>
+                            <th> Publish Name</th>
                             <th> Date </th>
+                            <th> Details </th>
                             <th> Edit </th>
                             <th> Delete </th>
                         </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th> Details </th>
-                                <th> Date </th>
-                                <th> Edit </th>
-                                <th> Delete </th>
+                              
+                            <th> Book Name </th>
+                            <th> Publish Name</th>
+                            <th> Date </th>
+                            <th> Details </th>
+                            <th> Edit </th>
+                            <th> Delete </th>
                             </tr>
                         </tfoot>
                     </table>
@@ -106,8 +110,10 @@
             serverSide: true,
             ajax: '/published-books/get-published-books',
             columns: [
-                {data: 'details', name: 'details'},
+                {data: 'book_name', name: 'book_name'},
+                {data: 'publisher_name', name: 'publisher_name'},
                 {data: 'date', name: 'date'},
+                {data: 'details', name: 'details'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
             ]

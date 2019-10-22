@@ -14,11 +14,8 @@ use Illuminate\Support\Facades\DB;
 class PublishedBooksService {
 
     public function store($validatedData, $user_id) {
-        $published_book = PublishedBook::create([
-            'details' => $validatedData['details'],
-            'created_by' => $user_id
-        ]);
-
+        $validatedData['created_by']=$user_id;
+        $published_book = PublishedBook::create($validatedData);
         return $published_book;
     }
 
@@ -46,6 +43,9 @@ class PublishedBooksService {
     public function updatePublishedBook($validatedData, $id, $user_id) {
         try {
             $published_book = PublishedBook::findOrFail($id);
+            $published_book->book_name = $validatedData['book_name'];
+            $published_book->publisher_name = $validatedData['publisher_name'];
+            $published_book->date = $validatedData['date'];
             $published_book->details = $validatedData['details'];
             $published_book->updated_by = $user_id;
             $published_book->save();

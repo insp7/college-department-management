@@ -19,6 +19,40 @@
                     <form method="post" enctype="multipart/form-data" action="/published-books/{{ $published_book->id }}">
                         @csrf
                         @method('PATCH')
+                         <div class="form-group">
+                        <div class="input-group input-group-merge @error('book_name') has-danger @enderror">
+                            <div class="input-group-prepend"> <span class="input-group-text"> <i
+                                        class="fa fa-newspaper"></i> </span> </div> <input value="{{ $published_book->book_name }}"
+                                required name="book_name" type="book_name" placeholder="Book Name"
+                                class="form-control @error('book_name') is-invalid @enderror">
+                        </div>
+                        @error('book_name')
+                        <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                        @enderror
+                    </div>
+                      <div class="form-group">
+                        <div class="input-group input-group-merge @error('publisher_name') has-danger @enderror">
+                            <div class="input-group-prepend"> <span class="input-group-text"> <i
+                                        class="fa fa-newspaper"></i> </span> </div> <input value="{{ $published_book->publisher_name }}"
+                                required name="publisher_name" type="publisher_name" placeholder="Publisher Name"
+                                class="form-control @error('publisher_name') is-invalid @enderror">
+                        </div>
+                        @error('publisher_name')
+                        <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                        @enderror
+                    </div>
+                     
+                                <div class="form-group">
+                                    <div class="input-group @error('date') has-danger @enderror">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                        </div>
+                                        <input type="text" value="{{ $published_book->date }}" required name="date"  placeholder="Date of publication" data-date-format="yyyy/mm/dd" class="form-control datepicker @error('date') is-invalid @enderror">
+                                    </div>
+                                    @error('date')
+                                    <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
                         <div class="form-group">
                             <div class="input-group">
@@ -40,7 +74,7 @@
 @endsection
 
 @section ('custom-script')
-    <script src="{{ asset("/js/shape/add-shape.js") }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 
     @if(session()->has('type'))
         <script>

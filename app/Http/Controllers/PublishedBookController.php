@@ -50,10 +50,14 @@ class PublishedBookController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'details' => 'required',
+            'book_name'=>'required|max:255',
+            'publisher_name'=>'required',
+            'date'=>'required'
         ]);
-
+        //  dd($validatedData);   
         try {
             $this->publishedBookService->store($validatedData, Auth::id());
             return redirect('/published-books')->with([
@@ -103,6 +107,9 @@ class PublishedBookController extends Controller
 
         $validatedData = $request->validate([
             'details' => 'required',
+            'book_name'=>'required|string|max:255',
+            'publisher_name'=>'required|string',
+            'date'=>'required'
         ]);
 
         try {

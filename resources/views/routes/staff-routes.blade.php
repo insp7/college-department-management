@@ -84,6 +84,40 @@
         </ul>
     </div>
 </li>
+<li class="nav-item">
+    <a class="nav-link {{ Request::is('sacheivement*') ? 'active' : '' }}" href="#navbar-sacheivement" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+        <i class="ni ni-paper-diploma text-primary"></i>
+        <span class="nav-link-text">Staff Acheivements</span>
+    </a>
+    <div class="collapse {{ Request::is('sacheivement*') ? 'show' : '' }}" id="navbar-sacheivement">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="/sachievement/create" class="nav-link">Add Acheivements</a>
+            </li>
+            <li class="nav-item">
+                <a href="/sachievement" class="nav-link">Manage Acheivements</a>
+            </li>
+        </ul>
+    </div>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link {{ Request::is('staff-courses*') ? 'active' : '' }}" href="#navbar-staff-courses" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+        <i class="ni ni-single-copy-04 text-primary"></i>
+        <span class="nav-link-text">Staff Courses</span>
+    </a>
+    <div class="collapse {{ Request::is('staff-courses*') ? 'show' : '' }}" id="navbar-staff-courses">
+        <ul class="nav nav-sm flex-column">
+            <li class="nav-item">
+                <a href="/staff-courses/create" class="nav-link">Add Courses</a>
+            </li>
+            <li class="nav-item">
+                <a href="/staff-courses" class="nav-link">Manage Staff Courses</a>
+            </li>
+        </ul>
+    </div>
+</li>
+
 
 <li class="nav-item">
     <a class="nav-link {{ Request::is('staff-events*') ? 'active' : '' }}" href="#navbar-staff-events" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">

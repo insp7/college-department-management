@@ -15,9 +15,11 @@ class CreatePublishedBooksTable extends Migration {
 		Schema::create('published_books', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('book_name');
 			$table->text('details');
+			$table->string('publisher_name');
+			$table->date('date');
             $table->text('additional_columns')->nullable();
-
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();
             $table->softDeletes();
