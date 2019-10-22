@@ -86,6 +86,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/publications/get-publications', 'PublicationsController@getPublications');
             Route::resource('/publications', 'PublicationsController');
 
+            // Staff Lectures
+            Route::get('/staff-lectures/get-staff-lectures', 'StaffLectureController@getStaffLectures');
+            Route::resource('/staff-lectures', 'StaffLectureController');
+
+            // Staff Events
+            Route::get('/staff-events/get-staff-events', 'StaffEventController@getStaffEvents');
+            Route::resource('/staff-events', 'StaffEventController');
+
             // Profile
             Route::get('/profile', 'UserController@myProfile');
             Route::get('/staff/edit', 'StaffController@staffEdit');
