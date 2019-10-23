@@ -29,7 +29,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/news-feed/view-all-news', 'NewsFeedController@showAllNewsFeeds');
 
-
+    Route::redirect('/', '/dashboard');
+    Route::get('/dashboard', 'DashboardController@index');
     /*STAFF ROUTES*/
     Route::group(['middleware'=> ['role:Staff|Admin']], function () {
 
@@ -39,14 +40,13 @@ Route::middleware(['auth'])->group(function () {
         /*ROUTES TO COMPLETE REGISTRATION*/
         Route::get('/staff/fill-details', 'StaffController@fillDetails');
         Route::post('/staff/complete-registration', 'StaffController@completeRegistration');
-
+        
 
         /*Staff Routes When Registration Completed(is_fully_registered =1)*/
         Route::group(['middleware'=> ['staff_registration']], function () {
 
 
-            Route::redirect('/', '/dashboard');
-            Route::get('/dashboard', 'DashboardController@index');
+            
 
             Route::get('/timeline', 'UserController@timeline');
             Route::get('/profile', 'UserController@myProfile');
