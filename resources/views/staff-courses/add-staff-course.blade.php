@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="/staff-courses"><i class="fas fa-book"></i></a></li>
-<li class="breadcrumb-item"><a href="/staff-courses/create">Staff Courses</a></li>
+<li class="breadcrumb-item"><a href="/staff-courses">Staff Courses</a></li>
 <li class="breadcrumb-item active" aria-current="page">Add Staff Course</li>
 @endsection
 
@@ -20,9 +20,11 @@
                     @csrf
 
                     <div class="form-group">
-                        <div class="input-group">
-                            <textarea value="{{ old('name') }}" name="name" placeholder="Name"
-                                class="form-control @error('name') is-invalid @enderror"></textarea>
+                        <div class="input-group input-group-merge @error('name') has-danger @enderror">
+                            <div class="input-group-prepend"> <span class="input-group-text">
+                                        <i class="ni ni-single-copy-04"></i></span>
+                            </div>
+                            <input value="{{ old('name') }}" required name="name" type="text" placeholder="Name of the Course" class="form-control @error('name') is-invalid @enderror">
                         </div>
                         @error('name')
                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -30,9 +32,11 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="input-group">
-                            <textarea value="{{ old('details') }}" name="details" placeholder="Details"
-                                class="form-control @error('details') is-invalid @enderror"></textarea>
+                        <div class="input-group input-group-merge @error('details') has-danger @enderror">
+                            <div class="input-group-prepend"> <span class="input-group-text">
+                                        <i class="ni ni-single-copy-04"></i></span>
+                            </div>
+                            <input value="{{ old('details') }}" required name="details" type="text" placeholder="Details of the Course" class="form-control @error('details') is-invalid @enderror">
                         </div>
                         @error('details')
                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -40,15 +44,16 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="input-group">
-                            <textarea value="{{ old('location') }}" name="location" placeholder="Location"
-                                class="form-control @error('location') is-invalid @enderror"></textarea>
+                        <div class="input-group input-group-merge @error('location') has-danger @enderror">
+                            <div class="input-group-prepend"> <span class="input-group-text">
+                                        <i class="ni ni-square-pin"></i></span>
+                            </div>
+                            <input value="{{ old('location') }}" required name="details" type="text" placeholder="Location" class="form-control @error('location') is-invalid @enderror">
                         </div>
                         @error('location')
                         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                         @enderror
                     </div>
-
 
                     <div class="input-daterange datepicker row align-items-center" data-provide="datepicker"
                         data-date-format="yyyy/mm/dd" data-orientation="top auto" aria-orientation="vertical">

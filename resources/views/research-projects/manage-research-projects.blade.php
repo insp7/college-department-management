@@ -23,10 +23,7 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Datatable</h3>
-                    <p class="text-sm mb-0">
-                        This is an exmaple of datatable using the well known datatables.net plugin. This is a minimal setup in order to get started fast.
-                    </p>
+                    <h3 class="mb-0">Research Projects</h3>
                 </div>
                 <div class="table-responsive py-4">
                     <table class="table table-flush" id="research-projects-list">
@@ -117,12 +114,13 @@
                 {data: 'principal_investigator', name: 'principal_investigator'},
                 {data: 'grant_details', name: 'details'},
                 {data: 'title', name: 'title'},
-                {data: 'amount', name: 'amount'},
                 {data: 'year', name: 'year'},
+                {data: 'amount', name: 'amount'},
                 {data: 'date', name: 'date'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
-            ]
+            ],
+            language: {paginate: {previous: "<i class='fa fa-angle-left'>", next: "<i class='fa fa-angle-right'>"}}
         });
 
         manageResearchProjectsTable.on('click', '.delete', function(e) {

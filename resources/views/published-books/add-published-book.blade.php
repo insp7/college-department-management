@@ -18,17 +18,17 @@
                 <div class="card-body">
                     <form method="post" action="/published-books">
                         @csrf
-                          <div class="form-group">
-                        <div class="input-group input-group-merge @error('book_name') has-danger @enderror">
-                            <div class="input-group-prepend"> <span class="input-group-text"> <i
-                                        class="fa fa-newspaper"></i> </span> </div> <input value="{{ old('book_name') }}"
+                        <div class="form-group">
+                            <div class="input-group input-group-merge @error('book_name') has-danger @enderror">
+                                <div class="input-group-prepend"> <span class="input-group-text">
+                                        <i class="fa fa-newspaper"></i></span> </div> <input value="{{ old('book_name') }}"
                                 required name="book_name" type="book_name" placeholder="Book Name"
                                 class="form-control @error('book_name') is-invalid @enderror">
+                            </div>
+                            @error('book_name')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
                         </div>
-                        @error('book_name')
-                        <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                        @enderror
-                    </div>
                       <div class="form-group">
                         <div class="input-group input-group-merge @error('publisher_name') has-danger @enderror">
                             <div class="input-group-prepend"> <span class="input-group-text"> <i
