@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="/research-projects"><i class="fas fa-book"></i></a></li>
     <li class="breadcrumb-item"><a href="/research-projects/create">Research Projects</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add Research Projects</li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Research Project</li>
 @endsection
 
 @section('page-content')
@@ -12,7 +12,7 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Edit Research Projects</h3>
+                    <h3 class="mb-0">Edit Research Project</h3>
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
@@ -21,8 +21,11 @@
                         @method('PATCH')
 
                         <div class="form-group">
-                            <div class="input-group">
-                                <textarea name="principal_investigator" placeholder="Principal Investigator" class="form-control @error('principal_investigator') is-invalid @enderror">{{ $research_project->principal_investigator }}</textarea>
+                            <div class="input-group input-group-merge @error('principal_investigator') has-danger @enderror">
+                                <div class="input-group-prepend"> <span class="input-group-text">
+                                        <i class="fa fa-user"></i></span>
+                                </div>
+                                <input value="{{ $research_project->principal_investigator }}" required name="principal_investigator" type="text" placeholder="Principal investigator" class="form-control @error('principal_investigator') is-invalid @enderror">
                             </div>
                             @error('principal_investigator')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -30,8 +33,11 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="input-group">
-                                <textarea name="grant_details" placeholder="Grant Details" class="form-control @error('grant_details') is-invalid @enderror">{{ $research_project->grant_details }}</textarea>
+                            <div class="input-group input-group-merge @error('grant_details') has-danger @enderror">
+                                <div class="input-group-prepend"> <span class="input-group-text">
+                                        <i class="ni ni-collection"></i></span>
+                                </div>
+                                <input value="{{ $research_project->grant_details }}" required name="grant_details" type="text" placeholder="Grant Details" class="form-control @error('grant_details') is-invalid @enderror">
                             </div>
                             @error('grant_details')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -39,8 +45,11 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="input-group">
-                                <textarea name="title" placeholder="Title" class="form-control @error('title') is-invalid @enderror">{{ $research_project->title }}</textarea>
+                            <div class="input-group input-group-merge @error('title') has-danger @enderror">
+                                <div class="input-group-prepend"> <span class="input-group-text">
+                                        <i class="fa fa-book"></i></span>
+                                </div>
+                                <input value="{{ $research_project->title }}" required name="title" type="text" placeholder="Title" class="form-control @error('title') is-invalid @enderror">
                             </div>
                             @error('title')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -48,8 +57,11 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="input-group">
-                                <textarea name="amount" placeholder="Amount" class="form-control @error('amount') is-invalid @enderror">{{ $research_project->amount }}</textarea>
+                            <div class="input-group input-group-merge @error('amount') has-danger @enderror">
+                                <div class="input-group-prepend"> <span class="input-group-text">
+                                        <i class="fa fa-rupee-sign"></i></span>
+                                </div>
+                                <input value="{{ $research_project->amount }}" required name="amount" type="text" placeholder="Amount" class="form-control @error('amount') is-invalid @enderror">
                             </div>
                             @error('amount')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -57,8 +69,11 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="input-group">
-                                <input type="date" value="{{ $research_project->year }}"  name="year" placeholder="Year" class="form-control @error('year') is-invalid @enderror"></input>
+                            <div class="input-group @error('year') has-danger @enderror">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                </div>
+                                <input type="text" value="{{ $research_project->year }}" required name="year"  placeholder="Date of Research Project" data-date-format="yyyy/mm/dd"  class="form-control datepicker @error('year') is-invalid @enderror">
                             </div>
                             @error('year')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
