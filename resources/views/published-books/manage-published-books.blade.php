@@ -116,7 +116,8 @@
                 {data: 'details', name: 'details'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
-            ]
+            ],
+            language: {paginate: {previous: "<i class='fa fa-angle-left'>", next: "<i class='fa fa-angle-right'>"}}
         });
 
         managedPublishedBooksTable.on('click', '.edit', function(e) {

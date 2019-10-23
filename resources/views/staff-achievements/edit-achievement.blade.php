@@ -1,9 +1,9 @@
 @extends('layouts.base')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/research-projects"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/research-projects/create">Research Projects</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add Research Projects</li>
+    <li class="breadcrumb-item"><a href="/sachievement"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/sachievement">Staff Achievements</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Achievement</li>
 @endsection
 
 @section('page-content')
@@ -12,16 +12,20 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Add Achievement</h3>
+                    <h3 class="mb-0">Edit Achievement</h3>
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" action="/sachievement/{{ $sachievement->id }}">
                         @csrf
                         @method('PATCH')
+
                         <div class="form-group">
-                            <div class="input-group">
-                                <textarea  value="{{ old('achievement_name') }}"  name="achievement_name"  placeholder="Name of the achievement" class="form-control @error('achievement_name') is-invalid @enderror">{{$sachievement->achievement_name}}</textarea>
+                            <div class="input-group input-group-merge @error('achievement_name') has-danger @enderror">
+                                <div class="input-group-prepend"> <span class="input-group-text">
+                                        <i class="ni ni-paper-diploma"></i></span>
+                                </div>
+                                <input value="{{ $sachievement->achievement_name }}" required name="achievement_name" type="text" placeholder="Name of the achievement" class="form-control @error('achievement_name') is-invalid @enderror">
                             </div>
                             @error('achievement_name')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -29,19 +33,25 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="input-group">
-                                <textarea  value="{{ old('achievement_description') }}"  name="achievement_description"  placeholder="Description about the achievement" class="form-control @error('description') is-invalid @enderror">{{ $sachievement->achievement_description}}</textarea>
+                            <div class="input-group input-group-merge @error('achievement_description') has-danger @enderror">
+                                <div class="input-group-prepend"> <span class="input-group-text">
+                                        <i class="ni ni-paper-diploma"></i></span>
+                                </div>
+                                <input value="{{$sachievement->achievement_description}}" required name="achievement_description" type="text" placeholder="Description of the achievement" class="form-control @error('achievement_description') is-invalid @enderror">
                             </div>
-                            @error('grant_details')
+                            @error('achievement_description')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <div class="input-group">
-                                <textarea  value="{{ old('year') }}"  name="year"  placeholder="Year of the achievement" class="form-control @error('year') is-invalid @enderror">{{ $sachievement->year }}</textarea>
+                            <div class="input-group @error('year') has-danger @enderror">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                </div>
+                                <input type="text" value="{{ $sachievement->year }}" required name="year" id="year"  placeholder="Year of the achievement" data-date-format="yyyy"  class="form-control datepicker @error('year') is-invalid @enderror">
                             </div>
-                            @error('grant_details')
+                            @error('year')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
@@ -57,6 +67,14 @@
 
 @section ('custom-script')
     <script src="{{ asset("/js/shape/add-shape.js") }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <script>
+        $("#year").datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
+    </script>
 
     @if(session()->has('type'))
         <script>

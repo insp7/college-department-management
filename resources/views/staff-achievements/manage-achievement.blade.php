@@ -7,8 +7,8 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="/research-projects"><i class="fas fa-book"></i></a></li>
-    <li class="breadcrumb-item"><a href="/research-projects">Research Projects</a></li>
+    <li class="breadcrumb-item"><a href="/sachievement"><i class="fas fa-book"></i></a></li>
+    <li class="breadcrumb-item"><a href="/sachievement">Staff Achievements</a></li>
     <li class="breadcrumb-item active" aria-current="page">Manage Achievements</li>
 @endsection
 
@@ -23,10 +23,7 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Datatable</h3>
-                    <p class="text-sm mb-0">
-                        This is an exmaple of datatable using the well known datatables.net plugin. This is a minimal setup in order to get started fast.
-                    </p>
+                    <h3 class="mb-0">Achievements</h3>
                 </div>
                 <div class="table-responsive py-4">
                     <table class="table table-flush" id="achievement-list">
@@ -113,7 +110,8 @@
                 {data: 'year', name: 'year'},
                 {data: 'edit', name: 'edit'},
                 {data: 'delete', name: 'delete'}
-            ]
+            ],
+            language: {paginate: {previous: "<i class='fa fa-angle-left'>", next: "<i class='fa fa-angle-right'>"}}
         });
 
         manageAchievementTable.on('click', '.delete', function(e) {
