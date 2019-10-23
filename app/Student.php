@@ -18,12 +18,12 @@ class Student extends Model
     
     public function internship()
     {
-        return $this->hasMany('App\StudentInternship');
+        return $this->hasMany('App\StudentInternship','created_by','user_id');
     }
 
     public function scholarship()
     {
-        return $this->hasMany('App\StudentScholarship');
+        return $this->hasMany('App\StudentScholarship','created_by','user_id');
     }
 
     public function furtherstudies()

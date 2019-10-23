@@ -23,7 +23,7 @@ class DashboardController extends Controller
 
         $user = Auth::user();
 
-        error_log(json_encode(Auth::user()->staff->id));
+        // error_log(json_encode(Auth::user()->staff->id));
         if($user->hasRole('Admin')){
 
             $staff_count=$this->staffService->getStaffGroupByDateOfJoiningInstitute();
@@ -43,6 +43,7 @@ class DashboardController extends Controller
                 ]
             );
         }elseif ($user->hasRole('Student')){
+            
             return view('dashboard.student')->with(
                 [
                     'user' => $user,
