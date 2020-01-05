@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use App\sachievement;
+use App\sachievementimage;
+use App\Constants\FileConstants;
 
 
-class AchievementController extends Controller
+
+class AchievementController extends Controller 
 {
 
 
@@ -55,14 +58,29 @@ class AchievementController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'achievement_name' => 'required',
             'achievement_description' => 'required',
-            'year' => 'required|min:4|max:4'
+            'year' => 'required|min:4|max:4',
+            'file'=> 'required'
         ]);
+            $user_id = Auth::id();
+            $attachments = $request->file();
+            foreach ($attachments as $name => $attachment) {
+            // The file name of the attachment
+            $fileName = $user_id . '_' . $name . '_' . time() . '.' . $attachment->getClientOriginalExtension();
+            // exact path on the current machine
+            $destinationPath = public_path(FileConstants::STUDENT_Acheivements_ATTACHMENTS_PATH );
+            // Moving the image
+            $attachment->move($destinationPath, $fileName);
+            // The relative path to the image
+            $image_relative_path = FileConstants::STUDENT_Acheivements_ATTACHMENTS_PATH  . $fileName;
+            }
 
         try {
-            $this->staffAchievementService->store($validatedData, Auth::id());
+            $staff_achievement=$this->staffAchievementService->store($validatedData,$image_relative_path, Auth::id());
+
             return redirect()->back()->with([
                 'type' => 'success',
                 'title' => 'Staff added successfully',
@@ -119,8 +137,20 @@ class AchievementController extends Controller
             'achievement_description' => 'required',
             'year' => 'required|min:4|max:4'
         ]);
+        $user_id = Auth::id();
+            $attachments = $request->file();
+            foreach ($attachments as $name => $attachment) {
+            // The file name of the attachment
+            $fileName = $user_id . '_' . $name . '_' . time() . '.' . $attachment->getClientOriginalExtension();
+            // exact path on the current machine
+            $destinationPath = public_path(FileConstants::STUDENT_Acheivements_ATTACHMENTS_PATH );
+            // Moving the image
+            $attachment->move($destinationPath, $fileName);
+            // The relative path to the image
+            $image_relative_path = FileConstants::STUDENT_Acheivements_ATTACHMENTS_PATH  . $fileName;
+            }
 
-        $updateSuccessful=$this->staffAchievementService->update($validatedData, $id, Auth::id());
+        $updateSuccessful=$this->staffAchievementService->update($validatedData, $id, $image_relative_path,Auth::id());
 
         try {
             if ($updateSuccessful) {
@@ -175,10 +205,13 @@ class AchievementController extends Controller
             ->addColumn('delete', function (sachievement $sachievement) {
                 return '<button id="' . $sachievement->id . '" class="delete fa fa-trash btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal"></button>';
             })
+            ->addColumn('view', function (sachievement $sachievement) {
+                return '<button id="' . $sachievement->media->image_path . '" class="view fa fa-eye btn-sm btn-success" data-toggle="modal" data-target="#viewModal"></button>';
+            })
             ->addColumn('date', function (sachievement $sachievement) {
                 return date('F d, Y', strtotime($sachievement->created_at));
             })
-            ->rawColumns(['edit', 'delete'])
+            ->rawColumns(['edit', 'delete','view'])
             ->make(true);
     }
 }

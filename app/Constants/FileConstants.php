@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gauravpunjabi
- * Date: 2/28/19
- * Time: 1:54 PM
- */
 
 namespace App\Constants;
 
@@ -25,5 +19,7 @@ interface FileConstants
     const EVENT_IMAGES_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH . "event-images/";
     // Internship Detailes image Path   
     const STUDENT_INTERNSHIP_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."student-internship/";
+    // Acheivements Detailes image Path   
+    const STUDENT_Acheivements_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."staff-Acheivements/";
 
 }

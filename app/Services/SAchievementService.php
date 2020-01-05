@@ -11,11 +11,13 @@ namespace App\Services;
 
 use App\sachievement;
 use Illuminate\Support\Facades\DB;
+use App\sachievementimage;
 
 class SAchievementService
 {
-    public function store($validatedData, $user_id) {
+    public function store($validatedData,$image_relative_path, $user_id) {
         DB::beginTransaction();
+        
         $staff_achievement = sachievement::create([
             'staff_id' => $user_id,
             'achievement_name' => $validatedData['achievement_name'],
@@ -23,6 +25,11 @@ class SAchievementService
             'year' => $validatedData['year'],
             'created_by' => $user_id
         ]);
+        sachievementimage::create([
+                'sachievement_id' => $staff_achievement->id,
+                'image_path' => $image_relative_path,
+                'created_by' => $user_id
+            ]);
         DB::commit();
 
         return $staff_achievement;

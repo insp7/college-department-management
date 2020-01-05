@@ -17,4 +17,9 @@ class sachievement extends Model
     {
         return $this->belongsTo('staff','created_by');
     }
+    public function media()
+    {
+        return $this->hasOne('App\sachievementimage', 'sachievement_id', 'id');
+    }
+    
 }

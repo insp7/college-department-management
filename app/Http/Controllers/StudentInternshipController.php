@@ -57,7 +57,6 @@ class StudentInternshipController extends Controller
 
         $user_id = Auth::id();
         $attachments = $request->file();
-        $user_id = Auth::id();
         foreach ($attachments as $name => $attachment) {
             // The file name of the attachment
             $fileName = $user_id . '_' . $name . '_' . time() . '.' . $attachment->getClientOriginalExtension();

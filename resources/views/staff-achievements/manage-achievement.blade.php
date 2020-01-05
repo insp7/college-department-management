@@ -33,6 +33,7 @@
                             <th> Description </th>
                             <th> Year </th>
                             <th> Edit </th>
+                            <th>View Image</th>
                             <th> Delete </th>
                         </tr>
                         </thead>
@@ -42,6 +43,7 @@
                             <th> Description </th>
                             <th> Year </th>
                             <th> Edit </th>
+                            <th>View Image</th>
                             <th> Delete </th>
                         </tr>
                         </tfoot>
@@ -59,7 +61,7 @@
         <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Delete Research Project</h6>
+                    <h6 class="modal-title" id="modal-title-default">Delete Staff Achievement?</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -81,6 +83,22 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="viewModal">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-title-default">View Image</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <img src="" alt="" srcset="" id="sachievementimage" height="200px" width="120px">
+                    </div>
             </div>
         </div>
     </div>
@@ -109,6 +127,7 @@
                 {data: 'achievement_description', name: 'achievement_description'},
                 {data: 'year', name: 'year'},
                 {data: 'edit', name: 'edit'},
+                {data:'view',name:'view'},
                 {data: 'delete', name: 'delete'}
             ],
             language: {paginate: {previous: "<i class='fa fa-angle-left'>", next: "<i class='fa fa-angle-right'>"}}
@@ -122,6 +141,10 @@
         manageAchievementTable.on('click', '.edit', function () {
             $id = $(this).attr('id');
             window.location.pathname = '/sachievement/' + $id + '/edit';
+        });
+        manageAchievementTable.on('click', '.view', function () {
+            $id = $(this).attr('id');
+           $('#sachievementimage').attr('src', $id);
         });
 
 

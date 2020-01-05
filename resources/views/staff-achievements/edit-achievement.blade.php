@@ -55,6 +55,15 @@
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <div class=" @error('file') has-danger @enderror">
+                                <label for=""> Please Delete Achievement and again to add new Image.</label><br>
+                                <img src="{{ $sachievement->media->image_path }}" height="150px"  width='100px' class="image">
+                            </div>
+                            @error('year')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <button class="btn btn-primary" type="submit">Submit form</button>
                     </form>

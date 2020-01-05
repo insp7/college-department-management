@@ -16,7 +16,7 @@
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="POST" action="/sachievement">
+                    <form method="POST" action="/sachievement" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
 
@@ -52,6 +52,15 @@
                                 <input type="text" value="{{ old('year') }}" required name="year" id="year"  placeholder="Year of the achievement" data-date-format="yyyy"  class="form-control datepicker @error('year') is-invalid @enderror">
                             </div>
                             @error('year')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group @error('file') has-danger @enderror">
+                                
+                                <input type="file" value="{{ old('file') }}" required name="file" id="file"   class="form-control  @error('file') is-invalid @enderror">
+                            </div>
+                            @error('file')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
