@@ -7,6 +7,7 @@ use App\Services\PublicationsService;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use App\Publication;
+use App\Constants\FileConstants;
 
 class PublicationsController extends Controller
 {
@@ -49,10 +50,23 @@ class PublicationsController extends Controller
         $validatedData = $request->validate([
             'year' => ['required', 'date'],
             'citation' => ['required'],
+            'additional_columns'=> ['nullable'],
+            'file' => ['required']
         ]);
-
+            $user_id = Auth::id();
+            $attachments = $request->file();
+            foreach ($attachments as $name => $attachment) {
+            // The file name of the attachment
+            $fileName = $user_id . '_' . $name . '_' . time() . '.' . $attachment->getClientOriginalExtension();
+            // exact path on the current machine
+            $destinationPath = public_path(FileConstants::PUBLICATION_ATTACHMENTS_PATH );
+            // Moving the image
+            $attachment->move($destinationPath, $fileName);
+            // The relative path to the image
+            $image_relative_path = FileConstants::PUBLICATION_ATTACHMENTS_PATH  . $fileName;
+            }
         try {
-            $this->publicationsService->store($validatedData, Auth::id());
+            $this->publicationsService->store($validatedData,$image_relative_path, Auth::id());
             return redirect('/publications')->with([
                 'type' => 'success',
                 'title' => 'IPR added successfully',
@@ -157,10 +171,13 @@ class PublicationsController extends Controller
             ->addColumn('delete', function(Publication $publication) {
                 return '<button id="' . $publication->id . '" class="delete fa fa-trash btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal"></button>';
             })
+            ->addColumn('view', function (Publication $publication) {
+                return '<button id="' . $publication->media->image_path . '" class="view fa fa-eye btn-sm btn-success" data-toggle="modal" data-target="#viewModal"></button>';
+            })
             ->addColumn('date', function(Publication $publication) {
                 return date('F d, Y', strtotime($publication->created_at));
             })
-            ->rawColumns(['edit', 'delete'])
+            ->rawColumns(['edit', 'delete','view'])
             ->make(true);dd($id);
     }
 }

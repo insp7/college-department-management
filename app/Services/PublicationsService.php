@@ -4,7 +4,7 @@
 namespace App\Services;
 
 use App\Publication;
-
+use App\publicationimage;
 /**
  * Class PublicationsService
  * @package App\Services
@@ -16,14 +16,20 @@ class PublicationsService
      * @param $user_id
      * @return mixed
      */
-    public function store($validatedData, $user_id) {
+    public function store($validatedData,$image_relative_path, $user_id) {
 
         $publication = Publication::create([
             'staff_id' => $user_id,
             'year' => $validatedData['year'],
             'citation' => $validatedData['citation'],
-            'created_by' => $user_id
+            'created_by' => $user_id,
+            'additional_columns' => $validatedData['additional_columns']
         ]);
+         publicationimage::create([
+                'publication_id' => $publication->id,
+                'image_path' => $image_relative_path,
+                'created_by' => $user_id
+            ]);
 
         return $publication;
 

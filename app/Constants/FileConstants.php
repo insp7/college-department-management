@@ -21,5 +21,7 @@ interface FileConstants
     const STUDENT_INTERNSHIP_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."student-internship/";
     // Acheivements Detailes image Path   
     const STUDENT_Acheivements_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."staff-Acheivements/";
+    // publication Detailes image Path   
+    const PUBLICATION_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."publication/";
 
 }

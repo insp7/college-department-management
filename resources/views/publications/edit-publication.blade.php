@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" action="/publications/{{ $publication->id }}">
                         @csrf
-                        @method('PATCH');
+                        @method('PATCH')
 
                         <div class="form-group">
                             <div class="input-group">
@@ -37,6 +37,16 @@
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <div class=" @error('file') has-danger @enderror">
+                                <label for=""> Please Delete This Publication and again to add new Image.</label><br>
+                                <img src="{{ $publication->media->image_path }}" height="150px"  width='100px' class="image">
+                            </div>
+                            @error('year')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
+
 
                         <button class="btn btn-primary" type="submit">Update</button>
                     </form>

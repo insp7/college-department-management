@@ -16,12 +16,12 @@
                 </div>
                 <!-- Card body -->
                 <div class="card-body">
-                    <form method="post" action="/publications">
+                    <form method="post" action="/publications" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="date" value="{{ old('year') }}"  name="year" placeholder="Year" class="form-control @error('year') is-invalid @enderror"></input>
+                                <input type="date" value="{{ old('year') }}"  name="year" placeholder="Year" class="form-control datepicker @error('year') is-invalid @enderror" />
                             </div>
                             @error('year')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
@@ -39,9 +39,17 @@
 
                         <div class="form-group">
                             <div class="input-group">
-                                <textarea  value="{{ old('additional_columns') }}"  name="additional_columns"  placeholder="additional_columns" class="form-control @error('additional_columns') is-invalid @enderror"></textarea>
+                                <textarea  value="{{ old('additional_columns') }} " required  name="additional_columns"  placeholder="additional_columns" class="form-control @error('additional_columns') is-invalid @enderror"></textarea>
                             </div>
                             @error('additional_columns')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="file"  value="{{ old('file') }}"  name="file"  placeholder="file" class="form-control @error('file') is-invalid @enderror"/>
+                            </div>
+                            @error('file')
                             <div class="invalid-feedback" style="display: block">{{ $message }}</div>
                             @enderror
                         </div>

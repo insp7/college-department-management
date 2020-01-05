@@ -33,6 +33,7 @@ class PublishedBookController extends Controller
     }
 
     /**
+     * 
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -57,7 +58,7 @@ class PublishedBookController extends Controller
             'publisher_name'=>'required',
             'date'=>'required'
         ]);
-        //  dd($validatedData);   
+        
         try {
             $this->publishedBookService->store($validatedData, Auth::id());
             return redirect('/published-books')->with([

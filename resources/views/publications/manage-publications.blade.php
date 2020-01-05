@@ -23,10 +23,8 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header">
-                    <h3 class="mb-0">Datatable</h3>
-                    <p class="text-sm mb-0">
-                        This is an exmaple of datatable using the well known datatables.net plugin. This is a minimal setup in order to get started fast.
-                    </p>
+                    <h3 class="mb-0">Publications</h3>
+                    
                 </div>
                 <div class="table-responsive py-4">
                     <table class="table table-flush" id="publications-list">
@@ -36,6 +34,7 @@
                             <th> Citation </th>
                             <th> Date </th>
                             <th> Edit </th>
+                            <th>View</th>
                             <th> Delete </th>
                         </tr>
                         </thead>
@@ -45,6 +44,7 @@
                             <th> Citation </th>
                             <th> Date </th>
                             <th> Edit </th>
+                            <th>View</th>
                             <th> Delete </th>
                         </tr>
                         </tfoot>
@@ -87,6 +87,21 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="viewModal">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-title-default">View Image</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <img src="" id="publicationimage" height="200px" width="120px">
+                    </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -112,8 +127,10 @@
                 {data: 'citation', name: 'citation'},
                 {data: 'date', name: 'date'},
                 {data: 'edit', name: 'edit'},
+                {data:'view',name:'view'},
                 {data: 'delete', name: 'delete'}
-            ]
+            ],
+            language: {paginate: {previous: "<i class='fa fa-angle-left'>", next: "<i class='fa fa-angle-right'>"}}
         });
 
         managePublicationsTable.on('click', '.delete', function(e) {
@@ -125,6 +142,10 @@
             $id = $(this).attr('id');
             // console.log(window.location.pathname);
             window.location.pathname = '/publications/' + $id + '/edit';
+        });
+        managePublicationsTable.on('click', '.view', function () {
+            id = $(this).attr('id');
+           $('#publicationimage').attr('src', id);
         });
 
     </script>

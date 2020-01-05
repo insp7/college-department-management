@@ -19,5 +19,9 @@ class Publication extends Model
     {
         return $this->belongsTo('staff','created_by');
     }
+    public function media()
+    {
+        return $this->hasOne('App\publicationimage', 'publication_id', 'id');
+    }
 
 }
