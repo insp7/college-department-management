@@ -25,5 +25,10 @@ interface FileConstants
     const EVENT_IMAGES_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH . "event-images/";
     // Internship Detailes image Path   
     const STUDENT_INTERNSHIP_ATTACHMENTS_PATH = FileConstants::ATTACHMENTS_PATH."student-internship/";
-
+    // Staff courses Uploads Path
+    const STAFF_COURSES_ATTACHMENTS_PATH = FileConstants::STAFF_ATTACHMENTS_PATH . "courses/";
+    // Staff Events Uploads Path
+    const STAFF_EVENTS_ATTACHMENTS_PATH = FileConstants::STAFF_ATTACHMENTS_PATH . "events/";
+    // Staff courses Uploads Path
+    const STAFF_LECTURES_ATTACHMENTS_PATH = FileConstants::STAFF_ATTACHMENTS_PATH . "lectures/";
 }

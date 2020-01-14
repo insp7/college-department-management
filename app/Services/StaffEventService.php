@@ -13,14 +13,14 @@ class StaffEventService
         DB::beginTransaction();
 
         $validatedData['date'] = Carbon::parse($validatedData['date'])->format('y-m-d');
-        $validatedData['start_date'] = Carbon::parse($validatedData['date'])->format('y-m-d');
-        $validatedData['end_date'] = Carbon::parse($validatedData['date'])->format('y-m-d');
+        $validatedData['start_date'] = Carbon::parse($validatedData['start_date'])->format('y-m-d');
+        $validatedData['end_date'] = Carbon::parse($validatedData['end_date'])->format('y-m-d');
 
         $staff_event = StaffEvent::create([
             'date' => $validatedData['date'],
             'name_of_event' => $validatedData['name_of_event'],
             'start_date' => $validatedData['start_date'],
-            'end_date' => $validatedData['start_date'],
+            'end_date' => $validatedData['end_date'],
             'type' => $validatedData['type'],
             'created_by' => $user_id
         ]);
@@ -50,8 +50,8 @@ class StaffEventService
         DB::beginTransaction();
 
         $validatedData['date'] = Carbon::parse($validatedData['date'])->format('y-m-d');
-        $validatedData['start_date'] = Carbon::parse($validatedData['date'])->format('y-m-d');
-        $validatedData['end_date'] = Carbon::parse($validatedData['date'])->format('y-m-d');
+        $validatedData['start_date'] = Carbon::parse($validatedData['start_date'])->format('y-m-d');
+        $validatedData['end_date'] = Carbon::parse($validatedData['end_date'])->format('y-m-d');
 
         StaffEvent::where('id',$id)->update($validatedData);
         $staff_event = StaffEvent::where('id', $id);

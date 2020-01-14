@@ -66,11 +66,11 @@ class StaffLectureController extends Controller
             // The file name of the attachment
             $fileName = $user_id . '_' . $name . '_' . time() . '.' . $attachment->getClientOriginalExtension();
             // exact path on the current machine
-            $destinationPath = public_path(FileConstants::STAFF_ATTACHMENTS_PATH);
+            $destinationPath = public_path(FileConstants::STAFF_LECTURES_ATTACHMENTS_PATH);
             // Moving the image
             $attachment->move($destinationPath, $fileName);
             // The relative path to the image
-            $report_relative_path = FileConstants::STAFF_ATTACHMENTS_PATH . $fileName;
+            $report_relative_path = FileConstants::STAFF_LECTURES_ATTACHMENTS_PATH . $fileName;
         }
 
 
@@ -153,11 +153,11 @@ class StaffLectureController extends Controller
             // The file name of the attachment
             $fileName = $user_id . '_' . $name.''.$attachment->getClientOriginalExtension();
             // exact path on the current machine
-            $destinationPath = public_path(FileConstants::STAFF_ATTACHMENTS_PATH);
+            $destinationPath = public_path(FileConstants::STAFF_LECTURES_ATTACHMENTS_PATH);
             // Moving the image
             $attachment->move($destinationPath, $fileName);
             // The relative path to the image
-            $report_path = FileConstants::STAFF_ATTACHMENTS_PATH . $fileName;
+            $report_path = FileConstants::STAFF_LECTURES_ATTACHMENTS_PATH . $fileName;
         }
          try {
             $this->stafflectureservice->update($validatedData, $report_path, Auth::id(),$id);

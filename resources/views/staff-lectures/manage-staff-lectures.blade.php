@@ -106,7 +106,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                     <div class="">
-                    <img id="Report" style="width: 400px; height: 400px;"  src="report.pdf" alt="report.pdf">
+                    <img id="Report" style="width: 400px; height: 400px;"  src="" alt="report.pdf">
                     </div>
                 </div>
             </div>

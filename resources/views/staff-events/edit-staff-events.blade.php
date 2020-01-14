@@ -29,7 +29,7 @@
                                 </div>
                                 <script>
                                     $('.datepicker').datepicker({
-                                        orientation: "top"
+                                        orientation: "bottom"
                                     });
                                 </script>
                                 <input class="form-control datepicker" type="text" autocomplete="off" value="{{ $staff->date }}" name="date" placeholder="Date of Event">
@@ -119,7 +119,7 @@
 <script src="{{asset('/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
 <script>
     $('.datepicker').datepicker({
-        orientation: "top"
+        orientation: "bottom"
     });
 
 </script>
